@@ -1,0 +1,5 @@
+mongo
+__pycache__
+*.log
+setup.sh
+venv

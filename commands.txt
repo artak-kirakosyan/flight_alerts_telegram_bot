@@ -1,0 +1,3 @@
+start - Start working with the bot
+help - Help
+add_alert - Follow instructions to add flight alert
