@@ -152,11 +152,16 @@ def date_handler(update: Update, context: CallbackContext):
         text=f"Date registered.\
             \nDon't miss me, I'll be back soon with updates.:)",
     )
-    validate_queue_and_inform_user(
-        user_data=data,
-        queue_collection=queue_collection,
-        bot=context.bot
+    kwargs = {
+        "user_data": data,
+        "queue_collection": queue_collection,
+        "bot": context.bot,
+    }
+    th = threading.Thread(
+        target=validate_queue_and_inform_user,
+        kwargs=kwargs,
     )
+    th.start()
 
     return ConversationHandler.END
 
