@@ -528,10 +528,10 @@
       "icao": "DVN"
     },
     {
-      "name": "Mars Avia",
-      "full_name": "Mars Avia CJSC",
+      "name": "flyArmenia Airways",
+      "full_name": "flyArmenia Airways LLC",
       "iata": null,
-      "icao": "MRS"
+      "icao": "FBB"
     },
     {
       "name": "Phoenix Avia",
@@ -1401,12 +1401,6 @@
   ],
   "Azerbaijan": [
     {
-      "name": "Azalhelikopter",
-      "full_name": "Azalhelikopter",
-      "iata": null,
-      "icao": "AZK"
-    },
-    {
       "name": "Azerbaijan Airlines",
       "full_name": "Azerbaijan Hava Yollary",
       "iata": "J2",
@@ -1737,6 +1731,12 @@
       "full_name": "Helenair (Barbados)",
       "iata": null,
       "icao": "HCB"
+    },
+    {
+      "name": "OCL Barbados",
+      "full_name": "OCL (Barbados) Ltd.",
+      "iata": null,
+      "icao": "OCL"
     },
     {
       "name": "Trans Island Air",
@@ -2662,6 +2662,12 @@
       "full_name": "GP Aviation E.o.o.d.",
       "iata": null,
       "icao": "GPX"
+    },
+    {
+      "name": "GullivAir",
+      "full_name": "GullivAir",
+      "iata": null,
+      "icao": null
     },
     {
       "name": "Heli Air Services",
@@ -5686,6 +5692,12 @@
       "icao": "HEL"
     },
     {
+      "name": "Helistar",
+      "full_name": "Helistar S.A.S.",
+      "iata": null,
+      "icao": "HTS"
+    },
+    {
       "name": "LATAM Airlines Colombia",
       "full_name": "Aerovias de Integration Regional d/b/a LATAM Airlines Colombia",
       "iata": "4C",
@@ -5798,6 +5810,12 @@
       "icao": "TWC"
     },
     {
+      "name": "Compagnie Africaine d'Aviation",
+      "full_name": "Compagnie Africaine d'Aviation",
+      "iata": "BU",
+      "icao": null
+    },
+    {
       "name": "Congo Airways",
       "full_name": "Congo Airways",
       "iata": "8Z",
@@ -5829,6 +5847,12 @@
     }
   ],
   "Congo, The Democratic Republic of": [
+    {
+      "name": "Compagnie Africaine d'Aviation",
+      "full_name": "Compagnie Africaine d'Aviation",
+      "iata": "BU",
+      "icao": null
+    },
     {
       "name": "Congo Airways",
       "full_name": "Congo Airways",
@@ -6705,6 +6729,12 @@
       "icao": "HIS"
     },
     {
+      "name": "LogicPaq",
+      "full_name": "LogicPaq Btd, s.l.r.",
+      "iata": null,
+      "icao": "SNA"
+    },
+    {
       "name": "Servicios Aereos Profesionales",
       "full_name": "Servicios Aereos Profesionales, S.A.",
       "iata": "5S",
@@ -6759,6 +6789,12 @@
       "full_name": "Hispaniola Airways, C. Por. A.",
       "iata": null,
       "icao": "HIS"
+    },
+    {
+      "name": "LogicPaq",
+      "full_name": "LogicPaq Btd, s.l.r.",
+      "iata": null,
+      "icao": "SNA"
     },
     {
       "name": "Servicios Aereos Profesionales",
@@ -13533,6 +13569,12 @@
       "full_name": "DAMES, Department of aviation under the Ministry of Emergency Situaion",
       "iata": null,
       "icao": "DAM"
+    },
+    {
+      "name": "KAP.kg",
+      "full_name": "KAP.kg Aircompany LLC",
+      "iata": null,
+      "icao": "KGS"
     },
     {
       "name": "Kvadro Aero",
@@ -30191,12 +30233,6 @@
       "icao": "GHI"
     },
     {
-      "name": "Global Supply Systems",
-      "full_name": "Global Supply Systems Ltd.",
-      "iata": null,
-      "icao": "GSS"
-    },
-    {
       "name": "Goodridge",
       "full_name": "Goodridge (UK) Ltd.",
       "iata": null,
@@ -31697,6 +31733,12 @@
       "full_name": "Aeronautical Charters, Inc.",
       "iata": null,
       "icao": "SUP"
+    },
+    {
+      "name": "Aerosim Academy",
+      "full_name": "Aerosim Academy, LLC.",
+      "iata": null,
+      "icao": "LFA"
     },
     {
       "name": "AeroSpatialle",
@@ -33500,15 +33542,15 @@
     },
     {
       "name": "East Coast Flight Services",
-      "full_name": "East Coast Flight Services, Inc",
-      "iata": null,
-      "icao": "JTM"
-    },
-    {
-      "name": "East Coast Flight Services",
       "full_name": "East Coast Flight Services, Inc.",
       "iata": "5E",
       "icao": null
+    },
+    {
+      "name": "East Coast Flight Services",
+      "full_name": "East Coast Flight Services, Inc",
+      "iata": null,
+      "icao": "JTM"
     },
     {
       "name": "East Coast Jets",
@@ -33788,15 +33830,15 @@
     },
     {
       "name": "Federal Aviation Administration",
-      "full_name": "Federal Aviation Administration (ATO-330)",
-      "iata": null,
-      "icao": "NHK"
-    },
-    {
-      "name": "Federal Aviation Administration",
       "full_name": "Federal Aviation Administration (FAA) Academy",
       "iata": null,
       "icao": "AYA"
+    },
+    {
+      "name": "Federal Aviation Administration",
+      "full_name": "Federal Aviation Administration (ATO-330)",
+      "iata": null,
+      "icao": "NHK"
     },
     {
       "name": "FedEx",
@@ -33880,13 +33922,13 @@
       "name": "Flight Line",
       "full_name": "Flight Line, Inc.",
       "iata": null,
-      "icao": "MIT"
+      "icao": "ACT"
     },
     {
       "name": "Flight Line",
       "full_name": "Flight Line, Inc.",
       "iata": null,
-      "icao": "ACT"
+      "icao": "MIT"
     },
     {
       "name": "Flight Ops International",
@@ -34031,6 +34073,12 @@
       "full_name": "Four Winds Aviation Ltd.",
       "iata": null,
       "icao": "WDS"
+    },
+    {
+      "name": "Freedom Air",
+      "full_name": "Freedom Air, LLC.",
+      "iata": null,
+      "icao": "FDJ"
     },
     {
       "name": "Freedom Airlines",
@@ -34565,6 +34613,12 @@
       "full_name": "International Air Corp.",
       "iata": null,
       "icao": "EXX"
+    },
+    {
+      "name": "International Air Charters",
+      "full_name": "International Air Charters, Inc.",
+      "iata": null,
+      "icao": "JLF"
     },
     {
       "name": "International Business Aircraft",
@@ -35431,6 +35485,12 @@
       "icao": "MJR"
     },
     {
+      "name": "Middle Georgia State College",
+      "full_name": "Middle Georgia State College",
+      "iata": null,
+      "icao": "NIT"
+    },
+    {
       "name": "Middle Tennessee State University",
       "full_name": "Middle Tennessee State University (MTSU)",
       "iata": null,
@@ -35477,12 +35537,6 @@
       "full_name": "Midwest Aviation",
       "iata": null,
       "icao": "DZR"
-    },
-    {
-      "name": "Midwest Aviation",
-      "full_name": "Midwest Aviation Corp.",
-      "iata": null,
-      "icao": "NIT"
     },
     {
       "name": "Midwest Aviation Division",
@@ -35824,13 +35878,13 @@
       "name": "Northeast Aviation",
       "full_name": "Northeast Aviation, Inc.",
       "iata": null,
-      "icao": "BIT"
+      "icao": "NPX"
     },
     {
       "name": "Northeast Aviation",
       "full_name": "Northeast Aviation, Inc.",
       "iata": null,
-      "icao": "NPX"
+      "icao": "BIT"
     },
     {
       "name": "Northeastern Aviation Corporation",
@@ -36958,13 +37012,13 @@
       "name": "Sky Harbor Air Service",
       "full_name": "Sky Harbor Air Service, Inc.",
       "iata": null,
-      "icao": "SHC"
+      "icao": "SKD"
     },
     {
       "name": "Sky Harbor Air Service",
       "full_name": "Sky Harbor Air Service, Inc.",
       "iata": null,
-      "icao": "SKD"
+      "icao": "SHC"
     },
     {
       "name": "Sky Lease Cargo",
@@ -37172,15 +37226,15 @@
     },
     {
       "name": "Southern Cross Aviation",
-      "full_name": "Southern Cross Aviation, Inc.",
-      "iata": null,
-      "icao": "SXA"
-    },
-    {
-      "name": "Southern Cross Aviation",
       "full_name": "Southern Cross Aviation Inc., LLC",
       "iata": null,
       "icao": "SXF"
+    },
+    {
+      "name": "Southern Cross Aviation",
+      "full_name": "Southern Cross Aviation, Inc.",
+      "iata": null,
+      "icao": "SXA"
     },
     {
       "name": "Southern Illinois University d/b/a Aviation Flight",
@@ -38869,8 +38923,8 @@
       "icao": "HAI"
     },
     {
-      "name": "Jetstar Pacific",
-      "full_name": "Jetstar Pacific Airlines Co. Ltd.",
+      "name": "Pacific Airlines",
+      "full_name": "Pacific Airlines Co. Ltd.",
       "iata": "BL",
       "icao": "PIC"
     },

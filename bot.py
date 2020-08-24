@@ -70,7 +70,6 @@ def add_alert(update: Update, context: CallbackContext):
         return
     if not hasattr(update.message, "text"):
         return
-
     # If plain add_alert is supplied, then process the conversation handler
     if len(context.args) == 0:
         context.bot.send_message(
@@ -108,7 +107,7 @@ def flight_code_handler(update: Update, context: CallbackContext):
     context.user_data[FLIGHT_CODE] = flight_data 
     context.bot.send_message(
             chat_id=update.message.chat_id,
-            text=f"Flight code {context.user_data[FLIGHT_CODE]} registered.\
+            text=f"Flight code registered.\
             \nNow enter the date in the following format: DD/MM/YYYY",
             )
     return DATE
@@ -132,7 +131,7 @@ def date_handler(update: Update, context: CallbackContext):
     context.user_data[DATE] = date
     context.bot.send_message(
             chat_id=update.message.chat_id,
-            text=f"Date {context.user_data[DATE].strftime('%d/%m/%Y')} registered.\
+            text=f"Date registered.\
                     \nLet me take a look at that",
             )
     data = context.user_data.copy()

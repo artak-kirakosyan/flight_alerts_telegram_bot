@@ -72,6 +72,10 @@ WRITE_TO_MONGO = True
 # Mongodb connection uri
 MONGO_CONNECTION_URI = "mongodb://localhost:27017/"
 # The DB and collection names in MongoDB
-AIRLINE_DESIGNATOR_DB= "data"
+AIRLINE_DESIGNATOR_DB = "data"
 AIRLINE_DESIGNATOR_COLLECTION = "airline_data"
+
+# queue alerts
+QUEUE_ALERT_DB = "data"
+QUEUE_COLLECTION = "alert_queue"
 
