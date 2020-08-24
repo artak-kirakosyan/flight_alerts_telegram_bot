@@ -4,7 +4,10 @@ try:
     import logging
     import requests
 
-    from bs4 import BeautifulSoup
+    from pymongo import collection, MongoClient
+    from pymongo.errors import PyMongoError
+    from telegram import Bot
+
     import config
 
 except ImportError as e:
@@ -47,6 +50,13 @@ def get_logger(
     return logger
 
 
+def get_collection(connection_uri: str, db_name: str, collection_name: str) -> collection:
+    client = MongoClient(connection_uri)
+    db = client.get_database(name=db_name)
+    coll = db.get_collection(collection_name)
+    return coll
+
+
 def process_flight_code(flight_code: str) -> dict:
     """
         Take in the flight code and try to identify IATA, ICAO and flight num.
@@ -81,6 +91,7 @@ def process_date(date_str: str) -> datetime.datetime:
         Returns:
             date: datetime object
         Raise ValueError if invalid info provided.
+        Raise
     """
     match = re.search(config.DATE_PATTERN, date_str)
     if match is None:
@@ -95,160 +106,31 @@ def process_date(date_str: str) -> datetime.datetime:
         date = datetime.datetime(year=year, month=month, day=day)
     except ValueError:
         raise ValueError("Invalid date")
-    return date 
+
+    if datetime.datetime.today() - date > datetime.timedelta(days=2):
+        raise ValueError("Date is too old")
+    return date
 
 
-def construct_flightstats_url(
-        airline_code: str,
-        flight_number: str,
-        date: datetime.datetime) -> str:
+def validate_queue_and_inform_user(user_data: dict, queue_collection: collection, bot: Bot):
     """
-        This function takes in the necessary info and constructs the flightstats
-        URL to be parsed:
+        This function takes in the data user supplied, validates it and saves to the mongodb
         Arguments:
-            airline_code: IATA or ICAO designator
-            flight_number: 1 to 4 digit flight number
-            date: datetime object of the flight date
-        Returns:
-            url: the url that points to the correct flight from flightstats
-    """
-    request_components = [config.FLIGHTSTATS_BASE_URL, airline_code, flight_number]
-    url = "/".join(request_components)
-    url += "?"
-    url += f"year={date.year}&"
-    url += f"month={date.month}&"
-    url += f"date={date.day}&"
-    return url
-
-
-def parse_url_return_soup(url: str) -> BeautifulSoup:
-    """
-        Parse the url, create BS soup and return
-        Arguments:
-            url: url to parse
-        Returns:
-            soup: BeautifulSoup object with the website content
-        It raises ValueError if any issues are encountered.
+            user_data: dictionary containing flight codes, date and chat_id
+            queue_collection: pymongo collection object where to queue the alert
+            bot: telegram.bot object which will inform the user about the queue writing results.
+        Returns: None
     """
     try:
-        resp = requests.get(url)
-    except Exception as e:
-        raise ValueError(f"Failed to make the request: {e}")
-    if not resp.ok:
-        raise ValueError(f"Response has error code: {resp.status_code}")
-    
-    try:
-        soup = BeautifulSoup(resp.text, 'lxml')
-    except Exception as e:
-        raise ValueError(f"Failed to create the soup: {e}")
-    return soup
-
-
-def parse_flight_stats(url: str) -> str:
-    """
-        Take in the url and parse 
-        Arguments:
-            url: url of the flightstats
-        Returns:
-            current_state: dictionary of the parsed info
-        Raise ValueError if anything wrong
-    """
-    try:
-        soup = parse_url_return_soup(url)
-    except ValueError as e:
-        raise ValueError(f"{e.args}")
-    curr_state = {}
-    div_all = soup.find(
-            "div", 
-            {"class": "ticket__TicketContainer-s1rrbl5o-0 bgrndo"},
-            )
-    if div_all is None:
-        if soup.find(
-                "h1",
-                {"class": "out-of-date-range__H1-akw3lj-1 eoKbOg"},
-                ) is not None:
-            curr_state = {"Status": ["Too far from today, check later"]}
+        response = queue_collection.insert_one(user_data)
+    except PyMongoError as e:
+        reply = "Something went wrong. Please try again later."
+    else:
+        if response.acknowledged:
+            reply = "Alert is in queue. Will update shortly."
         else:
-            curr_state = {"Status": ["Something is wrong, check again later"]}
-    else:
-        div_status = div_all.find(
-                "div",
-                {"class": "ticket__StatusContainer-s1rrbl5o-17 fWLIvb"},
-                )
-        if div_status is not None:
-            curr_text = div_status.getText(
-                    separator=",^,",
-                    strip=True)
-            curr_state["Current Status"] = curr_text.split(",^,")
-        time_divs = div_all.findAll(
-                "div",
-                {"class": "ticket__TimeGroupContainer-s1rrbl5o-11 ckbilY"}
-                )
-        time_info = ["Departure", "Arrival"]
-        for ind, time_div in enumerate(time_divs):
-            curr_text = time_div.getText(separator=",^,", strip=True)
-            curr_state[time_info[ind]] = curr_text.split(",^,")
-        gate_divs = div_all.findAll(
-                "div",
-                {"class": "ticket__TerminalGateBagContainer-s1rrbl5o-13 ubbwc"},
-                    )
-        gate_info = ["Departure Gate", "Arrival Gate"]
-        for ind, time_div in enumerate(gate_divs):
-            curr_text = time_div.getText(separator=",^,", strip=True)
-            curr_state[gate_info[ind]] = curr_text.split(",^,")
-    reply = format_the_current_state(curr_state)
-    return reply
-
-
-def format_the_current_state(curr_state: dict) -> str:
-    """
-        Take the dictionary with necessary info and format it nicely.
-        Arguments:
-            curr_state: dictionary with current state
-        Returns:
-            reply: state dictionary nicely formatted
-    """
-    reply = ""
-    for st_name, state in curr_state.items():
-        reply += st_name + ": "
-        for curr_info in state:
-            reply += curr_info + " \t"
-        reply += "\n"
-    return reply
-
-
-def validate_and_save(flight_data: dict, flight_date: datetime.datetime):
-    """
-        This function takes in the data user supplied, validates it and saves
-        to the mongodb
-        Arguments:
-            flight_data: dictionary containing flight data
-            flight_date: datetime object of the flight date
-        Returns:
-            curr_state: current state parsed from website
-    """
-    if datetime.datetime.today() - flight_date > datetime.timedelta(days=3):
-        raise ValueError("You have to leave the past to see the future(the date is too old)")
-
-    flight_number = flight_data['flight_number']
-    
-    # TO-DO: we need to check the following cases:
-    #        1. if iata is given, use it and check flightstats
-    #        2. if flightstats fails, get icao of the given iata and try again
-    #        3. if flightstats fails again, use icao and check flightaware
-    # Currently I just use whatever the user gives and use flightstats
-
-    if flight_data['iata'] is not None:
-        airline_code = flight_data['iata']
-    else:
-        airline_code = flight_data['icao']
-    flightstats_url = construct_flightstats_url(
-                airline_code,
-                flight_number,
-                flight_date,
-                )
-    try:
-        current_state = parse_flight_stats(flightstats_url)
-    except ValueError:
-        raise ValueError("Failed to parse the info. Please try again later.")
-    return current_state
+            reply = "Something went wrong. Please try again later."
+    bot.send_message(
+        chat_id=user_data['chat_id'],
+        text=reply,
+    )

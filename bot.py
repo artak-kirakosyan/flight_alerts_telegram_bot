@@ -3,6 +3,7 @@
 try:
     from datetime import datetime
     import re
+    import threading
 
     from telegram import Update
     from telegram.ext import Updater
@@ -16,8 +17,8 @@ try:
 
     import config
     from helpers import process_flight_code, process_date
-    from helpers import get_logger
-    from helpers import validate_and_save
+    from helpers import get_logger, get_collection
+    from helpers import validate_queue_and_inform_user
 
 except ImportError as e:
     raise ImportError(f'Error occurred during import: {e}\
@@ -30,6 +31,12 @@ DATE = 2
 logger = get_logger(
     logger_name="zvartnots_bot",
     file_name="log.log",
+)
+
+queue_collection = get_collection(
+    connection_uri=config.MONGO_CONNECTION_URI,
+    db_name=config.QUEUE_ALERT_DB,
+    collection_name=config.QUEUE_COLLECTION,
 )
 
 
@@ -48,9 +55,14 @@ def log_error(func):
 
 @log_error
 def do_help(update: Update, context: CallbackContext):
-    reply = "My purpose is to inform you about the flights you are interested in.\
+    reply = f"I can inform you about the flights you are interested in.\
             \nYou can create alerts on flights using the /add_alert command.\
-            \nType /add_alert to get started."
+            \nType /add_alert to get started.\
+            \n\n----------Demo----------\n\
+            \n/add_alert\
+            \nB2 734\
+            \n{datetime.today().strftime('%d/%m/%Y')}\
+            "
     update.message.reply_text(
         text=reply,
     )
@@ -73,12 +85,12 @@ def add_alert(update: Update, context: CallbackContext):
         return
     # If plain add_alert is supplied, then process the conversation handler
     if len(context.args) == 0:
+        context.user_data["chat_id"] = update.message.chat_id
         context.bot.send_message(
             chat_id=update.message.chat_id,
-            text="All right, lets start.\
+            text="All right, lets start. Type your flight code\
                 \nIf you do any mistakes, type /cancel and start over.\
-                \nor /add_alert to reset.\
-                \nNow type your flight code."
+                \nor /add_alert to reset."
         )
         return FLIGHT_CODE
     else:
@@ -106,7 +118,7 @@ def flight_code_handler(update: Update, context: CallbackContext):
         )
         return FLIGHT_CODE
 
-    context.user_data[FLIGHT_CODE] = flight_data 
+    context.user_data["flight_data"] = flight_data
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text=f"Flight code registered.\
@@ -123,35 +135,29 @@ def date_handler(update: Update, context: CallbackContext):
         return
     try:
         date = process_date(update.message.text)
-    except ValueError:
+    except ValueError as e:
+        error_message = "".join(e.args)
         context.bot.send_message(
             chat_id=update.message.chat_id,
-            text="Looks like there is an error in date.\
+            text=f"Looks like there is an error in date: {error_message}.\
                 \nTry again or hit /cancel to cancel.",
         )
         return DATE
 
-    context.user_data[DATE] = date
+    context.user_data["date"] = date
+    data = context.user_data.copy()
+    context.user_data.clear()
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text=f"Date registered.\
-        \nLet me take a look at that",
+            \nDon't miss me, I'll be back soon with updates.:)",
     )
-    data = context.user_data.copy()
-    context.user_data.clear()
+    validate_queue_and_inform_user(
+        user_data=data,
+        queue_collection=queue_collection,
+        bot=context.bot
+    )
 
-    try:
-        curr_state = validate_and_save(data[FLIGHT_CODE], data[DATE])
-    except ValueError as e:
-        context.bot.send_message(
-            chat_id=update.message.chat_id,
-            text=f"{' '.join(e.args)}",
-        )
-    else:
-        context.bot.send_message(
-            chat_id=update.message.chat_id,
-            text=curr_state,
-        )
     return ConversationHandler.END
 
 

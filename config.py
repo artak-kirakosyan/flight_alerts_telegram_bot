@@ -6,13 +6,11 @@ except ImportError as e:
     raise ImportError(f'Error occurred during import: {e}\
     Please install all necessary libraries and try again')
 
-
 # ----------------------------------------------#
 #         Telegram bot and parse configs        #
 # ----------------------------------------------#
 
 TG_TOKEN = os.getenv("TG_TOKEN")
-FLIGHTSTATS_BASE_URL = "https://www.flightstats.com/v2/flight-tracker"
 
 DATE_PATTERN_STR = r"(\d{1,2})[-.,/;:_](\d{1,2})[-.,/;:_](\d{2,4})"
 FLIGHT_CODE_PATTERN_STR = r"^\s*([A-Z0-9]{2}|[A-Z]{3})\s*([0-9]{1,4})\s*$"
@@ -71,10 +69,12 @@ AIRLINE_IATA_ICAO_JSON = "airline_iata_icao_codes.json"
 WRITE_TO_MONGO = True
 # Mongodb connection uri
 MONGO_CONNECTION_URI = "mongodb://localhost:27017/"
+
 # The DB and collection names in MongoDB
-AIRLINE_DESIGNATOR_DB = "data"
+DB_NAME = "data"
+AIRLINE_DESIGNATOR_DB = DB_NAME
 AIRLINE_DESIGNATOR_COLLECTION = "airline_data"
 
 # queue alerts
-QUEUE_ALERT_DB = "data"
+QUEUE_ALERT_DB = DB_NAME
 QUEUE_COLLECTION = "alert_queue"
