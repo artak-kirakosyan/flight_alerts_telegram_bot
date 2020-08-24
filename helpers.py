@@ -8,16 +8,15 @@ try:
     import config
 
 except ImportError as e:
-    print(f'Error occured during import: {e}')
-    print('Please install all necessary libraries and try again')
-    exit(1)
+    raise ImportError(f'Error occurred during import: {e}\
+    Please install all necessary libraries and try again')
 
 
 def get_logger(
         logger_name=__name__, 
         log_level=logging.DEBUG, 
         file_name='log.log', 
-        file_format_str='%(asctime)s: %(levelname)s: %(name)s: %(message)s', 
+        file_format_str='%(asctime)s: %(levelname)s: %(name)s: %(message)s',
         stream_format_str='%(asctime)s: %(levelname)s: %(name)s: %(message)s'):
     """
     Create a logger and return.
@@ -45,7 +44,7 @@ def get_logger(
     logger.addHandler(file_handler)
     logger.addHandler(stream_handler)
 
-    return  logger
+    return logger
 
 
 def validate_flight_code(flight_code: str) -> dict:
@@ -63,8 +62,7 @@ def validate_flight_code(flight_code: str) -> dict:
     if flight_code is None:
         raise ValueError("Invalid flight number")
     airline_code, flight_number = flight_code.groups()
-    data = {}
-    data['flight_number'] = flight_number
+    data = {'flight_number': flight_number}
     if len(airline_code) == 2:
         data['iata'] = airline_code
         data['icao'] = None
@@ -95,7 +93,7 @@ def validate_date(date_str: str) -> datetime.datetime:
         if year < 100:
             year += 2000
         date = datetime.datetime(year=year, month=month, day=day)
-    except ValueError as e:
+    except ValueError:
         raise ValueError("Invalid date")
     return date 
 
@@ -137,7 +135,7 @@ def parse_url_return_soup(url: str) -> BeautifulSoup:
     except Exception as e:
         raise ValueError(f"Failed to make the request: {e}")
     if not resp.ok:
-        raise ValueError(f"Response has error code: {e}")
+        raise ValueError(f"Response has error code: {resp.status_code}")
     
     try:
         soup = BeautifulSoup(resp.text, 'lxml')
@@ -146,7 +144,7 @@ def parse_url_return_soup(url: str) -> BeautifulSoup:
     return soup
 
 
-def parse_flight_stats(url: str) -> dict:
+def parse_flight_stats(url: str) -> str:
     """
         Take in the url and parse 
         Arguments:
@@ -199,7 +197,7 @@ def parse_flight_stats(url: str) -> dict:
             curr_text = time_div.getText(separator=",^,", strip=True)
             curr_state[gate_info[ind]] = curr_text.split(",^,")
     reply = format_the_current_state(curr_state)
-    return reply#, div_all, time_div
+    return reply
 
 
 def format_the_current_state(curr_state: dict) -> str:
@@ -208,7 +206,7 @@ def format_the_current_state(curr_state: dict) -> str:
         Arguments:
             curr_state: dictionary with current state
         Returns:
-            reply: state dictionary nicely formated
+            reply: state dictionary nicely formatted
     """
     reply = ""
     for st_name, state in curr_state.items():
@@ -246,11 +244,11 @@ def validate_and_save(flight_data: dict, flight_date: datetime.datetime):
         airline_code = flight_data['icao']
     flightstats_url = construct_flightstats_url(
                 airline_code,
-                flight_data['flight_number'],
+                flight_number,
                 flight_date,
                 )
     try:
         current_state = parse_flight_stats(flightstats_url)
-    except ValueError as e:
+    except ValueError:
         raise ValueError("Failed to parse the info. Please try again later.")
     return current_state

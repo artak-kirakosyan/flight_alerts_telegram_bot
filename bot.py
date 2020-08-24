@@ -20,9 +20,9 @@ try:
     from helpers import validate_and_save
 
 except ImportError as e:
-    print(f'Error occured during import: {e}')
-    print('Please install all necessary libraries and try again')
-    exit(1)
+    raise ImportError(f'Error occurred during import: {e}\
+    Please install all necessary libraries and try again')
+
 
 FLIGHT_CODE = 1
 DATE = 2
@@ -37,10 +37,11 @@ def log_error(func):
     def inner(*args, **kwargs):
         try:
             logger.info(f"Calling function {func.__name__}")
-            return func(*args, **kwargs)
+            result = func(*args, **kwargs)
             logger.info(f"Finished function {func.__name__}")
+            return result
         except Exception as e:
-            logger.exception("Exception during {func.__name__} call: {e}")
+            logger.exception(f"Exception during {func.__name__} call: {e}")
             raise e
     return inner
 
@@ -84,7 +85,7 @@ def add_alert(update: Update, context: CallbackContext):
         context.bot.send_message(
                 chat_id=update.message.chat_id,
                 text="Not sure if I get you right :/\
-                        \nTry /add_alert and follow the instrucitons or\
+                        \nTry /add_alert and follow the instructions or\
                         \n hit /help for reference.",
                         )
 
@@ -97,7 +98,7 @@ def flight_code_handler(update: Update, context: CallbackContext):
         return
     try:
         flight_data = validate_flight_code(update.message.text)
-    except ValueError as e:
+    except ValueError:
         context.bot.send_message(
                 chat_id=update.message.chat_id,
                 text="Looks like there is an error in flight code.\
@@ -121,10 +122,10 @@ def date_handler(update: Update, context: CallbackContext):
         return
     try:
         date = validate_date(update.message.text)
-    except ValueError as e:
+    except ValueError:
         context.bot.send_message(
                 chat_id=update.message.chat_id,
-                text="Looks like ther is an error in date.\
+                text="Looks like there is an error in date.\
                         \nTry again or hit /cancel to cancel.",
                         )
         return DATE
@@ -145,7 +146,6 @@ def date_handler(update: Update, context: CallbackContext):
                 text=f"{' '.join(e.args)}",
                 )
     else:
-        
         context.bot.send_message(
                 chat_id=update.message.chat_id,
                 text=curr_state,
@@ -169,16 +169,15 @@ def main():
     bot = Bot(
             token=config.TG_TOKEN,
             request=req,
-            #base_url='https://telegg.ru/orig/bot',
             )
 
     updater = Updater(
             bot=bot,
             use_context=True,
             )
-    bot_getme = updater.bot.get_me()
+    bot_get_me = updater.bot.get_me()
 
-    print(f"Bot {bot_getme.first_name} is live now") 
+    print(f"Bot {bot_get_me.first_name} is live now")
 
     conv_handler = ConversationHandler(
             entry_points=[

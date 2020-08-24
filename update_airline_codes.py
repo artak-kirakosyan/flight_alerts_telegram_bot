@@ -9,12 +9,10 @@ try:
     import requests
     from bs4 import BeautifulSoup
 
-    
     import config as config
 except ImportError as e:
-    print(f'Error occured during import: {e}')
-    print('Please install all necessary libraries and try again')
-    exit(1)
+    raise ImportError(f'Error occurred during import: {e}\
+    Please install all necessary libraries and try again')
 
 
 def get_country_list():
@@ -23,12 +21,12 @@ def get_country_list():
         from the website and returns it
 
         Args:
-            None
+
         Returns:
             countries: list of found countries
 
         If there is an error while making the request or parsing the soup,
-            a ValueError is being rised with proper message.
+            a ValueError is being raised with proper message.
         If no countries found, returning empty list.
     """
     try:
@@ -65,11 +63,11 @@ def scrape_all_countries(countries):
             countries: list of countries
         Return:
             airlines_data: dictionary {country: [list of airlines]} format
-        If an error occures while parsing any of the countries, we skip over.
+        If an error occurred while parsing any of the countries, we skip over.
     """
     airlines_data = {}
     data = config.DATA.copy()
-    headers= config.HEADERS
+    headers = config.HEADERS
     url = config.AIRLINE_INFO_URL
 
     for country in countries:
@@ -96,8 +94,8 @@ def parse_country(url, data, headers):
         Returns:
             airlines: list of airlines for current country
         
-        If any error occures while making the request or parsing html code,
-        a ValueError is being rised.
+        If any error occurred while making the request or parsing html code,
+        a ValueError is being raised.
     """
     try:
         resp = requests.post(
@@ -153,7 +151,7 @@ def write_to_a_file(data, file_path=None):
     if file_path is None:
         try:
             file_name = config.AIRLINE_IATA_ICAO_JSON
-        except KeyError as e:
+        except KeyError:
             print("File name missing from config file")
             print("Using default file name format.")
             file_name = "results_" + str(int(time.time())) + ".json"
@@ -169,7 +167,7 @@ def organize_and_upsert(airlines, collection):
         
         Arguments:
             airlines: dictionary of airlines {country:[list of airlines]}
-            colleciton: Mongodb colleciton object
+            collection: Mongodb collection object
         Returns:
             None
     """
@@ -179,7 +177,7 @@ def organize_and_upsert(airlines, collection):
     for country, country_airlines in airlines.items():
         for airline in country_airlines:
             airline["country"] = country
-            # Id of the airline is the concatination of the contry and full_name
+            # Id of the airline is the concatenation of the country and full_name
             airline["_id"] = airline["country"] + "_" + airline["full_name"]
             docs.append(airline)
             curr_update = UpdateOne(
@@ -197,7 +195,7 @@ def organize_and_upsert(airlines, collection):
                 updates = []
                 curr_doc_count = 0
             else:
-                print(f"Bulk write operation didnt acknowledge: {updates}")
+                print(f"Bulk write operation did not acknowledge: {updates}")
     
     # If still updates remaining
     if updates:
@@ -205,18 +203,16 @@ def organize_and_upsert(airlines, collection):
         if write_resp.acknowledged:
             print(f"Upserted {write_resp.upserted_count} out of {len(updates)}.")
             updates = []
-            curr_doc_count = 0
         else:
-            print(f"Bulk write operation didnt acknowledge: {updates}")
+            print(f"Bulk write operation did not acknowledge: {updates}")
     if updates:
-        print("Some updates didnt get written to the DB: {len(updates)}")
+        print(f"Some updates did not get written to the DB: {len(updates)}")
 
 
 def setup_mongo():
     """
-        Use info from config to create mongodb colleciton and return it
-        Arguments:
-            None
+        Use info from config to create mongodb collection and return it
+        Arguments: None
         Returns:
             collection: MongoDB collection object
     """
@@ -229,14 +225,12 @@ def setup_mongo():
 def main():
     try:
         countries = get_country_list()
-    except ValueError as e:
-        print(f"Something went wrong: {e}")
-        exit(1)
+    except ValueError as err:
+        raise ValueError(f"Could not parse the list of countries: {err}")
     try:
         airlines = scrape_all_countries(countries)
-    except ValueError as e:
-        print(f"Something went wrong: {e}")
-        exit(1)
+    except ValueError as err:
+        raise ValueError(f"Failed to parse airline info: {err}")
     
     write_to_a_file(airlines)
 
@@ -245,6 +239,6 @@ def main():
         collection = setup_mongo()
         organize_and_upsert(airlines, collection)
 
+
 if __name__ == "__main__":
     main()
-
