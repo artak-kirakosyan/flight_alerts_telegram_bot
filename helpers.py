@@ -9,7 +9,7 @@ try:
 
 except ImportError as e:
     raise ImportError(f'Error occurred during import: {e}\
-    Please install all necessary libraries and try again')
+    \nPlease install all necessary libraries and try again')
 
 
 def get_logger(
@@ -47,7 +47,7 @@ def get_logger(
     return logger
 
 
-def validate_flight_code(flight_code: str) -> dict:
+def process_flight_code(flight_code: str) -> dict:
     """
         Take in the flight code and try to identify IATA, ICAO and flight num.
 
@@ -73,7 +73,7 @@ def validate_flight_code(flight_code: str) -> dict:
     return data
 
 
-def validate_date(date_str: str) -> datetime.datetime:
+def process_date(date_str: str) -> datetime.datetime:
     """
         Take in the string date and parse it
         Arguments:
@@ -99,7 +99,7 @@ def validate_date(date_str: str) -> datetime.datetime:
 
 
 def construct_flightstats_url(
-        airline_code: str, 
+        airline_code: str,
         flight_number: str,
         date: datetime.datetime) -> str:
     """
