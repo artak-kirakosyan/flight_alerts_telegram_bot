@@ -13,6 +13,7 @@ except ImportError as e:
 TG_TOKEN = os.getenv("TG_TOKEN")
 BOT_LOG_PATH = "logs/bot.log"
 
+
 DATE_PATTERN_STR = r"(\d{1,2})[-.,/;:_](\d{1,2})[-.,/;:_](\d{2,4})"
 FLIGHT_CODE_PATTERN_STR = r"^\s*([A-Z0-9]{2}|[A-Z]{3})\s*([0-9]{1,4})\s*$"
 
@@ -80,6 +81,7 @@ AIRLINE_DESIGNATOR_COLLECTION = "airline_data"
 QUEUE_ALERT_DB = DB_NAME
 QUEUE_COLLECTION = "alert_queue"
 QUEUE_LISTENER_LOG_PATH = "logs/queue.log"
+API_CLIENT_LOG_PATH = "logs/api_client.log"
 QUEUE_LISTENER_THREAD_POOL_SIZE = 5
 # frozen alerts
 FROZEN_ALERT_DB = DB_NAME

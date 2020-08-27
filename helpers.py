@@ -349,7 +349,7 @@ class APIClient:
         Constructor.
         :param proxies: list of proxies to be supplied to the request methods. Defaults to None
         """
-        self.logger = get_logger(logger_name="API_CLIENT", file_name="api_client.log")
+        self.logger = get_logger(logger_name="API_CLIENT", file_name=config.API_CLIENT_LOG_PATH)
         self.request_base_headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0"
         }
