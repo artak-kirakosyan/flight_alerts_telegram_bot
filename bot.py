@@ -29,8 +29,8 @@ FLIGHT_CODE = 1
 DATE = 2
 
 logger = get_logger(
-    logger_name="zvartnots_bot",
-    file_name="log.log",
+    logger_name="BOT",
+    file_name=config.BOT_LOG_PATH,
 )
 
 queue_collection = get_collection(
