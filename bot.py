@@ -20,8 +20,8 @@ try:
     from helpers import get_logger, get_collection
     from helpers import validate_queue_and_inform_user
 
-except ImportError as e:
-    raise ImportError(f'Error occurred during import: {e}\
+except ImportError as exc:
+    raise ImportError(f'Error occurred during import: {exc}\
     Please install all necessary libraries and try again')
 
 
@@ -39,6 +39,12 @@ queue_collection = get_collection(
     collection_name=config.QUEUE_COLLECTION,
 )
 
+airline_designator_collection = get_collection(
+            connection_uri=config.MONGO_CONNECTION_URI,
+            db_name=config.AIRLINE_DESIGNATOR_DB,
+            collection_name=config.AIRLINE_DESIGNATOR_COLLECTION,
+        )
+
 
 def log_error(func):
     def inner(*args, **kwargs):
@@ -48,13 +54,17 @@ def log_error(func):
             logger.info(f"Finished function {func.__name__}")
             return result
         except Exception as e:
-            logger.exception(f"Exception during {func.__name__} call: {e}")
+            logger.exception(f"Exception during {func.__name__} call.")
             raise e
     return inner
 
 
 @log_error
 def do_help(update: Update, context: CallbackContext):
+    if not hasattr(update, "message"):
+        return
+    if not hasattr(update.message, "text"):
+        return
     reply = f"I can inform you about the flights you are interested in.\
             \nYou can create alerts on flights using the /add_alert command.\
             \nType /add_alert to get started.\
@@ -63,16 +73,23 @@ def do_help(update: Update, context: CallbackContext):
             \nB2 734\
             \n{datetime.today().strftime('%d/%m/%Y')}\
             "
-    update.message.reply_text(
+    context.bot.send_message(
+        chat_id=update.message.chat_id,
         text=reply,
     )
 
 
 @log_error
 def do_start(update: Update, context: CallbackContext):
+    if not hasattr(update, "message"):
+        return
+    if not hasattr(update.message, "text"):
+        return
+
     reply = f"Hey {update.message.from_user.first_name}. Welcome onboard.\
             \nTo begin, type /help."
-    update.message.reply_text(
+    context.bot.send_message(
+        chat_id=update.message.chat_id,
         text=reply,
     )
 
@@ -109,19 +126,22 @@ def flight_code_handler(update: Update, context: CallbackContext):
     if not hasattr(update.message, "text"):
         return
     try:
-        flight_data = process_flight_code(update.message.text)
-    except ValueError:
+        flight_data = process_flight_code(
+            flight_code=update.message.text,
+            airline_designator_collection=airline_designator_collection,
+        )
+    except ValueError as exception:
         context.bot.send_message(
             chat_id=update.message.chat_id,
-            text="Looks like there is an error in flight code.\
-                \nTry again or hit /cancel to cancel.",
+            text="".join(exception.args),
         )
         return FLIGHT_CODE
 
     context.user_data["flight_data"] = flight_data
+
     context.bot.send_message(
         chat_id=update.message.chat_id,
-        text=f"Flight code registered.\
+        text=f"Flight code registered: {context.user_data}.\
             \nNow enter the date in the following format: DD/MM/YYYY",
     )
     return DATE
@@ -135,8 +155,8 @@ def date_handler(update: Update, context: CallbackContext):
         return
     try:
         date = process_date(update.message.text)
-    except ValueError as e:
-        error_message = "".join(e.args)
+    except ValueError as exception:
+        error_message = "".join(exception.args)
         context.bot.send_message(
             chat_id=update.message.chat_id,
             text=f"Looks like there is an error in date: {error_message}.\
@@ -149,7 +169,7 @@ def date_handler(update: Update, context: CallbackContext):
     context.user_data.clear()
     context.bot.send_message(
         chat_id=update.message.chat_id,
-        text=f"Date registered.\
+        text=f"Date registered: {data}.\
             \nDon't miss me, I'll be back soon with updates.:)",
     )
     kwargs = {
@@ -190,7 +210,7 @@ def main():
         )
     bot_get_me = updater.bot.get_me()
 
-    print(f"Bot {bot_get_me.first_name} is live now")
+    print(f"Bot {bot_get_me.first_name} is live now.")
 
     conv_handler = ConversationHandler(
         entry_points=[

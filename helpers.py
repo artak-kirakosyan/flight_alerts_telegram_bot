@@ -4,15 +4,15 @@ try:
     import logging
     import requests
 
-    from pymongo import MongoClient
+    from pymongo import MongoClient, UpdateOne
     from pymongo.collection import Collection
     from pymongo.errors import PyMongoError
     from telegram import Bot
 
     import config
 
-except ImportError as e:
-    raise ImportError(f'Error occurred during import: {e}\
+except ImportError as exc:
+    raise ImportError(f'Error occurred during import: {exc}\
     \nPlease install all necessary libraries and try again')
 
 
@@ -58,12 +58,13 @@ def get_collection(connection_uri: str, db_name: str, collection_name: str) -> C
     return coll
 
 
-def process_flight_code(flight_code: str) -> dict:
+def process_flight_code(flight_code: str, airline_designator_collection: Collection) -> dict:
     """
         Take in the flight code and try to identify IATA, ICAO and flight num.
 
         Arguments:
             flight_code: string provided by the user
+            airline_designator_collection: pymongo collection object where airline designators are stored
         Returns:
             data: dictionary of the parse data if any
         Raise ValueError if invalid input
@@ -71,7 +72,7 @@ def process_flight_code(flight_code: str) -> dict:
     flight_code = flight_code.upper()
     flight_code = re.match(config.FLIGHT_CODE_PATTERN, flight_code)
     if flight_code is None:
-        raise ValueError("Invalid flight number")
+        raise ValueError("Could not identify flight code. Make sure you entered everything correctly.")
     airline_code, flight_number = flight_code.groups()
     data = {'flight_number': flight_number}
     if len(airline_code) == 2:
@@ -81,6 +82,30 @@ def process_flight_code(flight_code: str) -> dict:
         data['iata'] = None
         data['icao'] = airline_code
 
+    if data['iata'] is None:
+        airlines = airline_designator_collection.find(
+            {
+                "icao": data['icao'],
+            }
+        )
+    else:
+        airlines = airline_designator_collection.find(
+            {
+                "iata": data['iata'],
+            }
+        )
+    try:
+        airlines = list(airlines)
+    except PyMongoError:
+        reply = "There was an error, please try again later."
+        raise ValueError(reply)
+
+    if len(airlines) == 0:
+        reply = "Hmm, I cant find the flight info you asked for :/"
+        raise ValueError(reply)
+    else:
+        data['iata'] = airlines[0]['iata']
+    data['flight_code'] = data['iata'] + data['flight_number']
     return data
 
 
@@ -113,7 +138,10 @@ def process_date(date_str: str) -> datetime.datetime:
     return date
 
 
-def validate_queue_and_inform_user(user_data: dict, queue_collection: Collection, bot: Bot):
+def validate_queue_and_inform_user(
+        user_data: dict,
+        queue_collection: Collection,
+        bot: Bot):
     """
         This function takes in the data user supplied, validates it and saves to the mongodb
         Arguments:
@@ -122,8 +150,26 @@ def validate_queue_and_inform_user(user_data: dict, queue_collection: Collection
             bot: telegram.bot object which will inform the user about the queue writing results.
         Returns: None
     """
+    alert_id = "_".join(
+        [
+            str(user_data['chat_id']),
+            user_data['date'].strftime("%d_%m_%Y"),
+            user_data['flight_data']['flight_code'],
+        ]
+    )
+    alert_dict = {
+        "_id": alert_id,
+        "date": user_data['date'],
+        "flight_code": user_data['flight_data']['flight_code'],
+        "chat_id": user_data['chat_id']
+    }
+
     try:
-        response = queue_collection.insert_one(user_data)
+        response = queue_collection.update_one(
+            {"_id": alert_id},
+            {"$set": alert_dict},
+            upsert=True,
+        )
     except PyMongoError:
         reply = "Something went wrong. Please try again later."
     else:
@@ -274,10 +320,12 @@ class Flight:
         if self.flight_id != other.flight_id or self.flight_code != self.flight_code:
             raise ValueError("Self and other are different flights!")
 
-        for prop_name, prop in self.properties.items():
-            other_prop = other.properties[prop_name]
-            if type(other_prop) != type(prop):
-                raise ValueError(f"The type of the {prop_name} is different for self and other.")
+        # This part of the code is likely to be useless as we have None for missing dates. When they appear, the types
+        # will differ, which is not good for us.
+        # for prop_name, prop in self.properties.items():
+        #     other_prop = other.properties[prop_name]
+        #     if type(other_prop) != type(prop):
+        #         raise ValueError(f"The type of the {prop_name} is different for self and other.")
 
     def _compare(self, other):
         """
@@ -290,9 +338,8 @@ class Flight:
         diff_dict = {}
         for prop_name, prop in self.properties.items():
             other_property = other.properties[prop_name]
-
             if other_property != prop:
-                print(f"Difference in {prop_name}, self:{prop}, other:{other_property}")
+                # print(f"Difference in {prop_name}, self:{prop}, other:{other_property}")
                 diff_dict[prop_name] = [prop, other_property]
         return diff_dict
 
@@ -313,7 +360,8 @@ class Flight:
         :return: string showing all information about the flight
         """
         res = ""
-        res += f"Flight: {self.flight_code}, ID: {self.flight_id}"
+        res += f"Flight: {self.flight_code}\n"
+        res += f"ID: {self.flight_id}"
         for prop_name, prop in self.properties.items():
             if prop is None:
                 prop = ""
@@ -322,12 +370,30 @@ class Flight:
 
 
 class Alert:
-    def __init__(self, flight: Flight, chat_id):
+    """
+    A class representing an alert.
+    """
+    def __init__(self, flight: Flight, chat_id: int, alert_id: str):
+        """
+        Construct an alert.
+        Arguments:
+            flight: A Flight object representing the flight
+            chat_id: the ID of the chat who requested the alert
+            alert_id: the ID of the alert comprised of the chat_id, flight code and flight date
+        """
         self.flight = flight
         self.chat_id = chat_id
+        self.alert_id = alert_id
 
     def to_dict(self):
+        """
+        Return the dictionary representation of the alert.
+        Arguments: None
+        Returns:
+            dictionary containing all info about the flight and alert
+        """
         res_dict = {
+            "_id": self.alert_id,
             "flight": self.flight.to_dict(),
             'chat_id': self.chat_id,
         }
@@ -335,9 +401,15 @@ class Alert:
 
     @classmethod
     def from_dict(cls, alert_dict):
+        """
+        An alternative constructor to create the alert from the dictionary representation
+        Arguments:
+            alert_dict: dictionary which contains the alert_id, Flight's dictionary and chat_id
+        """
+        alert_id = alert_dict['_id']
         flight = Flight.from_dict(alert_dict['flight'])
         chat_id = alert_dict['chat_id']
-        return cls(flight=flight, chat_id=chat_id)
+        return cls(flight=flight, chat_id=chat_id, alert_id=alert_id)
 
 
 class APIClient:
@@ -390,7 +462,6 @@ class APIClient:
         Raises ValueError if the appropriate information is not found in the response.
         """
         endpoint = self.api_url + self.flight_url.format(page, flight_code)
-        print(endpoint)
         resp = self.make_request(endpoint)
         try:
             response = resp['result']['response']
@@ -426,7 +497,11 @@ class APIClient:
             Should be in local time zone of the flight.
         :return: Flight object created from the found flight data. None if not found.
         """
-        resp = self.get_flight(flight_code)
+        try:
+            resp = self.get_flight(flight_code)
+        except ValueError:
+            self.logger.exception("No results found at all")
+            raise ValueError("No results found at all")
         current_flights = resp['data']
         if current_flights is not None:
             self.logger.info("Current request contains flight data, processing it")
