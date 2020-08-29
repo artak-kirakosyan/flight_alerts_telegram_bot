@@ -20,16 +20,16 @@ except ImportError as exc:
     Please install all necessary libraries and try again')
 
 
-class QueueListener(Process):
+class FrozenListener(Process):
     def __init__(self):
         """
-        This object is to listen to the queue in the DB, and if there is anything, process it.
+        This object is to check the frozen queue in the DB, and if any update, process it.
         """
         super().__init__()
         self._futures = None
         self._logger = get_logger(
-            logger_name="QUEUE_LISTENER",
-            file_name=config.QUEUE_LISTENER_LOG_PATH,
+            logger_name="FROZEN_LISTENER",
+            file_name=config.FROZEN_LISTENER_LOG_PATH,
         )
         self.queue_collection = get_collection(
             connection_uri=config.MONGO_CONNECTION_URI,
@@ -46,33 +46,27 @@ class QueueListener(Process):
             db_name=config.ACTIVE_ALERTS_DB,
             collection_name=config.ACTIVE_ALERTS_COLLECTION,
         )
-        self.airline_designator_collection = get_collection(
-            connection_uri=config.MONGO_CONNECTION_URI,
-            db_name=config.AIRLINE_DESIGNATOR_DB,
-            collection_name=config.AIRLINE_DESIGNATOR_COLLECTION,
-        )
-        self.thread_pool = ThreadPoolExecutor(max_workers=config.QUEUE_LISTENER_THREAD_POOL_SIZE)
+        self.thread_pool = ThreadPoolExecutor(max_workers=config.FROZEN_LISTENER_THREAD_POOL_SIZE)
         req = Request(
             connect_timeout=5,
         )
-
         self.bot = Bot(
             token=config.TG_TOKEN,
             request=req,
         )
         self.api_client = APIClient()
 
-        self._logger.info("QueueListener created")
+        self._logger.info("Frozen Listener created")
 
     def listen_to_queue(self):
-        alerts = self.queue_collection.find({})
+        alerts = self.frozen_collection.find({})
         try:
             num_alerts = alerts.count()
         except PyMongoError:
             self._logger.exception("Failed to get info from the DB.")
             raise RuntimeError("Failed to get info from the DB.")
 
-        self._logger.info(f"Found {num_alerts} alerts in the queue, starting to process.")
+        self._logger.info(f"Found {num_alerts} alerts in the frozen queue, starting to process.")
         futures = [self.thread_pool.submit(self.process_alert, alert) for alert in alerts]
         # for debugging purposes
         self._futures = futures
@@ -101,8 +95,7 @@ class QueueListener(Process):
 
     def process_alert(self, alert_dict):
         """
-        Process the alert from the queue, if valid, send to active, if too far, send to frozen alerts and remove
-        from the queue:
+        Process the alert from the frozen queue, if valid, send to active and remove from frozen
         Arguments:
             :param alert_dict: dictionary containing chat_id, flight_data and date of the desired flight
         Returns:
@@ -111,19 +104,9 @@ class QueueListener(Process):
         self._logger.info(f"Checking the alert {alert_dict['_id']}")
         reply = None
         if alert_dict['date'] - datetime.timedelta(days=9) > datetime.datetime.today():
-            self._logger.info("Flight date is too far from today, adding it to frozen")
-            try:
-                update_res = self.update_one(alert_dict, self.frozen_collection)
-            except RuntimeError:
-                self._logger.exception("Failed to insert into frozen collection. Leaving it in queue.")
-                raise RuntimeError("")
-            else:
-                if not update_res.acknowledged:
-                    self._logger.warning(f"Alert {alert_dict} was not inserted into frozen collection.")
-                else:
-                    self._logger.info(f"Inserted {alert_dict['_id']} alert into frozen")
-                    reply = f"Flight {alert_dict['flight_code']} is too far from today, I will keep my eye on it ;)"
-        # The case when the alert is not too far from today.
+            self._logger.info("Flight date is too far from today, leaving in frozen")
+
+        # The case when the alert date is within accessible range
         else:
             try:
                 flight = self.api_client.get_flight_by_date(alert_dict['flight_code'], alert_dict['date'])
@@ -154,5 +137,5 @@ class QueueListener(Process):
                 chat_id=alert_dict['chat_id'],
                 text=reply,
             )
-        self._logger.info(f"Removing {alert_dict['_id']} from queue")
-        self.queue_collection.delete_one({"_id": alert_dict['_id']})
+            self._logger.info(f"Removing {alert_dict['_id']} from frozen queue")
+            self.frozen_collection.delete_one({"_id": alert_dict['_id']})

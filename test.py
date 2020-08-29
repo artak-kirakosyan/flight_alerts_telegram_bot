@@ -1,9 +1,10 @@
-from queue_listener import Listener
-
 import datetime
 from pprint import pprint
 
-l = Listener()
+from queue_listener import QueueListener
+from frozen_listener import FrozenListener
+
+l = QueueListener()
 
 l.frozen_collection.delete_many({})
 l.active_collection.delete_many({})
@@ -52,3 +53,50 @@ pprint(list(l.frozen_collection.find()))
 
 print("Active:")
 pprint(list(l.active_collection.find()))
+
+
+fr = FrozenListener()
+fr.update_one(
+    {
+        '_id': '169004254_30_08_2020_B2734',
+        'chat_id': 169004254,
+        'date': datetime.datetime(2020, 8, 30, 0, 0),
+        'flight_code': 'B2734',
+    },
+    fr.frozen_collection,
+)
+fr.update_one(
+    {
+        '_id': '169004254_28_08_2020_RM928',
+        'chat_id': 169004254,
+        'date': datetime.datetime(2020, 8, 28, 0, 0),
+        'flight_code': 'RM928',
+    },
+    fr.frozen_collection,
+)
+fr.update_one(
+    {
+        '_id': '169004254_30_08_2020_A2734',
+        'chat_id': 169004254,
+        'date': datetime.datetime(2020, 8, 30, 0, 0),
+        'flight_code': 'A2734',
+    },
+    fr.frozen_collection,
+)
+
+print("BEFORE_______________________________")
+
+print("Frozen:")
+pprint(list(fr.frozen_collection.find()))
+
+print("Active:")
+pprint(list(fr.active_collection.find()))
+
+fr.listen_to_queue()
+
+print("AFTER_______________________________")
+print("Frozen:")
+pprint(list(fr.frozen_collection.find()))
+
+print("Active:")
+pprint(list(fr.active_collection.find()))
