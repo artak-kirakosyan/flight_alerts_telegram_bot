@@ -416,12 +416,15 @@ class APIClient:
     """
     A helper class to interact with the API of the flightradar24.
     """
-    def __init__(self, proxies=None):
+    def __init__(self, logger_name="API_CLIENT", logger_path="logs/api_client.log", proxies=None):
         """
         Constructor.
+        :param logger_name: the name of the logger, defaults to API_CLIENT
+        :param logger_path: the file path to log into, defaults to api_client.log
         :param proxies: list of proxies to be supplied to the request methods. Defaults to None
+
         """
-        self.logger = get_logger(logger_name="API_CLIENT", file_name=config.API_CLIENT_LOG_PATH)
+        self.logger = get_logger(logger_name=logger_name, file_name=logger_path)
         self.request_base_headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0"
         }

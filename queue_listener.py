@@ -60,7 +60,10 @@ class QueueListener(Process):
             token=config.TG_TOKEN,
             request=req,
         )
-        self.api_client = APIClient()
+        self.api_client = APIClient(
+            logger_name="QUEUE_API_CLIENT",
+            logger_path=config.QUEUE_API_CLIENT_LOG_PATH,
+        )
 
         self._logger.info("QueueListener created")
 
@@ -84,7 +87,7 @@ class QueueListener(Process):
         while True:
             self._logger.info("Starting to listen...")
             self.listen_to_queue()
-            time.sleep(10)
+            time.sleep(config.QUEUE_LISTENER_SLEEP_DURATION)
 
     def update_one(self, document: dict, collection: Collection):
         try:

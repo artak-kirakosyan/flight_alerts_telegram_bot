@@ -54,9 +54,12 @@ class FrozenListener(Process):
             token=config.TG_TOKEN,
             request=req,
         )
-        self.api_client = APIClient()
+        self.api_client = APIClient(
+            logger_name="FROZEN_API_CLIENT",
+            logger_path=config.FROZEN_API_CLIENT_LOG_PATH,
+        )
 
-        self._logger.info("Frozen Listener created")
+        self._logger.info("FrozenListener created")
 
     def listen_to_queue(self):
         alerts = self.frozen_collection.find({})
@@ -78,7 +81,7 @@ class FrozenListener(Process):
         while True:
             self._logger.info("Starting to listen...")
             self.listen_to_queue()
-            time.sleep(10)
+            time.sleep(config.FROZEN_LISTENER_SLEEP_DURATION)
 
     def update_one(self, document: dict, collection: Collection):
         try:

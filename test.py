@@ -12,6 +12,12 @@ l.queue_collection.delete_many({})
 
 alerts = [
     {
+        '_id': '169004254_04_09_2020_NK993',
+        'chat_id': 169004254,
+        'date': datetime.datetime(2020, 9, 4, 0, 0),
+        'flight_code': 'NK993',
+    },
+    {
         '_id': '169004254_29_08_2020_B2734',
         'chat_id': 169004254,
         'date': datetime.datetime(2020, 8, 29, 0, 0),
