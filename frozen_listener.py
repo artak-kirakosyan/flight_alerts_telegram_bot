@@ -116,11 +116,11 @@ class FrozenListener(Process):
             except ValueError:
                 self._logger.exception("No results found at all")
                 reply = f"I could not find flight {alert_dict['flight_code']}"
-                reply += f" on {alert_dict['date'].strftime('%Y/%m/%d')}:/"
+                reply += f" on {alert_dict['date'].strftime('%d/%m/%Y')}:/"
             else:
                 if flight is None:
                     reply = f"Sorry I did not find {alert_dict['flight_code']}"
-                    reply += f" on {alert_dict['date'].strftime('%Y/%m/%d')}."
+                    reply += f" on {alert_dict['date'].strftime('%d/%m/%Y')}."
                 elif flight.properties["Real Arrival"] is not None:
                     self._logger.info("This flight has already arrived.")
                     reply = f"- - Your flight has already arrived - -\n"

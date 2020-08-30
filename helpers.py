@@ -327,7 +327,7 @@ class Flight:
         #     if type(other_prop) != type(prop):
         #         raise ValueError(f"The type of the {prop_name} is different for self and other.")
 
-    def _compare(self, other):
+    def compare(self, other):
         """
         Validate and compare the self and other. Return a dictionary of the differences of the following form:
             {"property_name": [self_value, other_value]}
@@ -343,13 +343,13 @@ class Flight:
                 diff_dict[prop_name] = [prop, other_property]
         return diff_dict
 
-    def update(self, other):
+    def update_and_return_diff(self, other):
         """
         Compare the other with self and update self if it is different from other.
         :param other: an instance of Flight from which self will be updated
         :return: dictionary with differences present
         """
-        diff_dict = self._compare(other)
+        diff_dict = self.compare(other)
         for prop_name, prop in diff_dict.items():
             self.properties[prop_name] = prop[1]
         return diff_dict
@@ -511,6 +511,8 @@ class APIClient:
             for flight in current_flights:
                 curr_flight = Flight.create_from_api_response(flight)
                 curr_fl_dep = curr_flight.properties['Scheduled Departure']
+                if curr_fl_dep is None:
+                    continue
                 if (curr_fl_dep.year, curr_fl_dep.month, curr_fl_dep.day) == (date.year, date.month, date.day):
                     self.logger.info("Flight with specified date is found, returning it.")
                     return curr_flight
