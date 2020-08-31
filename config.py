@@ -15,6 +15,7 @@ BOT_LOG_PATH = "logs/bot.log"
 
 
 DATE_PATTERN_STR = r"(\d{1,2})[-.,/;:_](\d{1,2})[-.,/;:_](\d{2,4})"
+TIME_PATTERN_STR = None
 FLIGHT_CODE_PATTERN_STR = r"^\s*([A-Z0-9]{2}|[A-Z]{3})\s*([0-9]{1,4})\s*$"
 
 FLIGHT_CODE_PATTERN = re.compile(FLIGHT_CODE_PATTERN_STR)
@@ -100,4 +101,3 @@ ACTIVE_LISTENER_LOG_PATH = "logs/active.log"
 ACTIVE_API_CLIENT_LOG_PATH = "logs/active_api_client.log"
 ACTIVE_LISTENER_THREAD_POOL_SIZE = 2
 ACTIVE_LISTENER_SLEEP_DURATION = 600
-
