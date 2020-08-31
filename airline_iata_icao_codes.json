@@ -5599,7 +5599,6 @@
     }
   ],
   "Christmas Islands": [],
-  "Cocos (Keeling )Islands": [],
   "Colombia": [
     {
       "name": "Aercaribe",
@@ -6849,6 +6848,12 @@
       "icao": "RPC"
     },
     {
+      "name": "Aeroregional",
+      "full_name": "Servicio  Aereo Regional Cia, Ltda.",
+      "iata": null,
+      "icao": "RER"
+    },
+    {
       "name": "Atesa Aerotaxis Ecuatorianos",
       "full_name": "Atesa Aerotaxis Ecuatorianos, S.A.",
       "iata": null,
@@ -6931,12 +6936,6 @@
       "full_name": "Lineas Aereas Nacionales (LANSA)",
       "iata": null,
       "icao": "LNS"
-    },
-    {
-      "name": "Servicio  Aereo Regional",
-      "full_name": "Servicio  Aereo Regional Cia, Ltda.",
-      "iata": null,
-      "icao": "RER"
     },
     {
       "name": "TAME",

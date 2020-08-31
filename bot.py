@@ -141,7 +141,7 @@ def flight_code_handler(update: Update, context: CallbackContext):
 
     context.bot.send_message(
         chat_id=update.message.chat_id,
-        text=f"Flight code registered: {context.user_data}.\
+        text=f"Flight code registered.\
             \nNow enter the date in the following format: DD/MM/YYYY",
     )
     return DATE
@@ -169,7 +169,7 @@ def date_handler(update: Update, context: CallbackContext):
     context.user_data.clear()
     context.bot.send_message(
         chat_id=update.message.chat_id,
-        text=f"Date registered: {data}.\
+        text=f"Date registered..\
             \nDon't miss me, I'll be back soon with updates.:)",
     )
     kwargs = {

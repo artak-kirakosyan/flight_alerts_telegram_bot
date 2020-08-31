@@ -10,8 +10,8 @@ try:
     from bs4 import BeautifulSoup
 
     import config as config
-except ImportError as e:
-    raise ImportError(f'Error occurred during import: {e}\
+except ImportError as exc:
+    raise ImportError(f'Error occurred during import: {exc}\
     Please install all necessary libraries and try again')
 
 

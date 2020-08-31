@@ -123,10 +123,9 @@ class ActiveListener(Process):
             else:
                 self._logger.info("Flight found, processing it.")
                 new_alert = Alert(flight=flight, chat_id=alert_dict['chat_id'], alert_id=alert_dict["_id"])
-                diff_dict = current_alert.flight.update_and_return_diff(new_alert.flight)
-                if diff_dict != {}:
-                    reply = str(diff_dict)
-                    self.update_one(current_alert.to_dict(), self.active_collection)
+                reply = current_alert.create_status_update(new_alert)
+                if reply is not None:
+                    self.update_one(new_alert.to_dict(), self.active_collection)
 
         if reply is not None:
             self.bot.send_message(

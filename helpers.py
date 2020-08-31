@@ -411,6 +411,24 @@ class Alert:
         chat_id = alert_dict['chat_id']
         return cls(flight=flight, chat_id=chat_id, alert_id=alert_id)
 
+    def create_status_update(self, other):
+        """
+        This method will compare 2 alerts and create reply string to be sent to the user
+        Arguments:
+            other: another instance of Alert to be compared
+        Returns:
+            reply_str: string containing the status update
+        """
+        if not isinstance(other, Alert):
+            raise TypeError("Other should be of the type Alert.")
+        diff_dict = self.flight.compare(other.flight)
+        reply = None
+        if "Current Status" in diff_dict:
+            reply = f"Flight {self.flight.flight_code} on status update:\n"
+            reply += f"Old status: {diff_dict['Current Status'][0]}\n"
+            reply += f"New status: {diff_dict['Current Status'][1]}\n"
+        return reply
+
 
 class APIClient:
     """
