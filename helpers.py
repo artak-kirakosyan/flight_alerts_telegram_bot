@@ -4,67 +4,37 @@ try:
     import logging
     import requests
 
-    from pymongo import MongoClient, UpdateOne
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-    from telegram import Bot
+    import pymongo
+    import pymongo.errors
+    import telegram
 
     import config
+    import common
 
 except ImportError as exc:
     raise ImportError(f'Error occurred during import: {exc}\
     \nPlease install all necessary libraries and try again')
 
 
-def get_logger(
-        logger_name=__name__, 
-        log_level=logging.DEBUG, 
-        file_name='log.log', 
-        file_format_str='%(asctime)s: %(levelname)s: %(name)s: %(message)s',
-        stream_format_str='%(asctime)s: %(levelname)s: %(name)s: %(message)s'):
-    """
-    Create a logger and return.
+queue_collection = common.get_collection(
+    connection_uri=config.MONGO_CONNECTION_URI,
+    db_name=config.QUEUE_ALERT_DB,
+    collection_name=config.QUEUE_COLLECTION,
+)
 
-    Arguments:
-        logger_name: name of the logger, by default is __name__
-        log_level: threshold level of the logging, by default is DEBUG
-        file_name: name of the logging file, by default is log.log
-        file_format_str: format of the logs for files
-        stream_format_str: format of the logs for stream
-    Return:
-        logger: the created logger
-    """
-    file_formatter = logging.Formatter(file_format_str)
-    stream_formatter = logging.Formatter(stream_format_str)
-
-    file_handler = logging.FileHandler(file_name)
-    file_handler.setFormatter(file_formatter)
-
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(stream_formatter)
-
-    logger = logging.getLogger(name=logger_name)
-    logger.setLevel(log_level)
-    logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
-
-    return logger
+airline_designator_collection = common.get_collection(
+            connection_uri=config.MONGO_CONNECTION_URI,
+            db_name=config.AIRLINE_DESIGNATOR_DB,
+            collection_name=config.AIRLINE_DESIGNATOR_COLLECTION,
+        )
 
 
-def get_collection(connection_uri: str, db_name: str, collection_name: str) -> Collection:
-    client = MongoClient(connection_uri)
-    db = client.get_database(name=db_name)
-    coll = db.get_collection(collection_name)
-    return coll
-
-
-def process_flight_code(flight_code: str, airline_designator_collection: Collection) -> dict:
+def process_flight_code(flight_code: str) -> dict:
     """
         Take in the flight code and try to identify IATA, ICAO and flight num.
 
         Arguments:
             flight_code: string provided by the user
-            airline_designator_collection: pymongo collection object where airline designators are stored
         Returns:
             data: dictionary of the parse data if any
         Raise ValueError if invalid input
@@ -96,7 +66,7 @@ def process_flight_code(flight_code: str, airline_designator_collection: Collect
         )
     try:
         airlines = list(airlines)
-    except PyMongoError:
+    except pymongo.errors.PyMongoError:
         reply = "There was an error, please try again later."
         raise ValueError(reply)
 
@@ -140,13 +110,11 @@ def process_date(date_str: str) -> datetime.datetime:
 
 def validate_queue_and_inform_user(
         user_data: dict,
-        queue_collection: Collection,
-        bot: Bot):
+        bot: telegram.Bot):
     """
         This function takes in the data user supplied, validates it and saves to the mongodb
         Arguments:
             user_data: dictionary containing flight codes, date and chat_id
-            queue_collection: pymongo collection object where to queue the alert
             bot: telegram.bot object which will inform the user about the queue writing results.
         Returns: None
     """
@@ -170,7 +138,7 @@ def validate_queue_and_inform_user(
             {"$set": alert_dict},
             upsert=True,
         )
-    except PyMongoError:
+    except pymongo.errors.PyMongoError:
         reply = "Something went wrong. Please try again later."
     else:
         if response.acknowledged:
@@ -537,7 +505,7 @@ class APIClient:
         :param proxies: list of proxies to be supplied to the request methods. Defaults to None
 
         """
-        self.logger = get_logger(logger_name=logger_name, file_name=logger_path)
+        self.logger = common.get_logger(logger_name=logger_name, file_name=logger_path)
         self.request_base_headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0"
         }
@@ -631,3 +599,4 @@ class APIClient:
                     return curr_flight
         self.logger.warning("Flight with specified date not found, returning None")
         return None
+

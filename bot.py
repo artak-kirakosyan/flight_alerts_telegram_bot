@@ -2,7 +2,6 @@
 
 try:
     import datetime
-    import re
     import threading
 
     import telegram.utils.request
@@ -11,6 +10,7 @@ try:
 
     import config
     import helpers
+    import common
 
 except ImportError as exc:
     raise ImportError(f'Error occurred during import: {exc}\
@@ -20,22 +20,10 @@ except ImportError as exc:
 FLIGHT_CODE = 1
 DATE = 2
 
-logger = helpers.get_logger(
+logger = common.get_logger(
     logger_name="BOT",
     file_name=config.BOT_LOG_PATH,
 )
-
-queue_collection = helpers.get_collection(
-    connection_uri=config.MONGO_CONNECTION_URI,
-    db_name=config.QUEUE_ALERT_DB,
-    collection_name=config.QUEUE_COLLECTION,
-)
-
-airline_designator_collection = helpers.get_collection(
-            connection_uri=config.MONGO_CONNECTION_URI,
-            db_name=config.AIRLINE_DESIGNATOR_DB,
-            collection_name=config.AIRLINE_DESIGNATOR_COLLECTION,
-        )
 
 
 def log_error(func):
@@ -120,7 +108,6 @@ def flight_code_handler(update: telegram.Update, context: telegram.ext.CallbackC
     try:
         flight_data = helpers.process_flight_code(
             flight_code=update.message.text,
-            airline_designator_collection=airline_designator_collection,
         )
     except ValueError as exception:
         context.bot.send_message(
@@ -166,7 +153,6 @@ def date_handler(update: telegram.Update, context: telegram.ext.CallbackContext)
     )
     kwargs = {
         "user_data": data,
-        "queue_collection": queue_collection,
         "bot": context.bot,
     }
     th = threading.Thread(

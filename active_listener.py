@@ -1,50 +1,42 @@
 try:
-    from pprint import pprint
     import concurrent.futures
-    from concurrent.futures import ThreadPoolExecutor
     import time
     import datetime
-    from multiprocessing import Process
+    import multiprocessing
 
-    from pymongo.errors import PyMongoError
-    from pymongo import UpdateOne
-    from pymongo.collection import Collection
-    from telegram.utils.request import Request
-    from telegram import Bot
+    import pymongo
+    import pymongo.errors
+    import telegram
 
     import config
-    from helpers import get_collection, get_logger, Flight, APIClient, Alert
-
+    import common
+    import helpers
 except ImportError as exc:
     raise ImportError(f'Error occurred during import: {exc}\
     Please install all necessary libraries and try again')
 
 
-class ActiveListener(Process):
+class ActiveListener(multiprocessing.Process):
     def __init__(self):
         """
         This object is to check the ACTIVE alerts in the DB, and if any update, process it.
         """
         super().__init__()
         self._futures = None
-        self._logger = get_logger(
+        self._logger = common.get_logger(
             logger_name="ACTIVE_LISTENER",
             file_name=config.ACTIVE_LISTENER_LOG_PATH,
         )
-        self.active_collection = get_collection(
+        self.active_collection = common.get_collection(
             connection_uri=config.MONGO_CONNECTION_URI,
             db_name=config.ACTIVE_ALERTS_DB,
             collection_name=config.ACTIVE_ALERTS_COLLECTION,
         )
-        self.thread_pool = ThreadPoolExecutor(max_workers=config.ACTIVE_LISTENER_THREAD_POOL_SIZE)
-        req = Request(
-            connect_timeout=5,
-        )
-        self.bot = Bot(
+        self.thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=config.ACTIVE_LISTENER_THREAD_POOL_SIZE)
+        self.bot = telegram.Bot(
             token=config.TG_TOKEN,
-            request=req,
         )
-        self.api_client = APIClient(
+        self.api_client = helpers.APIClient(
             logger_name="ACTIVE_API_CLIENT",
             logger_path=config.ACTIVE_API_CLIENT_LOG_PATH,
         )
@@ -55,7 +47,7 @@ class ActiveListener(Process):
         alerts = self.active_collection.find({})
         try:
             num_alerts = alerts.count()
-        except PyMongoError:
+        except pymongo.errors.PyMongoError:
             self._logger.exception("Failed to get info from the DB.")
             raise RuntimeError("Failed to get info from the DB.")
 
@@ -73,14 +65,14 @@ class ActiveListener(Process):
             self.listen_to_queue()
             time.sleep(config.ACTIVE_LISTENER_SLEEP_DURATION)
 
-    def update_one(self, document: dict, collection: Collection):
+    def update_one(self, document: dict, collection: pymongo.collection.Collection):
         try:
             update_result = collection.update_one(
                 {"_id": document["_id"]},
                 {"$set": document},
                 upsert=True,
             )
-        except PyMongoError:
+        except pymongo.errors.PyMongoError:
             self._logger.exception("Failed to insert into collection.")
             raise RuntimeError("Failed to insert into collection.")
         else:
@@ -96,8 +88,7 @@ class ActiveListener(Process):
             None
         """
         self._logger.info(f"Checking the alert {alert_dict['_id']}")
-        reply = None
-        current_alert = Alert.from_dict(alert_dict=alert_dict)
+        current_alert = helpers.Alert.from_dict(alert_dict=alert_dict)
         to_delete = False
         try:
             flight = self.api_client.get_flight_by_id(
@@ -122,7 +113,7 @@ class ActiveListener(Process):
                 to_delete = True
             else:
                 self._logger.info("Flight found, processing it.")
-                new_alert = Alert(flight=flight, chat_id=alert_dict['chat_id'], alert_id=alert_dict["_id"])
+                new_alert = helpers.Alert(flight=flight, chat_id=alert_dict['chat_id'], alert_id=alert_dict["_id"])
                 reply = current_alert.create_status_update(new_alert)
                 if reply is not None:
                     self.update_one(new_alert.to_dict(), self.active_collection)
