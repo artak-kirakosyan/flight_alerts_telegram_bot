@@ -9,7 +9,7 @@ try:
     import requests
     from bs4 import BeautifulSoup
 
-    import config as config
+    import config
 except ImportError as exc:
     raise ImportError(f'Error occurred during import: {exc}\
     Please install all necessary libraries and try again')

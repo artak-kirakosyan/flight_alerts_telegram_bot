@@ -148,7 +148,7 @@ class QueueListener(Process):
                 else:
                     self._logger.info("Flight found, processing it.")
                     alert = Alert(flight=flight, chat_id=alert_dict['chat_id'], alert_id=alert_dict["_id"])
-                    reply = str(alert.flight)
+                    reply = f"Your flight {alert.flight.flight_code} is in my list. I will inform you about updates."
 
                     self._logger.info(f"Inserting {alert_dict['_id']} into active")
                     self.update_one(alert.to_dict(), self.active_collection)

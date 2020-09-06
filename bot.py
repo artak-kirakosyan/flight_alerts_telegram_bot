@@ -1,24 +1,16 @@
 #!/usr/bin/env python
 
 try:
-    from datetime import datetime
+    import datetime
     import re
     import threading
 
-    from telegram import Update
-    from telegram.ext import Updater
-    from telegram.ext import Filters
-    from telegram.ext import CallbackContext
-    from telegram.ext import MessageHandler
-    from telegram.ext import CommandHandler
-    from telegram.ext import ConversationHandler
-    from telegram.utils.request import Request
-    from telegram import Bot
+    import telegram.utils.request
+    import telegram
+    import telegram.ext
 
     import config
-    from helpers import process_flight_code, process_date
-    from helpers import get_logger, get_collection
-    from helpers import validate_queue_and_inform_user
+    import helpers
 
 except ImportError as exc:
     raise ImportError(f'Error occurred during import: {exc}\
@@ -28,18 +20,18 @@ except ImportError as exc:
 FLIGHT_CODE = 1
 DATE = 2
 
-logger = get_logger(
+logger = helpers.get_logger(
     logger_name="BOT",
     file_name=config.BOT_LOG_PATH,
 )
 
-queue_collection = get_collection(
+queue_collection = helpers.get_collection(
     connection_uri=config.MONGO_CONNECTION_URI,
     db_name=config.QUEUE_ALERT_DB,
     collection_name=config.QUEUE_COLLECTION,
 )
 
-airline_designator_collection = get_collection(
+airline_designator_collection = helpers.get_collection(
             connection_uri=config.MONGO_CONNECTION_URI,
             db_name=config.AIRLINE_DESIGNATOR_DB,
             collection_name=config.AIRLINE_DESIGNATOR_COLLECTION,
@@ -60,7 +52,7 @@ def log_error(func):
 
 
 @log_error
-def do_help(update: Update, context: CallbackContext):
+def do_help(update: telegram.Update, context: telegram.ext.CallbackContext):
     if not hasattr(update, "message"):
         return
     if not hasattr(update.message, "text"):
@@ -71,7 +63,7 @@ def do_help(update: Update, context: CallbackContext):
             \n\n----------Demo----------\n\
             \n/add_alert\
             \nB2 734\
-            \n{datetime.today().strftime('%d/%m/%Y')}\
+            \n{datetime.datetime.today().strftime('%d/%m/%Y')}\
             "
     context.bot.send_message(
         chat_id=update.message.chat_id,
@@ -80,7 +72,7 @@ def do_help(update: Update, context: CallbackContext):
 
 
 @log_error
-def do_start(update: Update, context: CallbackContext):
+def do_start(update: telegram.Update, context: telegram.ext.CallbackContext):
     if not hasattr(update, "message"):
         return
     if not hasattr(update.message, "text"):
@@ -95,7 +87,7 @@ def do_start(update: Update, context: CallbackContext):
 
 
 @log_error
-def add_alert(update: Update, context: CallbackContext):
+def add_alert(update: telegram.Update, context: telegram.ext.CallbackContext):
     if not hasattr(update, "message"):
         return
     if not hasattr(update.message, "text"):
@@ -120,13 +112,13 @@ def add_alert(update: Update, context: CallbackContext):
 
 
 @log_error
-def flight_code_handler(update: Update, context: CallbackContext):
+def flight_code_handler(update: telegram.Update, context: telegram.ext.CallbackContext):
     if not hasattr(update, "message"):
         return
     if not hasattr(update.message, "text"):
         return
     try:
-        flight_data = process_flight_code(
+        flight_data = helpers.process_flight_code(
             flight_code=update.message.text,
             airline_designator_collection=airline_designator_collection,
         )
@@ -148,13 +140,13 @@ def flight_code_handler(update: Update, context: CallbackContext):
 
 
 @log_error
-def date_handler(update: Update, context: CallbackContext):
+def date_handler(update: telegram.Update, context: telegram.ext.CallbackContext):
     if not hasattr(update, "message"):
         return
     if not hasattr(update.message, "text"):
         return
     try:
-        date = process_date(update.message.text)
+        date = helpers.process_date(update.message.text)
     except ValueError as exception:
         error_message = "".join(exception.args)
         context.bot.send_message(
@@ -178,33 +170,34 @@ def date_handler(update: Update, context: CallbackContext):
         "bot": context.bot,
     }
     th = threading.Thread(
-        target=validate_queue_and_inform_user,
+        target=helpers.validate_queue_and_inform_user,
         kwargs=kwargs,
     )
     th.start()
 
-    return ConversationHandler.END
+    return telegram.ext.ConversationHandler.END
 
 
 @log_error
-def cancel_handler(update: Update, context: CallbackContext):
+def cancel_handler(update: telegram.Update, context: telegram.ext.CallbackContext):
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text="Canceled. Use /add_alert to start over",
     )
-    return ConversationHandler.END
+    return telegram.ext.ConversationHandler.END
 
 
 def main():
-    req = Request(
+    req = telegram.utils.request.Request(
         connect_timeout=5,
+        con_pool_size=8,
     )
-    bot = Bot(
+    bot = telegram.Bot(
         token=config.TG_TOKEN,
         request=req,
     )
 
-    updater = Updater(
+    updater = telegram.ext.Updater(
         bot=bot,
         use_context=True,
         )
@@ -212,33 +205,33 @@ def main():
 
     print(f"Bot {bot_get_me.first_name} is live now.")
 
-    conv_handler = ConversationHandler(
+    conv_handler = telegram.ext.ConversationHandler(
         entry_points=[
-            CommandHandler("add_alert", add_alert),
+            telegram.ext.CommandHandler("add_alert", add_alert),
         ],
         states={
             FLIGHT_CODE: [
-                MessageHandler(
-                    Filters.text & (~Filters.command),
+                telegram.ext.MessageHandler(
+                    telegram.ext.Filters.text & (~telegram.ext.Filters.command),
                     flight_code_handler,
                     pass_user_data=True
                 ),
             ],
             DATE: [
-                MessageHandler(
-                    Filters.text & (~Filters.command),
+                telegram.ext.MessageHandler(
+                    telegram.ext.Filters.text & (~telegram.ext.Filters.command),
                     date_handler,
                     pass_user_data=True
                 ),
             ],
         },
         fallbacks=[
-            CommandHandler("cancel", cancel_handler),
+            telegram.ext.CommandHandler("cancel", cancel_handler),
         ],
         allow_reentry=True,
     )
-    help_handler = CommandHandler("help", do_help)
-    start_handler = CommandHandler("start", do_start)
+    help_handler = telegram.ext.CommandHandler("help", do_help)
+    start_handler = telegram.ext.CommandHandler("start", do_start)
     updater.dispatcher.add_handler(start_handler, 1)
     updater.dispatcher.add_handler(help_handler, 1)
     updater.dispatcher.add_handler(conv_handler, 2)

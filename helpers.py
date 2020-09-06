@@ -422,11 +422,106 @@ class Alert:
         if not isinstance(other, Alert):
             raise TypeError("Other should be of the type Alert.")
         diff_dict = self.flight.compare(other.flight)
-        reply = None
-        if "Current Status" in diff_dict:
-            reply = f"Flight {self.flight.flight_code} on status update:\n"
-            reply += f"Old status: {diff_dict['Current Status'][0]}\n"
-            reply += f"New status: {diff_dict['Current Status'][1]}\n"
+        if diff_dict == {}:
+            reply = None
+        else:
+            # flight has arrived
+            if other.flight.properties['Real Arrival'] is not None:
+                now = datetime.datetime.now()
+                arrival_diff = now - other.flight.properties['Real Arrival']
+                reply = f"Your flight {self.flight.flight_code} has arrived"
+                if arrival_diff.total_seconds() < 60:
+                    reply += " just now"
+                else:
+                    days = arrival_diff.days
+                    if days != 0:
+                        reply += f" {days} days"
+                    seconds = arrival_diff.seconds
+                    hours = seconds // 3600
+                    seconds %= 3600
+                    minutes = seconds // 60
+                    if hours != 0:
+                        reply += f" {hours} hours"
+                    if minutes != 0:
+                        reply += f" {minutes} minutes"
+                    reply += " ago"
+            # flight has departed but not arrived
+            elif other.flight.properties['Real Departure'] is not None:
+                now = datetime.datetime.now()
+                self_estimated_arrival = self.flight.properties['Estimated Arrival']
+                other_estimated_arrival = other.flight.properties['Estimated Arrival']
+                # last time it was not departed yet.
+                if self_estimated_arrival is None:
+                    reply = f"Your flight {self.flight.flight_code} departed"
+                    departure_diff = now - other.flight.properties['Real Departure']
+                    if departure_diff.total_seconds() < 60:
+                        reply += " just now"
+                    else:
+                        days = departure_diff.days
+                        if days != 0:
+                            reply += f" {days} days"
+                        seconds = departure_diff.seconds
+                        hours = seconds // 3600
+                        seconds %= 3600
+                        minutes = seconds // 60
+                        if hours != 0:
+                            reply += f" {hours} hours"
+                        if minutes != 0:
+                            reply += f" {minutes} minutes"
+                        reply += " ago"
+                else:
+                    change = other_estimated_arrival - self_estimated_arrival
+                    change_minutes = abs(change).total_seconds() // 60
+                    if change_minutes > 10:
+                        reply = f"Your flight {self.flight.flight_code} will arrive in "
+                        arrival_est_diff = other_estimated_arrival - now
+                        if arrival_est_diff.total_seconds() < 60:
+                            reply += "less than a minute"
+                        else:
+                            days = arrival_est_diff.days
+                            if days != 0:
+                                reply += f" {days} days"
+                            seconds = arrival_est_diff.seconds
+                            hours = seconds // 3600
+                            seconds %= 3600
+                            minutes = seconds // 60
+                            if hours != 0:
+                                reply += f" {hours} hours"
+                            if minutes != 0:
+                                reply += f" {minutes} minutes"
+                    else:
+                        reply = None
+            elif other.flight.properties['Estimated Departure'] is not None:
+                self_estimated_departure = self.flight.properties['Estimated Departure']
+                other_estimated_departure = other.flight.properties['Estimated Departure']
+                if self_estimated_departure is None:
+                    change_minutes = 100
+                else:
+                    change = other_estimated_departure - self_estimated_departure
+                    change_minutes = abs(change).total_seconds() // 60
+                if change_minutes > 10:
+                    reply = f"Your flight {self.flight.flight_code} will depart in "
+                    now = datetime.datetime.now()
+                    departure_estimate = other_estimated_departure - now
+                    if departure_estimate.total_seconds() < 60:
+                        reply += "less than a minute"
+                    else:
+                        days = departure_estimate.days
+                        if days != 0:
+                            reply += f" {days} days"
+                        seconds = departure_estimate.seconds
+                        hours = seconds // 3600
+                        seconds %= 3600
+                        minutes = seconds // 60
+                        if hours != 0:
+                            reply += f" {hours} hours"
+                        if minutes != 0:
+                            reply += f" {minutes} minutes"
+                else:
+                    reply = None
+            else:
+                reply = None
+        print(f"Diff dict: {diff_dict}, reply: {reply}, flight: {self.flight}")
         return reply
 
 

@@ -6,10 +6,7 @@ except ImportError as e:
     raise ImportError(f'Error occurred during import: {e}\
     Please install all necessary libraries and try again')
 
-# ----------------------------------------------#
-#         Telegram bot and parse configs        #
-# ----------------------------------------------#
-
+# Telegram bot and parse configs
 TG_TOKEN = os.getenv("TG_TOKEN")
 BOT_LOG_PATH = "logs/bot.log"
 
@@ -66,7 +63,7 @@ AIRLINE_DESIGNATOR_DETECTORS = {
         "full_name": "Full Name:",
         }
 # A file name where to write the info
-AIRLINE_IATA_ICAO_JSON = "airline_iata_icao_codes.json"
+AIRLINE_IATA_ICAO_JSON = "airline_designator/airline_iata_icao_codes.json"
 
 # Set write_to_mongo to True to write to mongodb
 WRITE_TO_MONGO = True
