@@ -1,3 +1,9 @@
-start - Start working with the bot
-help - Help
+start - Start working with the bot(give an initial info about purpose and suggest to use help)
+help - Help(give detailed info about the bot, the commands and how to use it)
 add_alert - Follow instructions to add flight alert
+list - List all active alerts you have(list all active/frozen alerts that the current user has. No need to specify which one is active, and which one is frozen)
+delete_all - Deactivate all alerts
+feedback - leave a feedback about the bot to the author
+--- in the future ---
+delete alert_id - Delete the alert with the given ID
+update alert_id - Check for updates for the alert with the given ID
