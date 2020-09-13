@@ -1,24 +1,26 @@
+"""
+Configs of the telegram bot and its
+"""
 try:
-    import re
     import os
-
-except ImportError as e:
-    raise ImportError(f'Error occurred during import: {e}\
-    Please install all necessary libraries and try again')
+except ImportError as exc:
+    raise ImportError("Error occurred during import: %s" % (exc,))
 
 # Telegram bot and parse configs
 TG_TOKEN = os.getenv("TG_TOKEN")
 BOT_LOG_PATH = "logs/bot.log"
 
+FLIGHT_CODE_PATTERN_PLAIN = r"([A-Z0-9]{2}|[A-Z]{3})\s*([0-9]{1,4})"
+DATE_PATTERN_PLAIN = r"(\d{1,2})[-.,/;:_](\d{1,2})[-.,/;:_](\d{2,4})"
+TIME_PATTERN_PLAIN = r"(\d{2})[-.,/;:_](\d{2})"
+DATETIME_PATTERN_PLAIN = DATE_PATTERN_PLAIN + r"\s*" + TIME_PATTERN_PLAIN
+FULL_PATTERN_PLAIN = FLIGHT_CODE_PATTERN_PLAIN + r"\s*" + DATETIME_PATTERN_PLAIN
 
-DATE_PATTERN_STR = r"(\d{1,2})[-.,/;:_](\d{1,2})[-.,/;:_](\d{2,4})"
-TIME_PATTERN_STR = None
-FLIGHT_CODE_PATTERN_STR = r"^\s*([A-Z0-9]{2}|[A-Z]{3})\s*([0-9]{1,4})\s*$"
-
-FLIGHT_CODE_PATTERN = re.compile(FLIGHT_CODE_PATTERN_STR)
-DATE_PATTERN = re.compile(DATE_PATTERN_STR)
-FULL_PATTERN = re.compile(FLIGHT_CODE_PATTERN_STR + r"\s*" + DATE_PATTERN_STR)
-
+FLIGHT_CODE_PATTERN = r"^\s*" + FLIGHT_CODE_PATTERN_PLAIN + r"\s*$"
+DATE_PATTERN = r"^\s*" + DATE_PATTERN_PLAIN + r"\s*$"
+TIME_PATTERN = r"^\s*" + TIME_PATTERN_PLAIN + r"\s*$"
+DATETIME_PATTERN = r"^\s*" + DATETIME_PATTERN_PLAIN + r"\s*$"
+FULL_PATTERN = r"^\s*" + FULL_PATTERN_PLAIN + r"\s*$"
 
 # Mongodb connection uri
 MONGO_CONNECTION_URI = "mongodb://localhost:27017/"

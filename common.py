@@ -1,11 +1,13 @@
+"""
+This module contains functions that are used by different modules.
+"""
 try:
     import logging
 
     import pymongo
 
 except ImportError as exc:
-    raise ImportError(f'Error occurred during import: {exc}\
-    \nPlease install all necessary libraries and try again')
+    raise ImportError("Error occurred during import: %s" % (exc,))
 
 
 def get_logger(
@@ -43,7 +45,17 @@ def get_logger(
     return logger
 
 
-def get_collection(connection_uri: str, db_name: str, collection_name: str) -> pymongo.collection.Collection:
+def get_collection(
+        connection_uri: str,
+        db_name: str,
+        collection_name: str) -> pymongo.collection.Collection:
+    """
+    Create and return pymongo Collection object.
+    Arguments:
+        connection_uri: MongoDB connection URI
+        db_name: the name of the DB to connect
+        collection_name: the name of the collection in the db to get.
+    """
     client = pymongo.MongoClient(connection_uri)
     db = client.get_database(name=db_name)
     coll = db.get_collection(collection_name)

@@ -12,8 +12,7 @@ try:
     import common
 
 except ImportError as exc:
-    raise ImportError(f'Error occurred during import: {exc}\
-    \nPlease install all necessary libraries and try again')
+    raise ImportError("Error occurred during import: %s" % (exc,))
 
 
 queue_collection = common.get_collection(
@@ -42,7 +41,8 @@ def process_flight_code(flight_code: str) -> dict:
     flight_code = flight_code.upper()
     flight_code = re.match(config.FLIGHT_CODE_PATTERN, flight_code)
     if flight_code is None:
-        raise ValueError("Could not identify flight code. Make sure you entered everything correctly.")
+        raise ValueError("Could not identify flight code. "
+                         "Make sure you entered everything correctly.")
     airline_code, flight_number = flight_code.groups()
     data = {'flight_number': flight_number}
     if len(airline_code) == 2:
@@ -87,7 +87,6 @@ def process_date(date_str: str) -> datetime.datetime:
         Returns:
             date: datetime object
         Raise ValueError if invalid info provided.
-        Raise
     """
     match = re.search(config.DATE_PATTERN, date_str)
     if match is None:
@@ -112,10 +111,12 @@ def validate_queue_and_inform_user(
         user_data: dict,
         bot: telegram.Bot):
     """
-        This function takes in the data user supplied, validates it and saves to the mongodb
+        This function takes in the data user supplied, validates it and saves
+        to the mongodb
         Arguments:
             user_data: dictionary containing flight codes, date and chat_id
-            bot: telegram.bot object which will inform the user about the queue writing results.
+            bot: telegram.bot object which will inform the user about the queue
+            writing results.
         Returns: None
     """
     alert_id = "_".join(
@@ -159,8 +160,10 @@ class Flight:
         """
         Constructor of the flight
         :param flight_id: flight ID given by flightradar24 API
-        :param flight_code: flight code comprised of airline code and flight number
-        :param properties_dict: a dictionary containing all available info about the flight
+        :param flight_code: flight code comprised of airline code and flight
+        number
+        :param properties_dict: a dictionary containing all available info
+        about the flight
         """
         self.flight_id = flight_id
         self.flight_code = flight_code
@@ -176,7 +179,11 @@ class Flight:
         flight_id = flight_dict['flight_id']
         flight_code = flight_dict['flight_code']
         properties = flight_dict['properties']
-        return cls(flight_id=flight_id, flight_code=flight_code, properties_dict=properties)
+        return cls(
+            flight_id=flight_id,
+            flight_code=flight_code,
+            properties_dict=properties
+        )
 
     def to_dict(self):
         """
@@ -193,9 +200,10 @@ class Flight:
     @classmethod
     def create_from_api_response(cls, flight_dict):
         """
-        This is another alternative constructor. Supply the instance of the flightradar24 API response.
-        1 flight at a time.
-        :param flight_dict: a dictionary containing information about a single flight
+        This is another alternative constructor. Supply the instance of the
+        flightradar24 API response 1 flight at a time.
+        :param flight_dict: a dictionary containing information about a single
+        flight
         :return: an instance of Flight.
         Raises ValueError if flight_id or flight_code is missing.
         """
@@ -215,42 +223,54 @@ class Flight:
             curr_status = None
 
         try:
-            scheduled_dep = datetime.datetime.fromtimestamp(flight_dict['time']['scheduled']['departure'])
+            scheduled_dep = datetime.datetime.fromtimestamp(
+                flight_dict['time']['scheduled']['departure']
+            )
         except TypeError:
             scheduled_dep = None
         except KeyError:
             scheduled_dep = None
 
         try:
-            scheduled_arr = datetime.datetime.fromtimestamp(flight_dict['time']['scheduled']['arrival'])
+            scheduled_arr = datetime.datetime.fromtimestamp(
+                flight_dict['time']['scheduled']['arrival']
+            )
         except TypeError:
             scheduled_arr = None
         except KeyError:
             scheduled_arr = None
 
         try:
-            real_dep = datetime.datetime.fromtimestamp(flight_dict['time']['real']['departure'])
+            real_dep = datetime.datetime.fromtimestamp(
+                flight_dict['time']['real']['departure']
+            )
         except TypeError:
             real_dep = None
         except KeyError:
             real_dep = None
 
         try:
-            real_arr = datetime.datetime.fromtimestamp(flight_dict['time']['real']['arrival'])
+            real_arr = datetime.datetime.fromtimestamp(
+                flight_dict['time']['real']['arrival']
+            )
         except TypeError:
             real_arr = None
         except KeyError:
             real_arr = None
 
         try:
-            estimated_dep = datetime.datetime.fromtimestamp(flight_dict['time']['estimated']['departure'])
+            estimated_dep = datetime.datetime.fromtimestamp(
+                flight_dict['time']['estimated']['departure']
+            )
         except TypeError:
             estimated_dep = None
         except KeyError:
             estimated_dep = None
 
         try:
-            estimated_arr = datetime.datetime.fromtimestamp(flight_dict['time']['estimated']['arrival'])
+            estimated_arr = datetime.datetime.fromtimestamp(
+                flight_dict['time']['estimated']['arrival']
+            )
         except TypeError:
             estimated_arr = None
         except KeyError:
@@ -265,7 +285,11 @@ class Flight:
             "Real Arrival": real_arr,
             "Estimated Arrival": estimated_arr,
         }
-        flight = cls(flight_id=flight_id, flight_code=flight_code, properties_dict=properties_dict)
+        flight = cls(
+            flight_id=flight_id,
+            flight_code=flight_code,
+            properties_dict=properties_dict
+        )
         return flight
 
     def _validate_other(self, other):
@@ -277,7 +301,8 @@ class Flight:
             3. the flight_id and flight_code are equal for self and other.
         :param other: an instance of Flight
         :return: None
-        Raise TypeError if other is not an instance of Flight and ValueError if it is not valid for any other reason.
+        Raise TypeError if other is not an instance of Flight and ValueError
+        if it is not valid for any other reason.
         """
         if not isinstance(other, Flight):
             raise TypeError("Other should be an instance of Flight class.")
@@ -285,19 +310,23 @@ class Flight:
         if self.properties.keys() != other.properties.keys():
             raise ValueError("Properties of self and other did not match.")
 
-        if self.flight_id != other.flight_id or self.flight_code != self.flight_code:
+        if (self.flight_id, self.flight_code) != \
+                (other.flight_id, other.flight_code):
             raise ValueError("Self and other are different flights!")
 
-        # This part of the code is likely to be useless as we have None for missing dates. When they appear, the types
+        # This part of the code is likely to be useless as we have None
+        # for missing dates. When they appear, the types
         # will differ, which is not good for us.
         # for prop_name, prop in self.properties.items():
         #     other_prop = other.properties[prop_name]
         #     if type(other_prop) != type(prop):
-        #         raise ValueError(f"The type of the {prop_name} is different for self and other.")
+        #         raise ValueError(f"The type of the {prop_name} is\
+        #         different for self and other.")
 
     def compare(self, other):
         """
-        Validate and compare the self and other. Return a dictionary of the differences of the following form:
+        Validate and compare the self and other. Return a dictionary of the
+        differences of the following form:
             {"property_name": [self_value, other_value]}
         :param other: an instance of Flight to be compared with self
         :return: dictionary with differences
@@ -307,13 +336,13 @@ class Flight:
         for prop_name, prop in self.properties.items():
             other_property = other.properties[prop_name]
             if other_property != prop:
-                # print(f"Difference in {prop_name}, self:{prop}, other:{other_property}")
                 diff_dict[prop_name] = [prop, other_property]
         return diff_dict
 
     def update_and_return_diff(self, other):
         """
-        Compare the other with self and update self if it is different from other.
+        Compare the other with self and update self if it is
+        different from other.
         :param other: an instance of Flight from which self will be updated
         :return: dictionary with differences present
         """
@@ -328,12 +357,12 @@ class Flight:
         :return: string showing all information about the flight
         """
         res = ""
-        res += f"Flight: {self.flight_code}\n"
-        res += f"ID: {self.flight_id}"
+        res += "Flight: %s\n" % (self.flight_code,)
+        res += "ID: %s" % (self.flight_code,)
         for prop_name, prop in self.properties.items():
             if prop is None:
                 prop = ""
-            res += f"\n{prop_name}: {prop}"
+            res += "\n%s: %s" % (prop_name, prop)
         return res
 
 
@@ -347,7 +376,8 @@ class Alert:
         Arguments:
             flight: A Flight object representing the flight
             chat_id: the ID of the chat who requested the alert
-            alert_id: the ID of the alert comprised of the chat_id, flight code and flight date
+            alert_id: the ID of the alert comprised of the chat_id, flight
+            code and flight date
         """
         self.flight = flight
         self.chat_id = chat_id
@@ -370,9 +400,11 @@ class Alert:
     @classmethod
     def from_dict(cls, alert_dict):
         """
-        An alternative constructor to create the alert from the dictionary representation
+        An alternative constructor to create the alert from the
+        dictionary representation
         Arguments:
-            alert_dict: dictionary which contains the alert_id, Flight's dictionary and chat_id
+            alert_dict: dictionary which contains the alert_id,
+            Flight's dictionary and chat_id
         """
         alert_id = alert_dict['_id']
         flight = Flight.from_dict(alert_dict['flight'])
@@ -381,7 +413,8 @@ class Alert:
 
     def create_status_update(self, other):
         """
-        This method will compare 2 alerts and create reply string to be sent to the user
+        This method will compare 2 alerts and create reply string to be
+        sent to the user
         Arguments:
             other: another instance of Alert to be compared
         Returns:
@@ -497,15 +530,24 @@ class APIClient:
     """
     A helper class to interact with the API of the flightradar24.
     """
-    def __init__(self, logger_name="API_CLIENT", logger_path="logs/api_client.log", proxies=None):
+    def __init__(
+            self,
+            logger_name="API_CLIENT",
+            logger_path="logs/api_client.log",
+            proxies=None):
         """
         Constructor.
         :param logger_name: the name of the logger, defaults to API_CLIENT
-        :param logger_path: the file path to log into, defaults to api_client.log
-        :param proxies: list of proxies to be supplied to the request methods. Defaults to None
+        :param logger_path: the file path to log into, defaults to
+        api_client.log
+        :param proxies: list of proxies to be supplied to the request methods.
+        Defaults to None
 
         """
-        self.logger = common.get_logger(logger_name=logger_name, file_name=logger_path)
+        self.logger = common.get_logger(
+            logger_name=logger_name,
+            file_name=logger_path
+        )
         self.request_base_headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0"
         }
@@ -518,68 +560,82 @@ class APIClient:
     def make_request(self, end_point, proxies=None):
         """
         Make the request and return the JSON of the response if successful.
-        If any errors occur during the request or the error code is not ok, raise RuntimeError.
+        If any errors occur during the request or the error code is not ok,
+        raise RuntimeError.
         :param end_point: the url of the endpoint which should be accessed.
-        :param proxies: list of alternative proxies. Defaults to None. If None, the self.proxies will be used.
+        :param proxies: list of alternative proxies. Defaults to None. If None,
+        the self.proxies will be used.
         :return: dictionary of the response
         """
         if proxies is None:
             proxies = self.proxies
         try:
-            self.logger.info(f"Requesting '{end_point}'")
-            r = requests.get(end_point, headers=self.request_base_headers, proxies=proxies)
+            self.logger.info("Requesting '%s'" % (end_point,))
+            r = requests.get(
+                end_point,
+                headers=self.request_base_headers,
+                proxies=proxies
+            )
         except requests.RequestException as e:
             self.logger.exception("Exception occurred during request:")
-            raise RuntimeError(f"Error in request: {e}")
+            raise RuntimeError("Error in request: %s" % (e,))
 
         if not r.ok:
-            self.logger.error(f"Status code is not ok: {r.status_code}")
-            raise RuntimeError(f"Request failed: {r.status_code}")
+            self.logger.error("Status code is not ok: %s" % (r.status_code,))
+            raise RuntimeError("Request failed: %s" % (r.status_code,))
         return r.json()
 
     def get_flight(self, flight_code, page=1):
         """
         Query the API using the flight code
-        :param flight_code: flight code containing airline code and flight number
+        :param flight_code: flight code containing airline code and
+        flight number
         :param page: which page we are trying to access
-        :return: return the response component from the result component if request was successful.
-        Raises ValueError if the appropriate information is not found in the response.
+        :return: return the response component from the result component if
+        request was successful.
+        Raises ValueError if the appropriate information is not found in
+         the response.
         """
         endpoint = self.api_url + self.flight_url.format(page, flight_code)
         resp = self.make_request(endpoint)
         try:
             response = resp['result']['response']
         except KeyError:
-            self.logger.exception(f"Response does not contain any info: {resp}")
+            self.logger.exception("No info found in response: %s" % (resp,))
             raise ValueError("No results were found")
         return response
 
     def get_flight_by_id(self, flight_code, flight_id):
         """
         Query the API using the flight id and flight code
-        :param flight_code: flight code containing airline code and flight number
+        :param flight_code: flight code containing airline code and
+        flight number
         :param flight_id: flight id given by the flightradar24 API
-        :return: Flight object created from the found flight data. None if not found.
+        :return: Flight object created from the found flight data.
+        None if not found.
         """
         resp = self.get_flight(flight_code)
         current_flights = resp['data']
         if current_flights is not None:
-            self.logger.info("Current request contains flight data, processing it")
+            self.logger.info("Flight found, processing it")
             for flight in current_flights:
                 curr_flight = Flight.create_from_api_response(flight)
                 if curr_flight.flight_id == flight_id:
-                    self.logger.info("Flight with specified flight_id is found, returning it.")
+                    self.logger.info("Flight found, returning")
                     return curr_flight
-        self.logger.warning("Flight with specified flight_id not found, returning None")
+        self.logger.warning("No flight with %s found." % (flight_id,))
         return None
 
     def get_flight_by_date(self, flight_code, date):
         """
         Query the API using the flight code and date.
-        :param flight_code: flight code containing airline code and flight number
-        :param date: a datetime object with the requested flight departure date.
+        :param flight_code: flight code containing airline code and
+        flight number
+        :param date: a datetime object with the requested flight
+        departure date.
             Should be in local time zone of the flight.
-        :return: Flight object created from the found flight data. None if not found.
+        :return: Flight object created from the found flight data.
+        None if not found.
         """
         try:
             resp = self.get_flight(flight_code)
@@ -588,15 +644,15 @@ class APIClient:
             raise ValueError("No results found at all")
         current_flights = resp['data']
         if current_flights is not None:
-            self.logger.info("Current request contains flight data, processing it")
+            self.logger.info("Flight found, processing it")
             for flight in current_flights:
                 curr_flight = Flight.create_from_api_response(flight)
                 curr_fl_dep = curr_flight.properties['Scheduled Departure']
                 if curr_fl_dep is None:
                     continue
-                if (curr_fl_dep.year, curr_fl_dep.month, curr_fl_dep.day) == (date.year, date.month, date.day):
-                    self.logger.info("Flight with specified date is found, returning it.")
+                if (curr_fl_dep.year, curr_fl_dep.month, curr_fl_dep.day) == \
+                        (date.year, date.month, date.day):
+                    self.logger.info("Flight found, returning")
                     return curr_flight
-        self.logger.warning("Flight with specified date not found, returning None")
+        self.logger.warning("No flight with %s found." % (date,))
         return None
-
