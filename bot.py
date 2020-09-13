@@ -80,7 +80,7 @@ def do_help(update: telegram.Update, context: tg_ext.CallbackContext):
             \n\n----------Demo----------\n\
             \n/add_alert\
             \nB2 734\
-            \n%s" % (datetime.datetime.today().strftime('%d/%m/%Y'),)
+            \n%s" % (datetime.datetime.now().strftime('%d/%m/%Y'),)
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text=reply,
@@ -146,7 +146,7 @@ def flight_code_handler(
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text="Flight code registered.\
-            \nNow enter the date in the following format: DD/MM/YYYY",
+            \nNow enter the date in the following format: 25/08/2020",
     )
     return DATE
 

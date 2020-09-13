@@ -1,3 +1,7 @@
+"""
+This module contains helper functions that are used by the bot or the DB
+listener
+"""
 try:
     import re
     import datetime
@@ -98,7 +102,11 @@ def process_date(date_str: str) -> datetime.datetime:
         day = int(day)
         if year < 100:
             year += 2000
-        date = datetime.datetime(year=year, month=month, day=day)
+        date = datetime.datetime(
+            year=year,
+            month=month,
+            day=day,
+        )
     except ValueError:
         raise ValueError("Invalid date")
 
