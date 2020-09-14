@@ -19,10 +19,10 @@ except ImportError as exc:
     raise ImportError("Error occurred during import: %s" % (exc,))
 
 
-queue_collection = common.get_collection(
+alert_collection = common.get_collection(
     connection_uri=config.MONGO_CONNECTION_URI,
-    db_name=config.QUEUE_ALERT_DB,
-    collection_name=config.QUEUE_COLLECTION,
+    db_name=config.ALERT_DB,
+    collection_name=config.ALERT_COLLECTION,
 )
 
 airline_designator_collection = common.get_collection(
@@ -115,15 +115,12 @@ def process_date(date_str: str) -> datetime.datetime:
     return date
 
 
-def validate_queue_and_inform_user(
-        user_data: dict,
-        bot: telegram.Bot):
+def validate_and_insert(user_data: dict):
     """
         This function takes in the data user supplied, validates it and saves
         to the mongodb
         Arguments:
             user_data: dictionary containing flight codes, date and chat_id
-            bot: telegram.bot object which will inform the user about the queue
             writing results.
         Returns: None
     """
@@ -138,26 +135,16 @@ def validate_queue_and_inform_user(
         "_id": alert_id,
         "date": user_data['date'],
         "flight_code": user_data['flight_data']['flight_code'],
-        "chat_id": user_data['chat_id']
+        "chat_id": user_data['chat_id'],
+        "status": "queue",
     }
 
-    try:
-        response = queue_collection.update_one(
-            {"_id": alert_id},
-            {"$set": alert_dict},
-            upsert=True,
-        )
-    except pymongo.errors.PyMongoError:
-        reply = "Something went wrong. Please try again later."
-    else:
-        if response.acknowledged:
-            reply = "Alert is in queue. Will update shortly."
-        else:
-            reply = "Something went wrong. Please try again later."
-    bot.send_message(
-        chat_id=user_data['chat_id'],
-        text=reply,
+    response = alert_collection.update_one(
+        {"_id": alert_id},
+        {"$set": alert_dict},
+        upsert=True,
     )
+    logging.info("Alert inserted into DB: %s" % (response,))
 
 
 class Flight:
@@ -339,6 +326,7 @@ class Flight:
         :param other: an instance of Flight to be compared with self
         :return: dictionary with differences
         """
+        # @TODO compare with threshold to return changes only bigger than that.
         self._validate_other(other)
         diff_dict = {}
         for prop_name, prop in self.properties.items():
@@ -359,6 +347,26 @@ class Flight:
             self.properties[prop_name] = prop[1]
         return diff_dict
 
+    @property
+    def has_arrived(self):
+        """
+        Indicate weather the flight has already arrived or not
+        Arguments: None
+        Returns:
+            has_arrived: boolean indicating if the flight has arrived
+        """
+        return self.properties['Real Arrival'] is not None
+
+    @property
+    def has_departed(self):
+        """
+        Indicate weather the flight has already arrived or not
+        Arguments: None
+        Returns:
+            has_arrived: boolean indicating if the flight has arrived
+        """
+        return self.properties['Real Departure'] is not None
+
     def __str__(self):
         """
         Return the string representation of the flight
@@ -378,18 +386,26 @@ class Alert:
     """
     A class representing an alert.
     """
-    def __init__(self, flight: Flight, chat_id: int, alert_id: str):
+    def __init__(
+            self,
+            flight: Flight,
+            chat_id: int,
+            alert_id: str,
+            status: str):
         """
         Construct an alert.
         Arguments:
             flight: A Flight object representing the flight
             chat_id: the ID of the chat who requested the alert
             alert_id: the ID of the alert comprised of the chat_id, flight
+            status: string indicating weather the alert is active, queued or
+                deleted
             code and flight date
         """
         self.flight = flight
         self.chat_id = chat_id
         self.alert_id = alert_id
+        self.status = status
 
     def to_dict(self):
         """
@@ -402,6 +418,7 @@ class Alert:
             "_id": self.alert_id,
             "flight": self.flight.to_dict(),
             'chat_id': self.chat_id,
+            "status": self.status,
         }
         return res_dict
 
@@ -417,121 +434,13 @@ class Alert:
         alert_id = alert_dict['_id']
         flight = Flight.from_dict(alert_dict['flight'])
         chat_id = alert_dict['chat_id']
-        return cls(flight=flight, chat_id=chat_id, alert_id=alert_id)
-
-    def create_status_update(self, other):
-        """
-        This method will compare 2 alerts and create reply string to be
-        sent to the user
-        Arguments:
-            other: another instance of Alert to be compared
-        Returns:
-            reply_str: string containing the status update
-        """
-        if not isinstance(other, Alert):
-            raise TypeError("Other should be of the type Alert.")
-        diff_dict = self.flight.compare(other.flight)
-        if diff_dict == {}:
-            reply = None
-        else:
-            # flight has arrived
-            if other.flight.properties['Real Arrival'] is not None:
-                now = datetime.datetime.now()
-                arrival_diff = now - other.flight.properties['Real Arrival']
-                reply = f"Your flight {self.flight.flight_code} has arrived"
-                if arrival_diff.total_seconds() < 60:
-                    reply += " just now"
-                else:
-                    days = arrival_diff.days
-                    if days != 0:
-                        reply += f" {days} days"
-                    seconds = arrival_diff.seconds
-                    hours = seconds // 3600
-                    seconds %= 3600
-                    minutes = seconds // 60
-                    if hours != 0:
-                        reply += f" {hours} hours"
-                    if minutes != 0:
-                        reply += f" {minutes} minutes"
-                    reply += " ago"
-            # flight has departed but not arrived
-            elif other.flight.properties['Real Departure'] is not None:
-                now = datetime.datetime.now()
-                self_estimated_arrival = self.flight.properties['Estimated Arrival']
-                other_estimated_arrival = other.flight.properties['Estimated Arrival']
-                # last time it was not departed yet.
-                if self_estimated_arrival is None:
-                    reply = f"Your flight {self.flight.flight_code} departed"
-                    departure_diff = now - other.flight.properties['Real Departure']
-                    if departure_diff.total_seconds() < 60:
-                        reply += " just now"
-                    else:
-                        days = departure_diff.days
-                        if days != 0:
-                            reply += f" {days} days"
-                        seconds = departure_diff.seconds
-                        hours = seconds // 3600
-                        seconds %= 3600
-                        minutes = seconds // 60
-                        if hours != 0:
-                            reply += f" {hours} hours"
-                        if minutes != 0:
-                            reply += f" {minutes} minutes"
-                        reply += " ago"
-                else:
-                    change = other_estimated_arrival - self_estimated_arrival
-                    change_minutes = abs(change).total_seconds() // 60
-                    if change_minutes > 10:
-                        reply = f"Your flight {self.flight.flight_code} will arrive in "
-                        arrival_est_diff = other_estimated_arrival - now
-                        if arrival_est_diff.total_seconds() < 60:
-                            reply += "less than a minute"
-                        else:
-                            days = arrival_est_diff.days
-                            if days != 0:
-                                reply += f" {days} days"
-                            seconds = arrival_est_diff.seconds
-                            hours = seconds // 3600
-                            seconds %= 3600
-                            minutes = seconds // 60
-                            if hours != 0:
-                                reply += f" {hours} hours"
-                            if minutes != 0:
-                                reply += f" {minutes} minutes"
-                    else:
-                        reply = None
-            elif other.flight.properties['Estimated Departure'] is not None:
-                self_estimated_departure = self.flight.properties['Estimated Departure']
-                other_estimated_departure = other.flight.properties['Estimated Departure']
-                if self_estimated_departure is None:
-                    change_minutes = 100
-                else:
-                    change = other_estimated_departure - self_estimated_departure
-                    change_minutes = abs(change).total_seconds() // 60
-                if change_minutes > 10:
-                    reply = f"Your flight {self.flight.flight_code} will depart in "
-                    now = datetime.datetime.now()
-                    departure_estimate = other_estimated_departure - now
-                    if departure_estimate.total_seconds() < 60:
-                        reply += "less than a minute"
-                    else:
-                        days = departure_estimate.days
-                        if days != 0:
-                            reply += f" {days} days"
-                        seconds = departure_estimate.seconds
-                        hours = seconds // 3600
-                        seconds %= 3600
-                        minutes = seconds // 60
-                        if hours != 0:
-                            reply += f" {hours} hours"
-                        if minutes != 0:
-                            reply += f" {minutes} minutes"
-                else:
-                    reply = None
-            else:
-                reply = None
-        print(f"Diff dict: {diff_dict}, reply: {reply}, flight: {self.flight}")
-        return reply
+        status = alert_collection['status']
+        return cls(
+            flight=flight,
+            chat_id=chat_id,
+            alert_id=alert_id,
+            status=status,
+        )
 
 
 class APIClient:
@@ -643,7 +552,7 @@ class APIClient:
         departure date.
             Should be in local time zone of the flight.
         :return: Flight object created from the found flight data.
-        None if not found.
+        None if not found or multiple matches.
         """
         try:
             resp = self.get_flight(flight_code)
@@ -651,16 +560,93 @@ class APIClient:
             self.logger.exception("No results found at all")
             raise ValueError("No results found at all")
         current_flights = resp['data']
-        if current_flights is not None:
-            self.logger.info("Flight found, processing it")
-            for flight in current_flights:
-                curr_flight = Flight.create_from_api_response(flight)
-                curr_fl_dep = curr_flight.properties['Scheduled Departure']
-                if curr_fl_dep is None:
-                    continue
-                if (curr_fl_dep.year, curr_fl_dep.month, curr_fl_dep.day) == \
-                        (date.year, date.month, date.day):
-                    self.logger.info("Flight found, returning")
-                    return curr_flight
-        self.logger.warning("No flight with %s found." % (date,))
-        return None
+        if current_flights is None:
+            self.logger.warning("No flight with %s found." % (date,))
+            return None
+        matches_by_date = []
+        self.logger.info("Found flights, processing...")
+        for flight in current_flights:
+            curr_flight = Flight.create_from_api_response(flight)
+            curr_fl_dep = curr_flight.properties['Scheduled Departure']
+            if curr_fl_dep is None:
+                continue
+            if (curr_fl_dep.year, curr_fl_dep.month, curr_fl_dep.day) == \
+                    (date.year, date.month, date.day):
+                self.logger.info("Found matching.")
+                matches_by_date.append(curr_flight)
+        if len(matches_by_date) != 1:
+            self.logger.warning("More than 1 flight found by date.")
+            return None
+        else:
+            return matches_by_date[0]
+
+
+def get_status_update(old_status: Flight, new_status: Flight) -> str:
+    """
+    This method will compare 2 flights and create reply string to be
+    sent to the user. Returns an empty string if no status update is present
+    Arguments:
+        old_status: Flight object which represents the previous state
+        new_status: Flight object which represents the new state
+    Returns:
+        reply: string containing the status update
+    """
+
+    diff_dict = old_status.compare(new_status)
+    reply = ""
+
+    if diff_dict == {}:
+        reply = ""
+    elif new_status.has_arrived:
+        time_delta, _ = get_time_delta(new_status.properties['Real Arrival'])
+        reply = "Your flight %s has arrived" % (new_status.flight_code,)
+        reply += " %s ago" % (time_delta,)
+    elif new_status.has_departed:
+        time_delta, _ = get_time_delta(new_status.properties['Real Departure'])
+        reply = "Your flight %s has departed" % (new_status.flight_code,)
+        reply += " %s ago" % (time_delta,)
+        # @TODO check for Estimated arrival
+    # @TODO Think about proper logic of status update and implement it
+
+    return reply
+
+
+def get_time_delta(date: datetime.datetime) -> tuple:
+    """
+    Take in a datetime object and return a nicely constructed string showing
+    how much time passed since then in the format: x days, y hours, z minutes.
+    Arguments:
+        date: datetime object form which to calculate.
+    Returns:
+        result: a tuple with a string representation of the time delta and a
+        flag showing if the date is in the future or not
+    """
+    reply = ""
+    now = datetime.datetime.now()
+    time_delta = date - now
+    is_future = time_delta > datetime.timedelta(0)
+    time_delta = abs(time_delta)
+    days, seconds = time_delta.days, time_delta.seconds
+    hours = seconds // 3600
+    seconds %= 3600
+    minutes = seconds // 60
+    if days != 0:
+        if days == 1:
+            reply += "%s day" % (days,)
+        else:
+            reply += "%s days" % (days,)
+    if hours != 0:
+        if hours == 1:
+            reply += ", %s hour" % (hours,)
+        else:
+            reply += ", %s hours" % (hours,)
+    if minutes != 0:
+        if minutes == 1:
+            reply += ", %s minute" % (minutes,)
+        else:
+            reply += ", %s minutes" % (minutes,)
+    if reply == "":
+        reply = "just now"
+    reply = reply.strip(", ")
+    result = (reply, is_future)
+    return result
