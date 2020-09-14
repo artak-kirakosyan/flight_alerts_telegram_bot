@@ -1,5 +1,5 @@
 mongo
 __pycache__
 *.log
-venv
+.venv
 .idea

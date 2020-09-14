@@ -186,7 +186,7 @@ def date_handler(
         "bot": context.bot,
     }
     th = threading.Thread(
-        target=helpers.validate_queue_and_inform_user,
+        target=helpers.validate_and_insert,
         kwargs=kwargs,
     )
     th.start()
