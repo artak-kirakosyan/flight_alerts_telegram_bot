@@ -58,6 +58,7 @@ def do_start(update: telegram.Update, context: tg_ext.CallbackContext):
 
     reply = "Hey %s. Welcome onboard.\
             \nTo begin, type /help." % (update.message.from_user.first_name,)
+    print(update.message.chat_id)
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text=reply,
@@ -183,7 +184,6 @@ def date_handler(
     )
     kwargs = {
         "user_data": data,
-        "bot": context.bot,
     }
     th = threading.Thread(
         target=helpers.validate_and_insert,

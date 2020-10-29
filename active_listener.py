@@ -32,7 +32,9 @@ class ActiveListener(multiprocessing.Process):
             db_name=config.ACTIVE_ALERTS_DB,
             collection_name=config.ACTIVE_ALERTS_COLLECTION,
         )
-        self.thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=config.ACTIVE_LISTENER_THREAD_POOL_SIZE)
+        self.thread_pool = concurrent.futures.ThreadPoolExecutor(
+            max_workers=config.ACTIVE_LISTENER_THREAD_POOL_SIZE
+        )
         self.bot = telegram.Bot(
             token=config.TG_TOKEN,
         )

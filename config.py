@@ -33,3 +33,12 @@ AIRLINE_DESIGNATOR_COLLECTION = "airline_data"
 # alerts DB
 ALERT_DB = DB_NAME
 ALERT_COLLECTION = "alerts"
+
+QUEUE_LISTENER_LOG_PATH = "logs/queued_alerts.log"
+QUEUE_LISTENER_THREAD_POOL_SIZE = 3
+QUEUE_API_CLIENT_LOG_PATH = "logs/queued_api.log"
+
+ACTIVE_LISTENER_LOG_PATH = "logs/active_alerts.log"
+ACTIVE_LISTENER_THREAD_POOL_SIZE = 3
+ACTIVE_API_CLIENT_LOG_PATH = "logs/queued_api.log"
+

@@ -211,11 +211,12 @@ class Flight:
             flight_code = flight_dict['identification']['number']['default']
         except KeyError:
             raise ValueError("No flight code in the json file.")
-
-        try:
-            curr_status = flight_dict['status']['text']
-        except KeyError:
-            curr_status = None
+        # Current status is not being used for now.
+        #
+        # try:
+        #     curr_status = flight_dict['status']['text']
+        # except KeyError:
+        #     curr_status = None
 
         try:
             scheduled_dep = datetime.datetime.fromtimestamp(
@@ -272,7 +273,8 @@ class Flight:
             estimated_arr = None
 
         properties_dict = {
-            "Current Status": curr_status,
+            # Not using current status for now.
+            # "Current Status": curr_status,
             "Scheduled Departure": scheduled_dep,
             "Real Departure": real_dep,
             "Estimated Departure": estimated_dep,
@@ -318,12 +320,13 @@ class Flight:
         #         raise ValueError(f"The type of the {prop_name} is\
         #         different for self and other.")
 
-    def compare(self, other):
+    def compare(self, other, diff_threshold=600):
         """
         Validate and compare the self and other. Return a dictionary of the
         differences of the following form:
             {"property_name": [self_value, other_value]}
         :param other: an instance of Flight to be compared with self
+        :param diff_threshold: max threshold in seconds to ignore.
         :return: dictionary with differences
         """
         # @TODO compare with threshold to return changes only bigger than that.
@@ -331,8 +334,13 @@ class Flight:
         diff_dict = {}
         for prop_name, prop in self.properties.items():
             other_property = other.properties[prop_name]
-            if other_property != prop:
+            if type(prop) != type(other_property):
                 diff_dict[prop_name] = [prop, other_property]
+            else:
+                time_delta = abs(other_property - prop)
+                time_delta_in_seconds = time_delta.total_seconds()
+                if time_delta_in_seconds > diff_threshold:
+                    diff_dict[prop_name] = [prop, other_property]
         return diff_dict
 
     def update_and_return_diff(self, other):
@@ -355,17 +363,43 @@ class Flight:
         Returns:
             has_arrived: boolean indicating if the flight has arrived
         """
-        return self.properties['Real Arrival'] is not None
+        has_arrived = self.properties['Real Arrival'] is not None
+        return has_arrived
 
     @property
     def has_departed(self):
         """
-        Indicate weather the flight has already arrived or not
+        Indicate weather the flight has already departed or not
         Arguments: None
         Returns:
-            has_arrived: boolean indicating if the flight has arrived
+            has_departed: boolean indicating if the flight has departed
         """
-        return self.properties['Real Departure'] is not None
+        has_departed = self.properties['Real Departure'] is not None
+        return has_departed
+
+    @property
+    def has_arrival_estimate(self):
+        """
+        Indicate weather the flight has an arrival estimate or not
+        Arguments: None
+        Returns:
+            has_arrival_estimate: boolean indicating if the flight has
+            arrival estimate
+        """
+        has_arrival_estimate = self.properties['Estimated Arrival'] is not None
+        return has_arrival_estimate
+
+    @property
+    def has_depart_estimate(self):
+        """
+        Indicate weather the flight has departure estimate or not
+        Arguments: None
+        Returns:
+            has_dep_estimate: boolean indicating if the flight has
+            departure estimate
+        """
+        has_dep_estimate = self.properties['Estimated Departure'] is not None
+        return has_dep_estimate
 
     def __str__(self):
         """
@@ -474,7 +508,7 @@ class APIClient:
         self.flight_url = "/flight/list.json?&fetchBy=flight&page={}&limit=100&query={}"
         self.logger.info("API Client created")
 
-    def make_request(self, end_point, proxies=None):
+    def request(self, end_point, proxies=None):
         """
         Make the request and return the JSON of the response if successful.
         If any errors occur during the request or the error code is not ok,
@@ -514,7 +548,7 @@ class APIClient:
          the response.
         """
         endpoint = self.api_url + self.flight_url.format(page, flight_code)
-        resp = self.make_request(endpoint)
+        resp = self.request(endpoint)
         try:
             response = resp['result']['response']
         except KeyError:
@@ -581,33 +615,49 @@ class APIClient:
             return matches_by_date[0]
 
 
-def get_status_update(old_status: Flight, new_status: Flight) -> str:
+def get_status_update(old_flight: Flight, new_flight: Flight) -> str:
     """
     This method will compare 2 flights and create reply string to be
     sent to the user. Returns an empty string if no status update is present
     Arguments:
-        old_status: Flight object which represents the previous state
-        new_status: Flight object which represents the new state
+        old_flight: Flight object which represents the previous state
+        new_flight: Flight object which represents the new state
     Returns:
         reply: string containing the status update
     """
 
-    diff_dict = old_status.compare(new_status)
+    diff_dict = old_flight.compare(new_flight)
     reply = ""
 
     if diff_dict == {}:
         reply = ""
-    elif new_status.has_arrived:
-        time_delta, _ = get_time_delta(new_status.properties['Real Arrival'])
-        reply = "Your flight %s has arrived" % (new_status.flight_code,)
+    elif "Real Arrival" in diff_dict and new_flight.has_arrived:
+        time_delta, _ = get_time_delta(
+            new_flight.properties['Real Arrival']
+        )
+        reply = "Your flight %s has arrived" % (new_flight.flight_code,)
         reply += " %s ago" % (time_delta,)
-    elif new_status.has_departed:
-        time_delta, _ = get_time_delta(new_status.properties['Real Departure'])
-        reply = "Your flight %s has departed" % (new_status.flight_code,)
-        reply += " %s ago" % (time_delta,)
-        # @TODO check for Estimated arrival
-    # @TODO Think about proper logic of status update and implement it
-
+    elif "Real Departure" in diff_dict and new_flight.has_departed:
+        time_delta, _ = get_time_delta(
+            new_flight.properties['Real Departure']
+        )
+        reply = "Your flight %s has departed" % (new_flight.flight_code,)
+        reply += " %s ago." % (time_delta,)
+        if new_flight.has_arrival_estimate:
+            time_delta, _ = get_time_delta(
+                new_flight.properties['Estimated Arrival']
+            )
+            reply += "It will arrive in %s" % (time_delta,)
+    elif "Estimated Arrival" in diff_dict and new_flight.has_arrival_estimate:
+        time_delta, _ = get_time_delta(
+            new_flight.properties['Estimated Arrival']
+        )
+        reply = "Your flight will arrive in %s" % (time_delta,)
+    elif "Estimated Departure" in diff_dict and new_flight.has_depart_estimate:
+        time_delta, _ = get_time_delta(
+            new_flight.properties['Estimated Departure']
+        )
+        reply = "Your flight will depart in %s" % (time_delta,)
     return reply
 
 
