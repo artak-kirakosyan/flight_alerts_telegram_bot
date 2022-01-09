@@ -21,7 +21,7 @@
     {
       "name": "Bakhtar Afghan Airlines",
       "full_name": "Bakhtar Afghan Airlines",
-      "iata": null,
+      "iata": "BM",
       "icao": "BFO"
     },
     {
@@ -400,12 +400,6 @@
       "icao": "FBZ"
     },
     {
-      "name": "Flyest Lineas Aereas",
-      "full_name": "SOL S.A. Lineas Aereas d/b/a Flyest Lineas Aereas",
-      "iata": "FQ",
-      "icao": null
-    },
-    {
       "name": "Fuerza Aerea Argentina",
       "full_name": "Fuerza Aerea Argentina",
       "iata": null,
@@ -422,12 +416,6 @@
       "full_name": "JetSmart Airlines S.A.",
       "iata": "WJ",
       "icao": "JES"
-    },
-    {
-      "name": "LASA L\u00edneas A\u00e9reas",
-      "full_name": "Grupo LASA S.r.l. d/b/a LASA L\u00edneas A\u00e9reas",
-      "iata": "L4",
-      "icao": null
     },
     {
       "name": "Norwegian Air Argentina",
@@ -528,10 +516,16 @@
       "icao": "DVN"
     },
     {
-      "name": "flyArmenia Airways",
-      "full_name": "flyArmenia Airways LLC",
-      "iata": null,
+      "name": "Fly Armenia Airways",
+      "full_name": "Fly Armenia Airways LLC",
+      "iata": "VF",
       "icao": "FBB"
+    },
+    {
+      "name": "NOVAIR",
+      "full_name": "NOVAIR LLC",
+      "iata": "NG",
+      "icao": "NAI"
     },
     {
       "name": "Phoenix Avia",
@@ -582,6 +576,12 @@
       "full_name": "Comlux Aruba N.V.",
       "iata": "CS",
       "icao": "CXB"
+    },
+    {
+      "name": "Global Jet Aruba",
+      "full_name": "Global Jet Aruba V.B.A.",
+      "iata": null,
+      "icao": "GJW"
     },
     {
       "name": "ILPO Aruba Cargo",
@@ -1135,6 +1135,12 @@
       "icao": null
     },
     {
+      "name": "Avionco Ltd",
+      "full_name": "Avionco Ltd",
+      "iata": null,
+      "icao": "AEO"
+    },
+    {
       "name": "B.A.C.H.",
       "full_name": "B.A.C.H. Flugbetriebs GmbH",
       "iata": null,
@@ -1181,6 +1187,12 @@
       "full_name": "easyJet Europe Airline GmbH",
       "iata": "EC",
       "icao": "EJU"
+    },
+    {
+      "name": "Elangeni",
+      "full_name": "Elangeni GmbH",
+      "iata": null,
+      "icao": "ELG"
     },
     {
       "name": "Europ Star Aircraft",
@@ -1279,12 +1291,6 @@
       "icao": "LDM"
     },
     {
-      "name": "LaudaMotion Executive",
-      "full_name": "LaudaMotion Executive GmbH",
-      "iata": null,
-      "icao": "LDX"
-    },
-    {
       "name": "LVD Luftfahrzeug-Vermietungs-Dienst Gesellscgraft",
       "full_name": "LVD Luftfahrzeug-Vermietungs-Dienst Gesellscgraft mbH",
       "iata": null,
@@ -1351,6 +1357,12 @@
       "icao": "STC"
     },
     {
+      "name": "SPARFELL Luftfahrt",
+      "full_name": "SPARFELL Luftfahrt GmbH",
+      "iata": null,
+      "icao": "LDX"
+    },
+    {
       "name": "Speedwings Executive Jet",
       "full_name": "Speedwings Executive Jet GmbH",
       "iata": null,
@@ -1401,6 +1413,12 @@
   ],
   "Azerbaijan": [
     {
+      "name": "ASG Business Aviation",
+      "full_name": "ASG Business Aviation LLC",
+      "iata": null,
+      "icao": "ESW"
+    },
+    {
       "name": "Azerbaijan Airlines",
       "full_name": "Azerbaijan Hava Yollary",
       "iata": "J2",
@@ -1417,12 +1435,6 @@
       "full_name": "Silk Way Airlines",
       "iata": "ZP",
       "icao": "AZQ"
-    },
-    {
-      "name": "Silk Way Business Aviation",
-      "full_name": "Silk Way Business Aviation LLC",
-      "iata": null,
-      "icao": "ESW"
     },
     {
       "name": "Silk Way West Airlines",
@@ -1923,6 +1935,12 @@
       "icao": "EPC"
     },
     {
+      "name": "Fly Aeolus",
+      "full_name": "Fly Aeolus AirTaxi",
+      "iata": null,
+      "icao": null
+    },
+    {
       "name": "Flying Service",
       "full_name": "Flying Service",
       "iata": null,
@@ -1945,6 +1963,12 @@
       "full_name": "Gendarmerie Belge",
       "iata": null,
       "icao": "GDB"
+    },
+    {
+      "name": "Heli and Co",
+      "full_name": "Heli and Co S.A.",
+      "iata": null,
+      "icao": "HCC"
     },
     {
       "name": "IACA",
@@ -1995,8 +2019,8 @@
       "icao": null
     },
     {
-      "name": "TUI Airlines Belgium",
-      "full_name": "TUI Airlines Belgium NV",
+      "name": "TUI fly Belgium",
+      "full_name": "TUI Airlines Belgium NV t/a TUI fly Belgium",
       "iata": "TB",
       "icao": "JAF"
     },
@@ -2068,8 +2092,8 @@
     },
     {
       "name": "Longtail Aviation",
-      "full_name": "Longtail Aviation Ltd",
-      "iata": null,
+      "full_name": "Longtail Aviation International Ltd",
+      "iata": "6T",
       "icao": "LGT"
     },
     {
@@ -2143,12 +2167,6 @@
       "full_name": "FlyBosnia d.o.o.",
       "iata": "6W",
       "icao": "FBS"
-    },
-    {
-      "name": "Icar Air",
-      "full_name": "Icar Air",
-      "iata": null,
-      "icao": "RAC"
     }
   ],
   "Botswana": [
@@ -2287,6 +2305,12 @@
       "icao": "GLO"
     },
     {
+      "name": "ITA Transportes Aereos",
+      "full_name": "Itapemirim Transportes Aereos",
+      "iata": null,
+      "icao": "IPM"
+    },
+    {
       "name": "LATAM Airlines Brasil",
       "full_name": "TAM Linhas Aereas S.A. d/b/a LATAM Airlines Brasil",
       "iata": "JJ",
@@ -2383,16 +2407,16 @@
       "icao": "SBA"
     },
     {
-      "name": "Sterna Linhas Aereas",
-      "full_name": "Sterna Linhas Aereas Ltda",
-      "iata": null,
-      "icao": "STR"
-    },
-    {
       "name": "Tam Aviacao Executiva",
       "full_name": "Tam Aviacao Executiva",
       "iata": null,
       "icao": "TVE"
+    },
+    {
+      "name": "Total Linhas A\u00e9reas",
+      "full_name": "Total Linhas A\u00e9reas S/A",
+      "iata": null,
+      "icao": "TTL"
     },
     {
       "name": "twoFlex Taxi Aereo",
@@ -2464,12 +2488,6 @@
       "full_name": "Air Net 21 JSC - Flying Dandy",
       "iata": null,
       "icao": "DDD"
-    },
-    {
-      "name": "Air Scorpio",
-      "full_name": "Air Scorpio",
-      "iata": null,
-      "icao": "SCU"
     },
     {
       "name": "Air Sport",
@@ -2660,14 +2678,14 @@
     {
       "name": "GP Aviation",
       "full_name": "GP Aviation E.o.o.d.",
-      "iata": null,
+      "iata": "IV",
       "icao": "GPX"
     },
     {
       "name": "GullivAir",
       "full_name": "GullivAir",
-      "iata": null,
-      "icao": null
+      "iata": "G2",
+      "icao": "TJJ"
     },
     {
       "name": "Heli Air Services",
@@ -2734,12 +2752,6 @@
       "full_name": "Tayaran Jet JSC",
       "iata": "E8",
       "icao": "TJB"
-    },
-    {
-      "name": "TopJets",
-      "full_name": "TopJets Limited",
-      "iata": null,
-      "icao": "TJJ"
     },
     {
       "name": "Venid Air",
@@ -2881,12 +2893,6 @@
       "full_name": "JC (Cambodia) International Airlines",
       "iata": "QD",
       "icao": "JCC"
-    },
-    {
-      "name": "KC International Airlines",
-      "full_name": "KC International Airlines Co., Ltd. d/b/a KC International Airlines",
-      "iata": "3Q",
-      "icao": "KCH"
     },
     {
       "name": "Lanmei Airlines",
@@ -3031,6 +3037,12 @@
       "icao": "LIZ"
     },
     {
+      "name": "Air Liaison",
+      "full_name": "Air Liaison",
+      "iata": null,
+      "icao": "LSJ"
+    },
+    {
       "name": "Air Muskoka",
       "full_name": "Air Muskoka",
       "iata": null,
@@ -3109,8 +3121,8 @@
       "icao": "ASB"
     },
     {
-      "name": "Airsprint",
-      "full_name": "Airsprint, Inc.",
+      "name": "AirSprint",
+      "full_name": "AirSprint, Inc.",
       "iata": null,
       "icao": "ASP"
     },
@@ -3181,6 +3193,12 @@
       "icao": "AIW"
     },
     {
+      "name": "Atlantis-Air Link",
+      "full_name": "Atlantis-Air Link Ltd.",
+      "iata": "EA",
+      "icao": null
+    },
+    {
       "name": "Aviation Quebec Labrador",
       "full_name": "Aviation Quebec Labrador LTEE",
       "iata": null,
@@ -3220,13 +3238,13 @@
       "name": "Bombardier",
       "full_name": "Bombardier, Inc.",
       "iata": null,
-      "icao": "CDR"
+      "icao": "BBA"
     },
     {
       "name": "Bombardier",
       "full_name": "Bombardier, Inc.",
       "iata": null,
-      "icao": "BBA"
+      "icao": "CDR"
     },
     {
       "name": "Brock Air Services",
@@ -3341,6 +3359,12 @@
       "full_name": "Carson Air Ltd.",
       "iata": null,
       "icao": "CRN"
+    },
+    {
+      "name": "Cascadia Airways",
+      "full_name": "Cascadia Airways Inc",
+      "iata": null,
+      "icao": "CBF"
     },
     {
       "name": "Central Mountain Air",
@@ -3689,12 +3713,6 @@
       "full_name": "Jive Aviation LP",
       "iata": null,
       "icao": "JVE"
-    },
-    {
-      "name": "K.D. Air",
-      "full_name": "K.D. Air Corporation",
-      "iata": null,
-      "icao": "KDC"
     },
     {
       "name": "Keewatin Air",
@@ -4103,12 +4121,6 @@
       "full_name": "Skycharter (Malton) Limited",
       "iata": null,
       "icao": "SKL"
-    },
-    {
-      "name": "Skyjet MG",
-      "full_name": "Skyjet MG Inc.",
-      "iata": null,
-      "icao": "VSL"
     },
     {
       "name": "Skylink Express",
@@ -4758,6 +4770,12 @@
       "icao": "HAJ"
     },
     {
+      "name": "BAA Aviation",
+      "full_name": "BAA Aviation Limited",
+      "iata": null,
+      "icao": "CCI"
+    },
+    {
       "name": "Beijing Airlines",
       "full_name": "Beijing Airlines Co., Ltd",
       "iata": null,
@@ -4938,6 +4956,12 @@
       "icao": "CSN"
     },
     {
+      "name": "China Southern Airlines Cargo",
+      "full_name": "China Southern Airlines Cargo",
+      "iata": null,
+      "icao": "CSG"
+    },
+    {
       "name": "China Travel Tours Transportation Services Hong Kong Ltd. (CTTTS)",
       "full_name": "China Travel Tours Transportation Services Hong Kong Ltd. (CTTTS)",
       "iata": "NN",
@@ -4978,6 +5002,12 @@
       "full_name": "Colorful Yunnan General Aviation Co., Ltd.",
       "iata": null,
       "icao": "CYN"
+    },
+    {
+      "name": "COMAC Shanghai Aircraft Customer Service",
+      "full_name": "COMAC Shanghai Aircraft Customer Service Co., Ltd.",
+      "iata": null,
+      "icao": "CCS"
     },
     {
       "name": "Dalian Airlines",
@@ -5074,6 +5104,12 @@
       "full_name": "Grand China Air Co., Ltd.",
       "iata": "CN",
       "icao": "GDC"
+    },
+    {
+      "name": "Greater Bay Airlines",
+      "full_name": "Greater Bay Airlines Company Limited",
+      "iata": null,
+      "icao": "HGB"
     },
     {
       "name": "Guangzhou Baoneng Business Aviation",
@@ -5264,7 +5300,7 @@
     {
       "name": "North-Western Cargo International Airlines",
       "full_name": "North-Western Cargo International Airlines Co., Ltd.",
-      "iata": null,
+      "iata": "CO",
       "icao": "CNW"
     },
     {
@@ -5288,7 +5324,7 @@
     {
       "name": "Puer General Aviation",
       "full_name": "Puer General Aviation Co., Ltd.",
-      "iata": null,
+      "iata": "R8",
       "icao": "GUC"
     },
     {
@@ -5314,6 +5350,12 @@
       "full_name": "Reignwood Asia Aviation Co., Ltd.",
       "iata": null,
       "icao": "ICU"
+    },
+    {
+      "name": "Rizhao Ruixiang Flight Training",
+      "full_name": "Rizhao Ruixiang Flight Training Co., Ltd.",
+      "iata": null,
+      "icao": "RXF"
     },
     {
       "name": "Ruili Airlines",
@@ -5599,6 +5641,7 @@
     }
   ],
   "Christmas Islands": [],
+  "Cocos (Keeling )Islands": [],
   "Colombia": [
     {
       "name": "Aercaribe",
@@ -6436,6 +6479,12 @@
       "icao": "CPU"
     },
     {
+      "name": "airseven",
+      "full_name": "airseven",
+      "iata": null,
+      "icao": null
+    },
+    {
       "name": "Alsie Express",
       "full_name": "Alsie Express",
       "iata": "6I",
@@ -6494,12 +6543,6 @@
       "full_name": "CHC Denmark APS",
       "iata": null,
       "icao": "HBI"
-    },
-    {
-      "name": "Cimber",
-      "full_name": "Cimber A/S",
-      "iata": "QA",
-      "icao": "CIM"
     },
     {
       "name": "Copenhagen Airtaxi",
@@ -6734,10 +6777,22 @@
       "icao": "SNA"
     },
     {
+      "name": "Red Air",
+      "full_name": "Red Air S.r.l.",
+      "iata": "L5",
+      "icao": "REA"
+    },
+    {
       "name": "Servicios Aereos Profesionales",
       "full_name": "Servicios Aereos Profesionales, S.A.",
       "iata": "5S",
       "icao": "PSV"
+    },
+    {
+      "name": "Sky Cana",
+      "full_name": "Sky Holdings Corporation d/b/a Sky Cana",
+      "iata": "RD",
+      "icao": null
     },
     {
       "name": "Sky High Aviation Services",
@@ -6796,10 +6851,22 @@
       "icao": "SNA"
     },
     {
+      "name": "Red Air",
+      "full_name": "Red Air S.r.l.",
+      "iata": "L5",
+      "icao": "REA"
+    },
+    {
       "name": "Servicios Aereos Profesionales",
       "full_name": "Servicios Aereos Profesionales, S.A.",
       "iata": "5S",
       "icao": "PSV"
+    },
+    {
+      "name": "Sky Cana",
+      "full_name": "Sky Holdings Corporation d/b/a Sky Cana",
+      "iata": "RD",
+      "icao": null
     },
     {
       "name": "Sky High Aviation Services",
@@ -6878,6 +6945,12 @@
       "icao": "GLG"
     },
     {
+      "name": "Avioandes",
+      "full_name": "Avioandes S.A.",
+      "iata": null,
+      "icao": "AYH"
+    },
+    {
       "name": "Colaereos",
       "full_name": "Colaereos",
       "iata": null,
@@ -6938,12 +7011,6 @@
       "icao": "LNS"
     },
     {
-      "name": "TAME",
-      "full_name": "TAME Linea Aerea del Ecuador",
-      "iata": "EQ",
-      "icao": "TAE"
-    },
-    {
       "name": "Vuelos Internos Privados (V.I.P.)",
       "full_name": "Vuelos Internos Privados (V.I.P.)",
       "iata": null,
@@ -6986,6 +7053,12 @@
       "full_name": "Egypt Air Holding Company d/b/a Air Sinai",
       "iata": "4D",
       "icao": "ASD"
+    },
+    {
+      "name": "Ajwaa Airlines",
+      "full_name": "Ajwaa Airlines",
+      "iata": null,
+      "icao": "AJY"
     },
     {
       "name": "Al Ahram Aviation",
@@ -7411,9 +7484,9 @@
     },
     {
       "name": "Nordica",
-      "full_name": "Nordica",
-      "iata": null,
-      "icao": null
+      "full_name": "Nordic Aviation Group AS d/b/a Nordica",
+      "iata": "ND",
+      "icao": "NDA"
     },
     {
       "name": "Nyxair",
@@ -7636,12 +7709,6 @@
       "icao": "JEF"
     },
     {
-      "name": "Lillbacka Jetair",
-      "full_name": "Lillbacka Jetair Oy",
-      "iata": null,
-      "icao": "FPC"
-    },
-    {
       "name": "Nordicflite",
       "full_name": "Nordicflite Oy Ltd",
       "iata": null,
@@ -7770,12 +7837,6 @@
       "icao": "MQT"
     },
     {
-      "name": "Air Mana",
-      "full_name": "Air Mana - Transport A\u00e9rien",
-      "iata": null,
-      "icao": "EFC"
-    },
-    {
       "name": "Air Marine",
       "full_name": "Air Marine",
       "iata": null,
@@ -7834,6 +7895,12 @@
       "full_name": "Altagna",
       "iata": null,
       "icao": "AGH"
+    },
+    {
+      "name": "Amelia",
+      "full_name": "Amelia",
+      "iata": null,
+      "icao": "AIA"
     },
     {
       "name": "APG Airlines",
@@ -7983,13 +8050,13 @@
       "name": "ENAC",
       "full_name": "ENAC",
       "iata": null,
-      "icao": "ENF"
+      "icao": "NAK"
     },
     {
       "name": "ENAC",
       "full_name": "ENAC",
       "iata": null,
-      "icao": "NAK"
+      "icao": "ENF"
     },
     {
       "name": "EPAG - Groupie Air France",
@@ -8140,12 +8207,6 @@
       "full_name": "Leadair Unijet",
       "iata": null,
       "icao": "LEA"
-    },
-    {
-      "name": "LEVEL",
-      "full_name": "OpenSkies SASU c.o.b. as LEVEL",
-      "iata": "LV",
-      "icao": "BOS"
     },
     {
       "name": "Lorraine Aviation",
@@ -8363,12 +8424,6 @@
   ],
   "French Southern Territories": [],
   "Gabon": [
-    {
-      "name": "Afric Aviation",
-      "full_name": "Afric Aviation",
-      "iata": "L8",
-      "icao": "EKG"
-    },
     {
       "name": "Afrijet Business Services",
       "full_name": "Afrijet Business Services (ABS)",
@@ -8866,6 +8921,12 @@
       "icao": "EIS"
     },
     {
+      "name": "EURO LINK",
+      "full_name": "EURO LINK GmbH",
+      "iata": null,
+      "icao": "EUL"
+    },
+    {
       "name": "Eurocopter Deutschland",
       "full_name": "Eurocopter Deutschland GmbH",
       "iata": null,
@@ -8936,6 +8997,12 @@
       "full_name": "German Air Force",
       "iata": null,
       "icao": "GAF"
+    },
+    {
+      "name": "German Airways",
+      "full_name": "German Airways",
+      "iata": null,
+      "icao": "GER"
     },
     {
       "name": "German Army",
@@ -9122,6 +9189,12 @@
       "full_name": "Northern Helicopter GmbH",
       "iata": null,
       "icao": "NHC"
+    },
+    {
+      "name": "Ocean",
+      "full_name": "Ocean GmbH",
+      "iata": null,
+      "icao": "OCN"
     },
     {
       "name": "PACT Proair Charter Transport",
@@ -9322,12 +9395,6 @@
       "icao": "BTX"
     },
     {
-      "name": "WDL Aviation",
-      "full_name": "WDL Aviation GmbH & Co. KG",
-      "iata": "WH",
-      "icao": "WDL"
-    },
-    {
       "name": "Wiking Helikopter Service",
       "full_name": "Wiking Helikopter Service, GmbH",
       "iata": null,
@@ -9466,12 +9533,6 @@
       "full_name": "Star Jet Airlines",
       "iata": null,
       "icao": "SJG"
-    },
-    {
-      "name": "Starbow",
-      "full_name": "Aero Survey Ltd t/a Starbow",
-      "iata": "S9",
-      "icao": "IKM"
     },
     {
       "name": "Tropicana Airlines",
@@ -9634,8 +9695,8 @@
     },
     {
       "name": "Lumiwings",
-      "full_name": "Lumiwings",
-      "iata": null,
+      "full_name": "Lumiwings S.A.",
+      "iata": "L9",
       "icao": "LWI"
     },
     {
@@ -10228,12 +10289,6 @@
       "icao": "AHK"
     },
     {
-      "name": "Cathay Dragon",
-      "full_name": "Hong Kong Dragon Airlines Limited t/a Cathay Dragon",
-      "iata": "KA",
-      "icao": "HDA"
-    },
-    {
       "name": "Cathay Pacific Airways",
       "full_name": "Cathay Pacific Airways Ltd.",
       "iata": "CX",
@@ -10702,6 +10757,12 @@
       "icao": "LBE"
     },
     {
+      "name": "FlyBig",
+      "full_name": "Big Charter Pvt. Ltd. d/b/a FlyBig",
+      "iata": "S9",
+      "icao": "FLG"
+    },
+    {
       "name": "Go Air",
       "full_name": "Go Airlines (India) Pvt. Ltd.",
       "iata": "G8",
@@ -10836,12 +10897,6 @@
       "icao": "DRZ"
     },
     {
-      "name": "Dirgantara Air Service",
-      "full_name": "Dirgantara Air Service, PT.",
-      "iata": null,
-      "icao": "DIR"
-    },
-    {
       "name": "Garuda",
       "full_name": "Garuda Indonesia",
       "iata": "GA",
@@ -10864,12 +10919,6 @@
       "full_name": "PT. Indonesia AirAsia",
       "iata": "QZ",
       "icao": "AWQ"
-    },
-    {
-      "name": "Indonesia AirAsia X",
-      "full_name": "PT. Indonesia AirAsia Extra",
-      "iata": "XT",
-      "icao": "IDX"
     },
     {
       "name": "Industri Pesawat Terbang Nusantara",
@@ -11807,6 +11856,12 @@
       "icao": "GDM"
     },
     {
+      "name": "EGO Airways",
+      "full_name": "EGO Airways S.p.A.",
+      "iata": "E3",
+      "icao": "EGW"
+    },
+    {
       "name": "Elicar",
       "full_name": "Elicar S.r.l.",
       "iata": null,
@@ -11919,12 +11974,6 @@
       "full_name": "FlyVolare S.r.l.",
       "iata": null,
       "icao": null
-    },
-    {
-      "name": "Foxair",
-      "full_name": "Foxair",
-      "iata": null,
-      "icao": "FXR"
     },
     {
       "name": "Goldwing Airlines",
@@ -12283,12 +12332,6 @@
       "full_name": "Peach Aviation Limited",
       "iata": "MM",
       "icao": "APJ"
-    },
-    {
-      "name": "Rosen Aviation",
-      "full_name": "Rosen Aviation Inc",
-      "iata": null,
-      "icao": "KRS"
     },
     {
       "name": "Ryukyu Air Commuter",
@@ -12939,12 +12982,6 @@
       "icao": "ULB"
     },
     {
-      "name": "Vega",
-      "full_name": "Vega",
-      "iata": null,
-      "icao": "VAG"
-    },
-    {
       "name": "Vilga-Aviaservice",
       "full_name": "Vilga-Aviaservice",
       "iata": null,
@@ -13403,6 +13440,12 @@
       "icao": "JNA"
     },
     {
+      "name": "Korea Aerospace University",
+      "full_name": "Korea Aerospace University",
+      "iata": null,
+      "icao": "HGD"
+    },
+    {
       "name": "Korea Aviation College",
       "full_name": "Korea Aviation College",
       "iata": null,
@@ -13510,16 +13553,22 @@
   ],
   "Kyrgyzstan": [
     {
+      "name": "AeroStan",
+      "full_name": "AeroStan Aircompany",
+      "iata": null,
+      "icao": "BSC"
+    },
+    {
       "name": "Air Central Asia",
       "full_name": "Air Central Asia",
       "iata": null,
       "icao": "AAT"
     },
     {
-      "name": "Air Manas",
-      "full_name": "Air Manas d/b/a Air Manas Ltd. Air Company",
-      "iata": "ZM",
-      "icao": "MBB"
+      "name": "Air KG",
+      "full_name": "Air KG",
+      "iata": null,
+      "icao": "KGC"
     },
     {
       "name": "Alfa KR",
@@ -13534,22 +13583,10 @@
       "icao": "AVJ"
     },
     {
-      "name": "Bistar",
-      "full_name": "Bistar - Fez",
-      "iata": null,
-      "icao": "BSC"
-    },
-    {
       "name": "Biz Jet Charter",
       "full_name": "Biz Jet Charter, Inc.",
       "iata": null,
       "icao": "VLX"
-    },
-    {
-      "name": "Botir Avia",
-      "full_name": "Botir Avia",
-      "iata": null,
-      "icao": "BTR"
     },
     {
       "name": "British Gulf International Airlines",
@@ -13558,16 +13595,10 @@
       "icao": "BGK"
     },
     {
-      "name": "Central Asian Services",
-      "full_name": "Central Asian Services",
+      "name": "Fly Sky Airlines",
+      "full_name": "Fly Sky Airlines LLC",
       "iata": null,
-      "icao": "CBK"
-    },
-    {
-      "name": "DAMES, Department of aviation under the Ministry of Emergency Situaion",
-      "full_name": "DAMES, Department of aviation under the Ministry of Emergency Situaion",
-      "iata": null,
-      "icao": "DAM"
+      "icao": "FSQ"
     },
     {
       "name": "KAP.kg",
@@ -13576,34 +13607,10 @@
       "icao": "KGS"
     },
     {
-      "name": "Kvadro Aero",
-      "full_name": "Kvadro Aero Ltd.",
-      "iata": null,
-      "icao": "QVR"
-    },
-    {
       "name": "Kyrgyz Air",
       "full_name": "Kyrgyz Air",
       "iata": null,
       "icao": "KAF"
-    },
-    {
-      "name": "Kyrgyz Airines",
-      "full_name": "Kyrgyz Airlines",
-      "iata": null,
-      "icao": "KGZ"
-    },
-    {
-      "name": "Kyrgyz General Aviation",
-      "full_name": "Kyrgyz General Aviation",
-      "iata": null,
-      "icao": "KGB"
-    },
-    {
-      "name": "Manas Airways",
-      "full_name": "Manas Airways",
-      "iata": null,
-      "icao": "BAM"
     },
     {
       "name": "Phoenix Aviation",
@@ -13612,16 +13619,10 @@
       "icao": "PHG"
     },
     {
-      "name": "S Group International",
-      "full_name": "S Group International",
+      "name": "Sapsan Airline",
+      "full_name": "Sapsan Airline",
       "iata": null,
-      "icao": "IND"
-    },
-    {
-      "name": "Sky Bishkek",
-      "full_name": "Sky Bishkek",
-      "iata": null,
-      "icao": "BIS"
+      "icao": "KGB"
     },
     {
       "name": "Sky KG Airlines",
@@ -13630,43 +13631,19 @@
       "icao": "KGK"
     },
     {
-      "name": "Sky Way Air",
-      "full_name": "Sky Way Air",
-      "iata": null,
-      "icao": "SAB"
-    },
-    {
       "name": "Sun Light",
       "full_name": "Aircompany Sun Light",
       "iata": "6L",
       "icao": "SUH"
     },
     {
-      "name": "Supreme Aviation",
-      "full_name": "Supreme Aviation",
-      "iata": null,
-      "icao": "SGK"
-    },
-    {
       "name": "Tez Jet Airlines",
       "full_name": "Tez Jet Airlines",
       "iata": null,
       "icao": "TEZ"
-    },
-    {
-      "name": "Tian-Shan Air Company",
-      "full_name": "Tian-Shan Air Company",
-      "iata": null,
-      "icao": "TAW"
     }
   ],
   "Lao People's Democratic Republic": [
-    {
-      "name": "Euro-Asia Aviation",
-      "full_name": "Euro-Asia Aviation Co. Ltd.",
-      "iata": null,
-      "icao": "EUL"
-    },
     {
       "name": "GM Helicopters",
       "full_name": "GM Helicopters 102 NE Co., Ltd.",
@@ -13874,12 +13851,6 @@
       "full_name": "Skylounge Services S.A.L.",
       "iata": null,
       "icao": "TSM"
-    },
-    {
-      "name": "Wings of Lebanon",
-      "full_name": "Wings of Lebanon S.a.l.",
-      "iata": "W7",
-      "icao": "WLB"
     }
   ],
   "Lesotho": [],
@@ -14184,6 +14155,12 @@
       "icao": null
     },
     {
+      "name": "Heston Airlines",
+      "full_name": "Heston Airlines, UAB",
+      "iata": null,
+      "icao": "HST"
+    },
+    {
       "name": "Jump Air",
       "full_name": "UAB Jump Air",
       "iata": null,
@@ -14330,12 +14307,6 @@
       "icao": "XKX"
     },
     {
-      "name": "Madagasikara Airways",
-      "full_name": "Madagasikara Airways",
-      "iata": "7D",
-      "icao": "AYS"
-    },
-    {
       "name": "Malagasy Airlines",
       "full_name": "Malagasy Airlines",
       "iata": null,
@@ -14412,12 +14383,6 @@
       "icao": "MLP"
     },
     {
-      "name": "Asiacargo Express",
-      "full_name": "DRB-HICOM Asiacargo Express Sdn. Bhd.",
-      "iata": "3G",
-      "icao": "CXM"
-    },
-    {
       "name": "Berjaya Air",
       "full_name": "Berjaya Air Sdn. Bhd.",
       "iata": "J8",
@@ -14436,16 +14401,16 @@
       "icao": "ICY"
     },
     {
+      "name": "Kargo Xpress",
+      "full_name": "M Jets International Sdn Bhd t/a Kargo Xpress",
+      "iata": null,
+      "icao": "KXP"
+    },
+    {
       "name": "Layang-Layang Aerospace",
       "full_name": "Layang-Layang Aerospace SDN. BHD.",
       "iata": null,
       "icao": "LAY"
-    },
-    {
-      "name": "Love Fly",
-      "full_name": "M Jets International Sdn Bhd t/a Love Fly",
-      "iata": "WW",
-      "icao": "LUV"
     },
     {
       "name": "Malaysia Airlines",
@@ -14506,6 +14471,12 @@
       "full_name": "SKS Airways Sdn Bhd.",
       "iata": null,
       "icao": "SJB"
+    },
+    {
+      "name": "World Cargo Airlines",
+      "full_name": "World Cargo Airlines",
+      "iata": "3G",
+      "icao": "CXM"
     }
   ],
   "Maldives": [
@@ -14536,10 +14507,10 @@
   ],
   "Mali": [
     {
-      "name": "Galeyr Airline",
-      "full_name": "Galeyr Airline",
-      "iata": "G2",
-      "icao": null
+      "name": "Daallo Airlines (Somalia)",
+      "full_name": "Daallo Airlines (Somalia)",
+      "iata": "D9",
+      "icao": "DMQ"
     },
     {
       "name": "Jubba Airways",
@@ -14562,7 +14533,7 @@
     {
       "name": "Sky Mali",
       "full_name": "Sky Mali",
-      "iata": null,
+      "iata": "ML",
       "icao": "FML"
     }
   ],
@@ -14634,6 +14605,12 @@
       "icao": "ULC"
     },
     {
+      "name": "Alliance Executive Jets",
+      "full_name": "Alliance Executive Jets Ltd.",
+      "iata": null,
+      "icao": "ALE"
+    },
+    {
       "name": "Avcon Jet Malta",
       "full_name": "Avcon Jet Malta Ltd.",
       "iata": null,
@@ -14644,12 +14621,6 @@
       "full_name": "Avion Express Malta Ltd.",
       "iata": null,
       "icao": "MLH"
-    },
-    {
-      "name": "Beaufort",
-      "full_name": "Beaufort",
-      "iata": null,
-      "icao": "LDA"
     },
     {
       "name": "Blue Square Aviation Group Malta",
@@ -14748,6 +14719,12 @@
       "icao": "HSM"
     },
     {
+      "name": "Helicopterflights",
+      "full_name": "Helicopterflights Ltd.",
+      "iata": null,
+      "icao": "HCF"
+    },
+    {
       "name": "Hermes Aviation",
       "full_name": "Hermes Aviation",
       "iata": null,
@@ -14778,6 +14755,12 @@
       "icao": "KER"
     },
     {
+      "name": "Lauda Europe",
+      "full_name": "Lauda Europe",
+      "iata": "LW",
+      "icao": "LDA"
+    },
+    {
       "name": "Le One",
       "full_name": "Le One",
       "iata": null,
@@ -14788,6 +14771,12 @@
       "full_name": "Luke Air",
       "iata": null,
       "icao": "LKA"
+    },
+    {
+      "name": "Luxaviation Malta",
+      "full_name": "Luxaviation Malta",
+      "iata": null,
+      "icao": "LXM"
     },
     {
       "name": "Luxwing",
@@ -14826,16 +14815,16 @@
       "icao": "MDM"
     },
     {
-      "name": "Mediterranean Aviation Operations",
-      "full_name": "Mediterranean Aviation Operations Company Ltd.",
-      "iata": "5M",
-      "icao": "MDO"
-    },
-    {
       "name": "Mediterranean Coastal Airlines",
       "full_name": "Mediterranean Coastal Airlines Ltd.",
       "iata": null,
       "icao": "MCA"
+    },
+    {
+      "name": "MedOps",
+      "full_name": "Mediterranean Aviation Operations Company Ltd. d/b/a MedOps",
+      "iata": "5M",
+      "icao": "MDO"
     },
     {
       "name": "Nomad Aviation (Europe)",
@@ -14848,12 +14837,6 @@
       "full_name": "Oasis Flight Malta Ltd",
       "iata": null,
       "icao": "OFM"
-    },
-    {
-      "name": "Orion",
-      "full_name": "Orion (Malta) Ltd",
-      "iata": null,
-      "icao": "OXM"
     },
     {
       "name": "PanAfriqiyah",
@@ -15371,6 +15354,12 @@
       "icao": "AJE"
     },
     {
+      "name": "Aero JL",
+      "full_name": "Aero JL S.A. de C.V.",
+      "iata": null,
+      "icao": "JLA"
+    },
+    {
       "name": "Aero Jomacha",
       "full_name": "Aero Jomacha, S.A. de C.V.",
       "iata": null,
@@ -15563,12 +15552,6 @@
       "icao": "TZA"
     },
     {
-      "name": "Aero Tonala",
-      "full_name": "Aero Tonala",
-      "iata": null,
-      "icao": "TON"
-    },
-    {
       "name": "Aero Transportes Del Humaya",
       "full_name": "Aero Transportes Del Humaya, S.A. de C.V.",
       "iata": null,
@@ -15717,12 +15700,6 @@
       "full_name": "Aerolima, S.A. de C.V.",
       "iata": null,
       "icao": "LMA"
-    },
-    {
-      "name": "Aerolineas Aereas Ejecutivas de Durango",
-      "full_name": "Aerolineas Aereas Ejecutivas de Durango, S.A. de C.V.",
-      "iata": null,
-      "icao": "LDG"
     },
     {
       "name": "Aerolineas Amanecer",
@@ -15999,12 +15976,6 @@
       "full_name": "Aeroservicios Ejecutivos Corporativos, S.A. de C.V.",
       "iata": null,
       "icao": "EJP"
-    },
-    {
-      "name": "Aeroservicios Ejecutivos Del Occidente",
-      "full_name": "Aeroservicios Ejecutivos Del Occidente, S.A. de C.V.",
-      "iata": null,
-      "icao": "AEO"
     },
     {
       "name": "Aeroservicios Gama",
@@ -16961,12 +16932,6 @@
       "icao": "KUA"
     },
     {
-      "name": "LATAM Cargo Mexico",
-      "full_name": "Aerotransportes Mas de Carga, S.A. de C.V. d/b/a LATAM Cargo Mexico",
-      "iata": "M7",
-      "icao": "MAA"
-    },
-    {
       "name": "Leo Taxi Aereo",
       "full_name": "Leo Taxi Aereo, S.A. de C.V.",
       "iata": null,
@@ -17039,16 +17004,10 @@
       "icao": "GMT"
     },
     {
-      "name": "MCS Aerocarga de Mexico",
-      "full_name": "MCS Aerocarga de Mexico, S.A. de C.V.",
-      "iata": "T8",
-      "icao": null
-    },
-    {
-      "name": "MCS Aerocarga de Mexico",
-      "full_name": "MCS Aerocarga de Mexico, S.A. de C.V.",
-      "iata": null,
-      "icao": "MCS"
+      "name": "MasAir",
+      "full_name": "Aerotransportes Mas de Carga, S.A. de C.V. t/a MasAir",
+      "iata": "M7",
+      "icao": "MAA"
     },
     {
       "name": "Medifly",
@@ -17939,6 +17898,12 @@
       "icao": "TPE"
     },
     {
+      "name": "TUM AeroCarga de Mexico",
+      "full_name": "TUM AeroCarga de Mexico, S.A. de C.V.",
+      "iata": "T8",
+      "icao": "MCS"
+    },
+    {
       "name": "Universal Jet Rental de Mexico",
       "full_name": "Universal Jet Rental de Mexico, S.A. de C.V.",
       "iata": null,
@@ -18234,12 +18199,6 @@
       "icao": "EZA"
     },
     {
-      "name": "Hangard Aviation",
-      "full_name": "Hangard Aviation Ltd.",
-      "iata": null,
-      "icao": "HGD"
-    },
-    {
       "name": "Hunnu Air",
       "full_name": "Hunnu Air - Wings of Mongolia",
       "iata": "MR",
@@ -18288,12 +18247,6 @@
       "full_name": "DI Air",
       "iata": null,
       "icao": "PBS"
-    },
-    {
-      "name": "Montenegro Airlines",
-      "full_name": "Montenegro Airlines",
-      "iata": "YM",
-      "icao": "MGX"
     }
   ],
   "Montserrat": [
@@ -18359,7 +18312,7 @@
       "name": "Ethiopian Mozambique Airlines",
       "full_name": "Ethiopian Mozambique Airlines, Ltd",
       "iata": "ZU",
-      "icao": null
+      "icao": "EMZ"
     },
     {
       "name": "Everett Aviation",
@@ -18416,12 +18369,6 @@
       "full_name": "Apex Airline Public Company Limited",
       "iata": "SO",
       "icao": null
-    },
-    {
-      "name": "FMI Air",
-      "full_name": "FMI Air Ltd.",
-      "iata": "ND",
-      "icao": "FMI"
     },
     {
       "name": "Golden Myanmar Airlines",
@@ -18600,12 +18547,6 @@
       "icao": null
     },
     {
-      "name": "Arkefly",
-      "full_name": "TUI Airlines Nederlands B.V.",
-      "iata": "OR",
-      "icao": "TFL"
-    },
-    {
       "name": "Bright Air",
       "full_name": "Bright Air",
       "iata": null,
@@ -18754,6 +18695,12 @@
       "full_name": "Transavia",
       "iata": "HV",
       "icao": "TRA"
+    },
+    {
+      "name": "TUI fly Netherlands",
+      "full_name": "TUI Airlines Nederlands B.V. t/a TUI fly Netherlands",
+      "iata": "OR",
+      "icao": "TFL"
     },
     {
       "name": "Tulip Air",
@@ -18986,7 +18933,7 @@
     {
       "name": "Sunair Aviation",
       "full_name": "Sunair Aviation Ltd.",
-      "iata": "ZU",
+      "iata": null,
       "icao": "SAV"
     },
     {
@@ -19047,6 +18994,12 @@
     }
   ],
   "Niger": [
+    {
+      "name": "Aero",
+      "full_name": "Aero Contractors Company of Nigeria Ltd.",
+      "iata": "N2",
+      "icao": "NIG"
+    },
     {
       "name": "Aero Express",
       "full_name": "Aero Express",
@@ -19306,6 +19259,12 @@
       "icao": "FRN"
     },
     {
+      "name": "Fly for Value Aviation Limited (Valujet)",
+      "full_name": "Fly for Value Aviation Limited (Valujet)",
+      "iata": null,
+      "icao": "FVJ"
+    },
+    {
       "name": "Fly Skyjet",
       "full_name": "Fly Skyjet",
       "iata": null,
@@ -19415,15 +19374,15 @@
     },
     {
       "name": "Max Air",
-      "full_name": "Max Air Limited",
-      "iata": "VM",
-      "icao": "NGL"
-    },
-    {
-      "name": "Max Air",
       "full_name": "Max Air SA Niger",
       "iata": null,
       "icao": "MWN"
+    },
+    {
+      "name": "Max Air",
+      "full_name": "Max Air Limited",
+      "iata": "VM",
+      "icao": "NGL"
     },
     {
       "name": "Med View Airlines",
@@ -19462,6 +19421,12 @@
       "icao": "NXS"
     },
     {
+      "name": "NG Eagle",
+      "full_name": "NG Eagle Limited",
+      "iata": null,
+      "icao": "XGE"
+    },
+    {
       "name": "Niger Air Cargo",
       "full_name": "Niger Air Cargo",
       "iata": "NO",
@@ -19472,12 +19437,6 @@
       "full_name": "Niger Airlines S.A.",
       "iata": "6N",
       "icao": "NIN"
-    },
-    {
-      "name": "Niger Airways",
-      "full_name": "Niger Airways SA",
-      "iata": "NJ",
-      "icao": null
     },
     {
       "name": "Nigerian Air Force",
@@ -19516,9 +19475,9 @@
       "icao": "OKJ"
     },
     {
-      "name": "Omniblu",
-      "full_name": "Omniblu Limited",
-      "iata": null,
+      "name": "Omni-blu Aviation",
+      "full_name": "Omni-blu Aviation Limited",
+      "iata": "O7",
       "icao": "OMB"
     },
     {
@@ -19721,6 +19680,12 @@
     }
   ],
   "Nigeria": [
+    {
+      "name": "Aero",
+      "full_name": "Aero Contractors Company of Nigeria Ltd.",
+      "iata": "N2",
+      "icao": "NIG"
+    },
     {
       "name": "Africa Chartered Services",
       "full_name": "Africa Chartered Services",
@@ -19968,6 +19933,12 @@
       "icao": "FRN"
     },
     {
+      "name": "Fly for Value Aviation Limited (Valujet)",
+      "full_name": "Fly for Value Aviation Limited (Valujet)",
+      "iata": null,
+      "icao": "FVJ"
+    },
+    {
       "name": "Freedom Air Services",
       "full_name": "Freedom Air Services Ltd.",
       "iata": null,
@@ -20106,6 +20077,12 @@
       "icao": "NXS"
     },
     {
+      "name": "NG Eagle",
+      "full_name": "NG Eagle Limited",
+      "iata": null,
+      "icao": "XGE"
+    },
+    {
       "name": "Nigerian Air Force",
       "full_name": "Nigerian Air Force",
       "iata": null,
@@ -20136,9 +20113,9 @@
       "icao": "OKJ"
     },
     {
-      "name": "Omniblu",
-      "full_name": "Omniblu Limited",
-      "iata": null,
+      "name": "Omni-blu Aviation",
+      "full_name": "Omni-blu Aviation Limited",
+      "iata": "O7",
       "icao": "OMB"
     },
     {
@@ -20382,12 +20359,6 @@
       "icao": "HKS"
     },
     {
-      "name": "FlyViking",
-      "full_name": "FlyViking AS",
-      "iata": "VF",
-      "icao": "FVK"
-    },
-    {
       "name": "Fonnafly",
       "full_name": "Fonnafly Sjo AS",
       "iata": null,
@@ -20545,6 +20516,12 @@
       "full_name": "Academia Romana de Aviatie",
       "iata": null,
       "icao": "RFT"
+    },
+    {
+      "name": "Aerro Direkt",
+      "full_name": "Aerro Direkt",
+      "iata": null,
+      "icao": "DIR"
     },
     {
       "name": "Air Bucharest",
@@ -20814,7 +20791,7 @@
     },
     {
       "name": "Air Falcon",
-      "full_name": "Air Falcon (Pvt) Ltd.",
+      "full_name": "M/S Air Falcon (Pvt) Ltd.",
       "iata": null,
       "icao": "FPK"
     },
@@ -21246,12 +21223,6 @@
       "name": "Aerolinea del Caribe - Peru",
       "full_name": "Aerolinea del Caribe - Peru S.A.C.",
       "iata": "EF",
-      "icao": null
-    },
-    {
-      "name": "Aerolinea del Caribe-Peru",
-      "full_name": "Aerolinea del Caribe-Peru S.A.C.",
-      "iata": null,
       "icao": "CPR"
     },
     {
@@ -21277,12 +21248,6 @@
       "full_name": "Amazon Sky S.A.C.",
       "iata": null,
       "icao": "AMT"
-    },
-    {
-      "name": "Avianca Peru",
-      "full_name": "Trans American Airlines, S.A. Avianca Peru",
-      "iata": "T0",
-      "icao": "TPU"
     },
     {
       "name": "F A Naval Del Peru",
@@ -21657,6 +21622,12 @@
       "icao": "WEY"
     },
     {
+      "name": "Air Dream College",
+      "full_name": "Air Dream College",
+      "iata": null,
+      "icao": "ADM"
+    },
+    {
       "name": "Airjetsul Private Jets",
       "full_name": "Airjetsul",
       "iata": null,
@@ -21831,6 +21802,12 @@
       "icao": "OAV"
     },
     {
+      "name": "Omni Aviation Training Center",
+      "full_name": "Omni Aviation Training Center",
+      "iata": null,
+      "icao": "ONI"
+    },
+    {
       "name": "Orbest",
       "full_name": "Orbest, S.A.",
       "iata": "6O",
@@ -22000,6 +21977,12 @@
       "full_name": "Academia Romana de Aviatie",
       "iata": null,
       "icao": "RFT"
+    },
+    {
+      "name": "Aerro Direkt",
+      "full_name": "Aerro Direkt",
+      "iata": null,
+      "icao": "DIR"
     },
     {
       "name": "Air Bucharest",
@@ -22412,6 +22395,12 @@
       "icao": "KZN"
     },
     {
+      "name": "Aviashelf",
+      "full_name": "Aviashelf",
+      "iata": null,
+      "icao": "TGA"
+    },
+    {
       "name": "Aviastar-Tu",
       "full_name": "Aviastar-Tu Co. Ltd",
       "iata": "4B",
@@ -22496,6 +22485,12 @@
       "icao": "CVS"
     },
     {
+      "name": "Course-S",
+      "full_name": "Air Company Course-S",
+      "iata": null,
+      "icao": "KRS"
+    },
+    {
       "name": "Domodedovo Airport Handling",
       "full_name": "Domodedovo Airport Handling, CJSC",
       "iata": null,
@@ -22544,16 +22539,22 @@
       "icao": "RIF"
     },
     {
-      "name": "Finlight Airline",
-      "full_name": "Finlight Airline LLC",
+      "name": "Federal State Budgetary Organization Gagarin Research & Test Cosmonaut Training Center",
+      "full_name": "Federal State Budgetary Organization Gagarin Research & Test Cosmonaut Training Center",
       "iata": null,
-      "icao": "PNT"
+      "icao": "CPK"
     },
     {
       "name": "Finlight Airline",
       "full_name": "Finlight Airline L.L.C.",
       "iata": null,
       "icao": "FNT"
+    },
+    {
+      "name": "Finlight Airline",
+      "full_name": "Finlight Airline LLC",
+      "iata": null,
+      "icao": "PNT"
     },
     {
       "name": "Flight",
@@ -22776,12 +22777,6 @@
       "full_name": "Nass LLC",
       "iata": null,
       "icao": "NAW"
-    },
-    {
-      "name": "Nefteyugansk Aviation Division",
-      "full_name": "Nefteyugansk Aviation Division",
-      "iata": null,
-      "icao": "NFT"
     },
     {
       "name": "Nizhnevartovsk Enterprise",
@@ -23138,6 +23133,12 @@
       "icao": "SUM"
     },
     {
+      "name": "Stream Air",
+      "full_name": "Stream Air",
+      "iata": null,
+      "icao": "VPT"
+    },
+    {
       "name": "Streamline Ops",
       "full_name": "Streamline Ops, CJSC",
       "iata": null,
@@ -23202,6 +23203,12 @@
       "full_name": "Utair Aviation Joint-Stock Company",
       "iata": "UT",
       "icao": "UTA"
+    },
+    {
+      "name": "UTair-Helicopter Services",
+      "full_name": "UTair-Helicopter Services",
+      "iata": null,
+      "icao": "UTH"
     },
     {
       "name": "UVT aero",
@@ -23450,6 +23457,12 @@
       "icao": "SGC"
     },
     {
+      "name": "TAG Aviation San Marino",
+      "full_name": "TAG Aviation San Marino S.r.l.",
+      "iata": null,
+      "icao": "TAG"
+    },
+    {
       "name": "TJS San Marino",
       "full_name": "TJS San Marino",
       "iata": null,
@@ -23623,7 +23636,7 @@
     },
     {
       "name": "Privatair Saudi Arabia",
-      "full_name": "Privatair Saudi Arabia",
+      "full_name": "Privatair Saudi Arabia Co. Ltd.",
       "iata": null,
       "icao": "PVS"
     },
@@ -23984,12 +23997,6 @@
       "icao": "AGZ"
     },
     {
-      "name": "Air Cargo Global",
-      "full_name": "Air Cargo Global s.r.o.",
-      "iata": "CW",
-      "icao": "CCC"
-    },
-    {
       "name": "Air Transport",
       "full_name": "Air  - Transport Europe spol. s.r.o.",
       "iata": null,
@@ -24024,12 +24031,6 @@
       "full_name": "Opera Jet s.r.o.",
       "iata": null,
       "icao": "OPJ"
-    },
-    {
-      "name": "Samair",
-      "full_name": "Sayegh Aviation Europe, s.r.o. t/a Samair",
-      "iata": null,
-      "icao": "CCS"
     },
     {
       "name": "Slovak Air Force",
@@ -24194,10 +24195,10 @@
   ],
   "Somalia": [
     {
-      "name": "Galeyr Airline",
-      "full_name": "Galeyr Airline",
-      "iata": "G2",
-      "icao": null
+      "name": "Daallo Airlines (Somalia)",
+      "full_name": "Daallo Airlines (Somalia)",
+      "iata": "D9",
+      "icao": "DMQ"
     },
     {
       "name": "Jubba Airways",
@@ -24260,6 +24261,12 @@
       "full_name": "Aircraft Systems South Africa",
       "iata": null,
       "icao": "ATH"
+    },
+    {
+      "name": "Airlink",
+      "full_name": "Airlink (Pty) Ltd.",
+      "iata": "4Z",
+      "icao": "LNK"
     },
     {
       "name": "Airteam Charter",
@@ -24380,6 +24387,12 @@
       "full_name": "Cobra Aviation (Pty) Ltd",
       "iata": "0C",
       "icao": null
+    },
+    {
+      "name": "Cobra Aviation",
+      "full_name": "Cobra Aviation",
+      "iata": null,
+      "icao": "CBR"
     },
     {
       "name": "Coin Aviation",
@@ -24790,12 +24803,6 @@
       "icao": "LMG"
     },
     {
-      "name": "South African Airlink",
-      "full_name": "SA Airlink (Pty) Ltd. d/b/a South African Airlink",
-      "iata": "4Z",
-      "icao": "LNK"
-    },
-    {
       "name": "South African Airways",
       "full_name": "South African Airways SOC Limited",
       "iata": "SA",
@@ -24878,6 +24885,12 @@
       "full_name": "TAB Charters (Pty) Ltd.",
       "iata": null,
       "icao": "BKT"
+    },
+    {
+      "name": "Titanium Air",
+      "full_name": "Titanium Air",
+      "iata": null,
+      "icao": null
     },
     {
       "name": "Ultimate Airways",
@@ -25271,6 +25284,12 @@
       "full_name": "Audeli Air Express",
       "iata": null,
       "icao": "ADI"
+    },
+    {
+      "name": "Aura Airlines",
+      "full_name": "Aura Airlines S.L.",
+      "iata": null,
+      "icao": "GWR"
     },
     {
       "name": "Avanza Group",
@@ -25675,12 +25694,6 @@
       "icao": "GEV"
     },
     {
-      "name": "Gowair Vaction Airlines",
-      "full_name": "Aura Airlines S.L. t/a Gowair Vaction Airlines",
-      "iata": null,
-      "icao": "GWR"
-    },
-    {
       "name": "Granada Aviacion",
       "full_name": "Granada Aviacion",
       "iata": null,
@@ -25849,12 +25862,6 @@
       "icao": "ICP"
     },
     {
-      "name": "Intermediacion Aerea Compania Aerea",
-      "full_name": "Intermediacion Aerea S.L., Compania Aerea",
-      "iata": null,
-      "icao": "IEA"
-    },
-    {
       "name": "Inversiones Y Promociones Ducoy",
       "full_name": "Inversiones Y Promociones Ducoy, S.L.",
       "iata": null,
@@ -26001,7 +26008,7 @@
     {
       "name": "One Airways",
       "full_name": "One Airways, S.A.U.",
-      "iata": null,
+      "iata": "OX",
       "icao": "OEW"
     },
     {
@@ -26435,6 +26442,12 @@
       "full_name": "Wondair On Demand Aviation S.L.",
       "iata": null,
       "icao": "WNR"
+    },
+    {
+      "name": "world2fly",
+      "full_name": "world2fly, S.L.U.",
+      "iata": null,
+      "icao": "WFL"
     },
     {
       "name": "Zacarias Moreno",
@@ -27699,7 +27712,7 @@
     },
     {
       "name": "Fly Union",
-      "full_name": "Fly Union",
+      "full_name": "FlyUnion Airlines",
       "iata": null,
       "icao": "FCH"
     },
@@ -27882,12 +27895,6 @@
       "icao": "AOW"
     },
     {
-      "name": "Andaman Aviation Services Limited",
-      "full_name": "Andaman Aviation Services Limited",
-      "iata": null,
-      "icao": "ADM"
-    },
-    {
       "name": "Bangkok Airways",
       "full_name": "Bangkok Airways Co. Ltd.",
       "iata": "PG",
@@ -27982,12 +27989,6 @@
       "full_name": "Nakorn Chiang Mai Airways",
       "iata": null,
       "icao": "CMA"
-    },
-    {
-      "name": "NewGen Airways",
-      "full_name": "NewGen Airways Compnay Limited t/a NewGen Airways",
-      "iata": "E3",
-      "icao": "VGO"
     },
     {
       "name": "Nok Air",
@@ -28296,12 +28297,6 @@
       "icao": "SKK"
     },
     {
-      "name": "Comfort Jet Services",
-      "full_name": "Comfort Jet Services",
-      "iata": null,
-      "icao": "CMJ"
-    },
-    {
       "name": "Elite Air",
       "full_name": "Elite Air",
       "iata": null,
@@ -28310,6 +28305,12 @@
   ],
   "Tokelau": [],
   "Tonga": [
+    {
+      "name": "Lulutai Airlines",
+      "full_name": "Lulutai Airlines Limited",
+      "iata": "L8",
+      "icao": "TON"
+    },
     {
       "name": "Real Tonga Airline",
       "full_name": "Real Tonga Airline",
@@ -28401,12 +28402,6 @@
       "icao": "RUN"
     },
     {
-      "name": "AtlasGlobal",
-      "full_name": "AtlasGlobal Airlines",
-      "iata": "KK",
-      "icao": "KKK"
-    },
-    {
       "name": "Corendon Airlines",
       "full_name": "Turistik Hava Tasimacilik A.S. - Corendon Airlines",
       "iata": "XC",
@@ -28459,6 +28454,12 @@
       "full_name": "Pegasus Hava Tasimaciligi A.S.",
       "iata": "PC",
       "icao": "PGT"
+    },
+    {
+      "name": "Redstar Aviation",
+      "full_name": "Redstar Aviation",
+      "iata": null,
+      "icao": "RHH"
     },
     {
       "name": "SetAir",
@@ -28800,12 +28801,6 @@
       "icao": "AOO"
     },
     {
-      "name": "AtlasJet Ukraine",
-      "full_name": "AtlasJet Ukraine",
-      "iata": "UH",
-      "icao": "UJX"
-    },
-    {
       "name": "ATS",
       "full_name": "ATS, Private Company",
       "iata": null,
@@ -28924,6 +28919,12 @@
       "full_name": "LLC Aviation Company Eleron",
       "iata": "WD",
       "icao": "VVA"
+    },
+    {
+      "name": "Fly Sky Airlines",
+      "full_name": "Fly Sky Airlines",
+      "iata": null,
+      "icao": "FSU"
     },
     {
       "name": "Galaircervis",
@@ -29234,6 +29235,12 @@
       "icao": "UAE"
     },
     {
+      "name": "Emirates Flight Training Academy",
+      "full_name": "Emirates Flight Training Academy",
+      "iata": null,
+      "icao": "EFC"
+    },
+    {
       "name": "Empire Aviation Group",
       "full_name": "Empire Aviation Group",
       "iata": null,
@@ -29366,9 +29373,9 @@
       "icao": "UAF"
     },
     {
-      "name": "Wizz Air Abu Dhabi",
-      "full_name": "Wizz Air Abu Dhabi",
-      "iata": null,
+      "name": "Wizz Air",
+      "full_name": "Wizz Air Abu Dhabi d/b/a Wizz Air",
+      "iata": "5W",
       "icao": "WAZ"
     }
   ],
@@ -29900,12 +29907,6 @@
       "full_name": "Commair Aviation Limited",
       "iata": null,
       "icao": "CMH"
-    },
-    {
-      "name": "Compass Interational Airways",
-      "full_name": "Compass Interational Airways Ltd.",
-      "iata": null,
-      "icao": "CPS"
     },
     {
       "name": "Coningsby FTU",
@@ -30524,6 +30525,12 @@
       "full_name": "Langtry Flying Group Ltd.",
       "iata": null,
       "icao": "PAP"
+    },
+    {
+      "name": "Leading Edge Aviation",
+      "full_name": "Leading Edge Aviation Ltd.",
+      "iata": null,
+      "icao": "LDG"
     },
     {
       "name": "Leasair International",
@@ -31403,15 +31410,15 @@
     },
     {
       "name": "UK Royal / VIP Flights",
-      "full_name": "UK Royal / VIP Flights (in civil chartered aircraft)",
-      "iata": null,
-      "icao": "KRH"
-    },
-    {
-      "name": "UK Royal / VIP Flights",
       "full_name": "UK Royal / VIP Flights (in military aircraft)",
       "iata": null,
       "icao": "KRF"
+    },
+    {
+      "name": "UK Royal / VIP Flights",
+      "full_name": "UK Royal / VIP Flights (in civil chartered aircraft)",
+      "iata": null,
+      "icao": "KRH"
     },
     {
       "name": "UK Royal Positioning Flights",
@@ -31720,6 +31727,12 @@
       "full_name": "AeroGuard Flight Training Center",
       "iata": null,
       "icao": "ASI"
+    },
+    {
+      "name": "Aeromanagement Group",
+      "full_name": "Aeromanagement Group",
+      "iata": null,
+      "icao": "GZR"
     },
     {
       "name": "Aeron International Airlines",
@@ -32100,6 +32113,12 @@
       "icao": "SVL"
     },
     {
+      "name": "Alaska Air Transit",
+      "full_name": "J and M Alaska Air Tours, Inc. d/b/a Alaska Air Transit",
+      "iata": "JN",
+      "icao": null
+    },
+    {
       "name": "Alaska Airlines",
       "full_name": "Alaska Airlines, Inc.",
       "iata": "AS",
@@ -32146,6 +32165,12 @@
       "full_name": "Allegiant Air LLC",
       "iata": "G4",
       "icao": "AAY"
+    },
+    {
+      "name": "Allen Corporation of America",
+      "full_name": "Allen Corporation of America",
+      "iata": null,
+      "icao": "LLN"
     },
     {
       "name": "Alliance Air Charter",
@@ -32254,6 +32279,12 @@
       "full_name": "Amtrak",
       "iata": "2V",
       "icao": null
+    },
+    {
+      "name": "Angelic Air",
+      "full_name": "Angelic Air LLC",
+      "iata": null,
+      "icao": "JLC"
     },
     {
       "name": "Animal Rescue Flights",
@@ -32398,6 +32429,12 @@
       "full_name": "Avcenter, Inc.",
       "iata": null,
       "icao": "TTE"
+    },
+    {
+      "name": "Avelo Airlines",
+      "full_name": "T.E.M. Enterprises Inc. d/b/a  Avelo Airlines",
+      "iata": "XP",
+      "icao": "CXP"
     },
     {
       "name": "AvFinity",
@@ -32820,6 +32857,12 @@
       "icao": "CSP"
     },
     {
+      "name": "CASS Professional Services",
+      "full_name": "CASS Professional Services, Corp.",
+      "iata": null,
+      "icao": "CPS"
+    },
+    {
       "name": "Castle Aviation",
       "full_name": "Castle Aviation, Inc.",
       "iata": null,
@@ -33175,15 +33218,15 @@
     },
     {
       "name": "Corporate Air",
-      "full_name": "Corporate Air",
-      "iata": null,
-      "icao": "CPT"
-    },
-    {
-      "name": "Corporate Air",
       "full_name": "Corporate Air, LLC",
       "iata": null,
       "icao": "MLN"
+    },
+    {
+      "name": "Corporate Air",
+      "full_name": "Corporate Air",
+      "iata": null,
+      "icao": "CPT"
     },
     {
       "name": "Corporate Air Fleet",
@@ -33541,15 +33584,15 @@
     },
     {
       "name": "East Coast Flight Services",
-      "full_name": "East Coast Flight Services, Inc.",
-      "iata": "5E",
-      "icao": null
-    },
-    {
-      "name": "East Coast Flight Services",
       "full_name": "East Coast Flight Services, Inc",
       "iata": null,
       "icao": "JTM"
+    },
+    {
+      "name": "East Coast Flight Services",
+      "full_name": "East Coast Flight Services, Inc.",
+      "iata": "5E",
+      "icao": null
     },
     {
       "name": "East Coast Jets",
@@ -33608,7 +33651,7 @@
     {
       "name": "Elevate Jet",
       "full_name": "Elevate Jet, LLC",
-      "iata": "LV",
+      "iata": null,
       "icao": "LVT"
     },
     {
@@ -33672,6 +33715,12 @@
       "icao": "ENY"
     },
     {
+      "name": "Epic Flight Academy/Epic Aviation",
+      "full_name": "Epic Flight Academy/Epic Aviation",
+      "iata": null,
+      "icao": "EPI"
+    },
+    {
       "name": "Epps Air Service",
       "full_name": "Epps Air Service, Inc.",
       "iata": null,
@@ -33700,6 +33749,12 @@
       "full_name": "ExcelAire, LLC",
       "iata": null,
       "icao": "XLS"
+    },
+    {
+      "name": "Excutive Aviation Services",
+      "full_name": "Excutive Aviation Services, LLC",
+      "iata": null,
+      "icao": "VYR"
     },
     {
       "name": "Execuflight",
@@ -33921,13 +33976,13 @@
       "name": "Flight Line",
       "full_name": "Flight Line, Inc.",
       "iata": null,
-      "icao": "ACT"
+      "icao": "MIT"
     },
     {
       "name": "Flight Line",
       "full_name": "Flight Line, Inc.",
       "iata": null,
-      "icao": "MIT"
+      "icao": "ACT"
     },
     {
       "name": "Flight Ops International",
@@ -33946,6 +34001,12 @@
       "full_name": "Flight Plan Solutions",
       "iata": null,
       "icao": "FSN"
+    },
+    {
+      "name": "Flight Pro International",
+      "full_name": "Flight Pro International, LLC",
+      "iata": null,
+      "icao": "FPC"
     },
     {
       "name": "Flight Support",
@@ -33979,15 +34040,15 @@
     },
     {
       "name": "Flightworks",
-      "full_name": "Avior Technologies Operations, Inc. d/b/a Flightworks",
-      "iata": null,
-      "icao": "KDZ"
-    },
-    {
-      "name": "Flightworks",
       "full_name": "Flightworks, Inc.",
       "iata": null,
       "icao": "FWK"
+    },
+    {
+      "name": "Flightworks",
+      "full_name": "Avior Technologies Operations, Inc. d/b/a Flightworks",
+      "iata": null,
+      "icao": "KDZ"
     },
     {
       "name": "Flint Aviation Services",
@@ -34192,6 +34253,12 @@
       "full_name": "Global Air Charters, Inc.",
       "iata": null,
       "icao": "GJE"
+    },
+    {
+      "name": "Global Crossing Airlines",
+      "full_name": "Global Crossing Airlines LLC",
+      "iata": null,
+      "icao": "GXA"
     },
     {
       "name": "Global Feeder Services",
@@ -34687,15 +34754,15 @@
     },
     {
       "name": "Island Air Express",
-      "full_name": "Scott Air, LLC d/b/a Island Air Express",
-      "iata": "I4",
-      "icao": null
-    },
-    {
-      "name": "Island Air Express",
       "full_name": "Island Air Express",
       "iata": null,
       "icao": "EXP"
+    },
+    {
+      "name": "Island Air Express",
+      "full_name": "Scott Air, LLC d/b/a Island Air Express",
+      "iata": "I4",
+      "icao": null
     },
     {
       "name": "Island Helicopters",
@@ -34768,18 +34835,6 @@
       "full_name": "Jet Aviation Flight Services, Inc",
       "iata": null,
       "icao": "JAS"
-    },
-    {
-      "name": "Jet Charter",
-      "full_name": "Jet Charter, Inc.",
-      "iata": "N2",
-      "icao": "JCT"
-    },
-    {
-      "name": "Jet East International",
-      "full_name": "Jet East International",
-      "iata": null,
-      "icao": "JED"
     },
     {
       "name": "Jet Edge",
@@ -35118,6 +35173,12 @@
       "icao": "LCA"
     },
     {
+      "name": "Legacy Airways",
+      "full_name": "Legacy Airways, LLC",
+      "iata": null,
+      "icao": "LGF"
+    },
+    {
       "name": "Lentini Aviation",
       "full_name": "Lentini Aviation, Inc.",
       "iata": null,
@@ -35130,8 +35191,8 @@
       "icao": "JKA"
     },
     {
-      "name": "L'express",
-      "full_name": "L'express, Inc.",
+      "name": "Lexair Corporate Aviation",
+      "full_name": "Lexair Corporate Aviation",
       "iata": null,
       "icao": "LEX"
     },
@@ -35508,6 +35569,12 @@
       "icao": "MPA"
     },
     {
+      "name": "Mid-Pacific Jets",
+      "full_name": "Mid-Pacific Air Service, LLC.",
+      "iata": null,
+      "icao": "FGR"
+    },
+    {
       "name": "Midstate Airlines",
       "full_name": "Midstate Airlines, Inc.",
       "iata": null,
@@ -35706,6 +35773,12 @@
       "icao": "NJC"
     },
     {
+      "name": "National Air Charters",
+      "full_name": "National Air Charters, Inc.",
+      "iata": null,
+      "icao": null
+    },
+    {
       "name": "National Air Traffic Controllers Association (NATCA)",
       "full_name": "National Air Traffic Controllers Association (NATCA)",
       "iata": null,
@@ -35877,13 +35950,13 @@
       "name": "Northeast Aviation",
       "full_name": "Northeast Aviation, Inc.",
       "iata": null,
-      "icao": "NPX"
+      "icao": "BIT"
     },
     {
       "name": "Northeast Aviation",
       "full_name": "Northeast Aviation, Inc.",
       "iata": null,
-      "icao": "BIT"
+      "icao": "NPX"
     },
     {
       "name": "Northeastern Aviation Corporation",
@@ -35896,12 +35969,6 @@
       "full_name": "Northern Air Cargo, LLC.",
       "iata": "NC",
       "icao": "NAC"
-    },
-    {
-      "name": "Northern Airways",
-      "full_name": "Northern Airways",
-      "iata": null,
-      "icao": "NDA"
     },
     {
       "name": "Northern Illinois Commuter",
@@ -35938,6 +36005,12 @@
       "full_name": "Notams International, Inc.",
       "iata": null,
       "icao": "XNT"
+    },
+    {
+      "name": "Nxt Jet",
+      "full_name": "Nxt Jet, Inc.",
+      "iata": null,
+      "icao": "KPO"
     },
     {
       "name": "OAG",
@@ -36108,6 +36181,12 @@
       "icao": "RCY"
     },
     {
+      "name": "Pallas Aviation",
+      "full_name": "Pallas Aviation, LLC",
+      "iata": null,
+      "icao": "WDE"
+    },
+    {
       "name": "Pan Air",
       "full_name": "Pan Air, Inc.",
       "iata": null,
@@ -36218,7 +36297,7 @@
     {
       "name": "PenAir",
       "full_name": "Peninsula Airways, Inc. t/a PenAir",
-      "iata": "KS",
+      "iata": null,
       "icao": "NLA"
     },
     {
@@ -36294,6 +36373,12 @@
       "icao": "PPG"
     },
     {
+      "name": "Phoenix East Aviation",
+      "full_name": "Phoenix East Aviation, LLC.",
+      "iata": null,
+      "icao": "JED"
+    },
+    {
       "name": "Piedmont Airlines",
       "full_name": "Piedmont Airlines, Inc.",
       "iata": "PT",
@@ -36364,6 +36449,12 @@
       "full_name": "Premier Flight Center, LLC",
       "iata": null,
       "icao": "OZT"
+    },
+    {
+      "name": "Premier Private Jets",
+      "full_name": "Premier Air, Inc. d/b/a Premier Private Jets",
+      "iata": null,
+      "icao": "PPJ"
     },
     {
       "name": "Premier Trans Aire",
@@ -36541,15 +36632,15 @@
     },
     {
       "name": "Raven Air",
-      "full_name": "Qualiflight Training, Inc. d/b/a Raven Air",
-      "iata": null,
-      "icao": "RVN"
-    },
-    {
-      "name": "Raven Air",
       "full_name": "Raven Air",
       "iata": null,
       "icao": "RVA"
+    },
+    {
+      "name": "Raven Air",
+      "full_name": "Qualiflight Training, Inc. d/b/a Raven Air",
+      "iata": null,
+      "icao": "RVN"
     },
     {
       "name": "Raytheon Aircraft Company",
@@ -36859,7 +36950,7 @@
     },
     {
       "name": "Schweitzer Engineering",
-      "full_name": "Schweitzer Engineering",
+      "full_name": "Schweitzer Engineering Laboratories, Inc.",
       "iata": null,
       "icao": "BEN"
     },
@@ -36940,6 +37031,12 @@
       "full_name": "Shoreline Aviation",
       "iata": null,
       "icao": "CST"
+    },
+    {
+      "name": "Sierra Charlie Aviation",
+      "full_name": "Sierra Charlie Aviation, LLC",
+      "iata": null,
+      "icao": "SCA"
     },
     {
       "name": "Sierra Express",
@@ -37086,6 +37183,12 @@
       "icao": null
     },
     {
+      "name": "Skyward Aviation",
+      "full_name": "Skyward Aviation",
+      "iata": null,
+      "icao": "UWD"
+    },
+    {
       "name": "SkyWest Airlines",
       "full_name": "SkyWest Airlines",
       "iata": "OO",
@@ -37168,12 +37271,6 @@
       "full_name": "South Carolina Aviation Management, LLC.",
       "iata": null,
       "icao": "SFX"
-    },
-    {
-      "name": "South Central Air",
-      "full_name": "South Central Air, Inc.",
-      "iata": null,
-      "icao": "SCA"
     },
     {
       "name": "South Pacific Island Airways",
@@ -37270,6 +37367,12 @@
       "full_name": "Southwest Airlines Co.",
       "iata": "WN",
       "icao": "SWA"
+    },
+    {
+      "name": "Spartan College of Aeronautics and Technology",
+      "full_name": "Spartan Education, LLC d/b/a Spartan College of Aeronautics and Technology",
+      "iata": null,
+      "icao": "SCU"
     },
     {
       "name": "Special Aviation Systems",
@@ -37488,12 +37591,6 @@
       "icao": "NCC"
     },
     {
-      "name": "TAG Aviation USA",
-      "full_name": "TAG Aviation USA, Inc.",
-      "iata": null,
-      "icao": "TAG"
-    },
-    {
       "name": "Talon Air",
       "full_name": "Talon Air, Inc.",
       "iata": null,
@@ -37638,16 +37735,16 @@
       "icao": "LCC"
     },
     {
+      "name": "The Landline Company",
+      "full_name": "The Landline Company",
+      "iata": "L4",
+      "icao": null
+    },
+    {
       "name": "Thrive Aviation",
       "full_name": "Corporate Flight International d/b/a Thrive Aviation",
       "iata": null,
       "icao": "TIV"
-    },
-    {
-      "name": "Thro Aviation",
-      "full_name": "Thro Aviation, Inc.",
-      "iata": null,
-      "icao": "THO"
     },
     {
       "name": "Thrust Flight",
@@ -37747,7 +37844,7 @@
     },
     {
       "name": "transair Express",
-      "full_name": "Trans Executive Airline of Hawaii t/a transair Express",
+      "full_name": "Trans Executive Airlines of Hawaii t/a transair Express",
       "iata": "R9",
       "icao": "MUI"
     },
@@ -37762,12 +37859,6 @@
       "full_name": "Trans-Florida Airlines",
       "iata": null,
       "icao": "TFA"
-    },
-    {
-      "name": "Trans-Pacific Air Charter",
-      "full_name": "Trans-Pacific Air Charter LLC",
-      "iata": null,
-      "icao": "FGR"
     },
     {
       "name": "Transport Facilitators",
@@ -37831,15 +37922,15 @@
     },
     {
       "name": "Tropic Ocean Airways",
-      "full_name": "Tropic Ocean Airways, LLC.",
-      "iata": "TI",
-      "icao": null
-    },
-    {
-      "name": "Tropic Ocean Airways",
       "full_name": "Tropic Ocean Airways LLC",
       "iata": null,
       "icao": "FTO"
+    },
+    {
+      "name": "Tropic Ocean Airways",
+      "full_name": "Tropic Ocean Airways, LLC.",
+      "iata": "TI",
+      "icao": null
     },
     {
       "name": "TWC Aviation",
@@ -38064,6 +38155,12 @@
       "icao": "JUS"
     },
     {
+      "name": "USAC Airways 695",
+      "full_name": "USAC Airways 695, LLC",
+      "iata": null,
+      "icao": "BLK"
+    },
+    {
       "name": "USAF Air Mobility Operations Control Center",
       "full_name": "USAF Air Mobility Operations Control Center",
       "iata": null,
@@ -38239,9 +38336,15 @@
     },
     {
       "name": "Western Global Airlines",
-      "full_name": "Western Global Airlines LLC",
+      "full_name": "Western Global Airlines, Inc.",
       "iata": "KD",
       "icao": "WGN"
+    },
+    {
+      "name": "Western Michigan University College of Aviation",
+      "full_name": "Western Michigan University College of Aviation",
+      "iata": null,
+      "icao": "WMU"
     },
     {
       "name": "Wiggins Airways",
@@ -38328,16 +38431,16 @@
       "icao": "SBE"
     },
     {
-      "name": "Worldspan",
-      "full_name": "Travelport d/b/a Worldspan",
-      "iata": "1G",
-      "icao": null
-    },
-    {
       "name": "WorldSpan",
       "full_name": "Travelport d/b/a WorldSpan",
       "iata": "1P",
       "icao": "WSP"
+    },
+    {
+      "name": "Worldspan",
+      "full_name": "Travelport d/b/a Worldspan",
+      "iata": "1G",
+      "icao": null
     },
     {
       "name": "Worldwide Jet Charter",
@@ -38388,12 +38491,6 @@
       "icao": "XOJ"
     },
     {
-      "name": "Xtra Airways",
-      "full_name": "T.E.M. Enterprises Inc. d/b/a  Xtra Airways",
-      "iata": "XP",
-      "icao": "CXP"
-    },
-    {
       "name": "Zanesville Aviation",
       "full_name": "Zanesville Aviation",
       "iata": null,
@@ -38410,6 +38507,12 @@
       "full_name": "Zapways, Inc.",
       "iata": "R1",
       "icao": null
+    },
+    {
+      "name": "ZEN Flight",
+      "full_name": "Thro Aviation, Inc. d/b/a ZEN Flight",
+      "iata": null,
+      "icao": "THO"
     },
     {
       "name": "Zephyr Express",
@@ -38764,12 +38867,6 @@
       "icao": "KVA"
     },
     {
-      "name": "LaMia",
-      "full_name": "Linea Aerea Merida Internacional de Aviacion C.A. (LiMia C.A.)",
-      "iata": null,
-      "icao": "LMD"
-    },
-    {
       "name": "LASER Airlines",
       "full_name": "Linea Aerea de Servicio Ejecutivo Regional, C.A. d/b/a Laser",
       "iata": "QL",
@@ -38846,12 +38943,6 @@
       "full_name": "Solar Cargo, C.A.",
       "iata": "4S",
       "icao": "OLC"
-    },
-    {
-      "name": "Sundance Air Venezuela",
-      "full_name": "Sundance Air Venezuela, S.A.",
-      "iata": "R8",
-      "icao": "SUV"
     },
     {
       "name": "Transaereo 5074",
@@ -38946,6 +39037,12 @@
       "icao": "HVN"
     },
     {
+      "name": "Vietravel Airlines",
+      "full_name": "Vietravel Airlines Co., Ltd.",
+      "iata": "VU",
+      "icao": "VAG"
+    },
+    {
       "name": "Vietstar Airlines",
       "full_name": "Vietstar Airline Corp (Vietstar Airlines Multirole Corporation)",
       "iata": null,
@@ -39011,7 +39108,7 @@
     {
       "name": "Queen Bilqis Airways",
       "full_name": "Queen Bilqis Airways",
-      "iata": null,
+      "iata": "QA",
       "icao": "QBA"
     },
     {
@@ -39121,6 +39218,18 @@
       "full_name": "Proflight Commuter Services Limited",
       "iata": "P0",
       "icao": "PFZ"
+    },
+    {
+      "name": "Royal Air Charters",
+      "full_name": "Royal Air Charters",
+      "iata": "3Q",
+      "icao": "RAC"
+    },
+    {
+      "name": "Royal Zambian Airlines",
+      "full_name": "Royal Zambian Airlines",
+      "iata": null,
+      "icao": "QZR"
     },
     {
       "name": "Southern Aviation",
