@@ -70,7 +70,7 @@ class QueueListener(Process):
     def listen_to_queue(self):
         alerts = self.queue_collection.find({})
         try:
-            num_alerts = alerts.count()
+            num_alerts = self.queue_collection.count_documents({})
         except PyMongoError:
             self._logger.exception("Failed to get info from the DB.")
             raise RuntimeError("Failed to get info from the DB.")

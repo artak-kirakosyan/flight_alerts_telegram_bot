@@ -71,7 +71,9 @@ AIRLINE_IATA_ICAO_JSON = "airline_iata_icao_codes.json"
 # Set write_to_mongo to True to write to mongodb
 WRITE_TO_MONGO = True
 # Mongodb connection uri
-MONGO_CONNECTION_URI = "mongodb://localhost:27017/"
+MONGO_USERNAME = os.getenv("MONGO_USERNAME")
+MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+MONGO_CONNECTION_URI = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@cluster0.7jexs.gcp.mongodb.net/?retryWrites=true&w=majority"
 
 # The DB and collection names in MongoDB
 DB_NAME = "data"
