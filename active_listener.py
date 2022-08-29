@@ -1,3 +1,5 @@
+from threading import Thread
+
 try:
     from pprint import pprint
     import concurrent.futures
@@ -20,7 +22,7 @@ except ImportError as exc:
     Please install all necessary libraries and try again')
 
 
-class ActiveListener(Process):
+class ActiveListener(Thread):
     def __init__(self):
         """
         This object is to check the ACTIVE alerts in the DB, and if any update, process it.
@@ -54,7 +56,7 @@ class ActiveListener(Process):
     def listen_to_queue(self):
         alerts = self.active_collection.find({})
         try:
-            num_alerts = alerts.count()
+            num_alerts = self.active_collection.count_documents({})
         except PyMongoError:
             self._logger.exception("Failed to get info from the DB.")
             raise RuntimeError("Failed to get info from the DB.")
