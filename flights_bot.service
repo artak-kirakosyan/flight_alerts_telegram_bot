@@ -1,0 +1,16 @@
+[Unit]
+Description = Flights bot service
+After = default.target
+
+[Service]
+Type = simple
+ExecStart = /bin/bash -c "./start_bot.sh"
+WorkingDirectory = /home/ubuntu/flights
+KillMode = control-group
+Restart = always
+RestartSec = 10
+RestartForceExitStatus = 0 1 9 15
+
+[Install]
+WantedBy = default.target
+
